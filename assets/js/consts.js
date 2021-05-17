@@ -1,0 +1,58 @@
+const
+  TAG_BODY = 'body',
+
+  CLASS_CANVAS = 'canvas',
+  CLASS_BIRD = 'bird',
+
+  BASE_MASS = 40,
+  DEFAULT_D2X = 0,
+  DEFAULT_D2Y = 0.3,
+
+  BIRD_DX = 5,
+  BIRD_DY = -15,
+  BIRD_MASS = 30,
+  BIRD_RADIUS = 50,
+  BIRDS_QTY = 2,
+  BIRD_STATE = {
+    WAITING: 'WAITING',
+    READY: 'READY',
+    CHARGED: 'CHARGED',
+    FLIGHT: 'FLIGHT',
+    HALTED: 'HALTED',
+  },
+
+  PIG_MASS = 100,
+  PIG_RADIUS = 100,
+  PIG_STATE = {
+    RESTING: 'RESTING',
+  },
+
+  SLINGSHOT_X = 80,
+  SLINGSHOT_WIDTH = 60,
+  SLINGSHOT_HEIGHT = 110,
+  SLINGSHOT_MAX_LENGTH = 100,
+
+  HOOKES_CONSTANT = 0.4,
+
+  GROUND_HEIGHT = 131,
+
+  DAMPING_X = 0.58,
+  DAMPING_Y = 0.4,
+  MIN_JUMP_VELOCITY = 0.9,
+
+  IMAGE_RED = '/assets/img/red.png',
+  IMAGE_PIG = '/assets/img/pig.png',
+  IMAGE_SLINGSHOT = '/assets/img/slingshot.png',
+  IMAGE_BACKGROUND = '/assets/img/background.jpeg',
+
+  DEFAULT_WINDOW_WIDTH = 1024,
+  DEFAULT_WINDOW_HEIGHT = 576;
+
+const GROUND_Y = DEFAULT_WINDOW_HEIGHT - GROUND_HEIGHT;
+
+const SLINGSHOT_Y = GROUND_Y - SLINGSHOT_HEIGHT / 1.8;
+const SLINGSHOT_RELAX_X = SLINGSHOT_X;
+const SLINGSHOT_RELAX_Y = SLINGSHOT_Y;
+
+const BIRD_X = SLINGSHOT_RELAX_X;
+const BIRD_Y = SLINGSHOT_RELAX_Y;
