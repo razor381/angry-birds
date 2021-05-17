@@ -1,35 +1,40 @@
 class Bird extends RoundObject {
   constructor() {
     super(
-      new Vector(BIRD_X, BIRD_Y),
-      Bird.defaultBirdVelocity,
-      Bird.defaultBirdAcceleration,
+      Bird.getDefaultPosition(),
+      Vector.getZeroVector(),
+      Vector.getZeroVector(),
       BIRD_MASS,
       BIRD_RADIUS,
       createImage(IMAGE_RED),
     );
-    this.isUsed = false;
+    this.isShot = false;
+    this.hasCharged = false;
   }
 
-  static defaultBirdVelocity = new Vector(BIRD_DX, BIRD_DY);
-  static defaultBirdAcceleration = new Vector(BIRD_D2X, BIRD_D2Y);
+  static getDefaultPosition = () => new Vector(BIRD_X, BIRD_Y);
+  static defaultVelocity = () => new Vector(BIRD_DX, BIRD_DY);
+  static defaultAcceleration = () => new Vector(BIRD_D2X, BIRD_D2Y);
 
-  static generateBirds(n = BIRDS_QTY) {
-    const birds = [];
-
-    for (let i = 0; i < n; i++) {
-      birds.push(new Bird());
-    }
-
-    return birds;
+  charge() {
+    this.hasCharged = true;
   }
 
-  launch() {
-    this.velocity.dx = 5;
-    this.velocity.dy = -5;
+  reset() {
+    this.isShot = false;
+    this.hasCharged = false;
+    this.position = Bird.defaultPosition();
+    this.velocity = Vector.getZeroVector();
+    this.acceleration = Vector.getZeroVector();
+  }
+
+  launch(launchVelocity) {
+    this.isShot = true;
+    this.velocity = launchVelocity || Bird.defaultVelocity();
+    this.acceleration = Bird.defaultAcceleration();
   }
 
   isDone(groundY) {
-    return this.position.y >= GROUND_Y;
+    return this.isShot && (this.velocity.x < 0.05 && this.velocity.y < 0.05);
   }
 }

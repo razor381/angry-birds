@@ -2,7 +2,7 @@ class Canvas {
   constructor(width = DEFAULT_WINDOW_WIDTH, height = DEFAULT_WINDOW_HEIGHT) {
     this.width = width;
     this.height = height;
-    this.canvas = null;
+    this.el = null;
     this.ctx = null;
 
     this.createCanvas(width, height)
@@ -11,12 +11,12 @@ class Canvas {
   createCanvas(width, height) {
     const bodyEl = getEl(TAG_BODY);
 
-    this.canvas = createNewElement('canvas', [CLASS_CANVAS]);
-    this.canvas.width = width || DEFAULT_WINDOW_WIDTH;
-    this.canvas.height = height || DEFAULT_WINDOW_HEIGHT;
+    this.el = createNewElement('canvas', [CLASS_CANVAS]);
+    this.el.width = width || DEFAULT_WINDOW_WIDTH;
+    this.el.height = height || DEFAULT_WINDOW_HEIGHT;
 
-    this.ctx = this.canvas.getContext('2d');
+    this.ctx = this.el.getContext('2d');
 
-    addInsideParentEl(this.canvas, bodyEl);
+    addInsideParentEl(this.el, bodyEl);
   }
 }

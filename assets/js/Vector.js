@@ -4,5 +4,7 @@ class Vector {
     this.y = y;
   }
 
-  static zeroVector = new Vector(0, 0);
+  static getZeroVector() {
+    return new Vector(0, 0);
+  }
 }

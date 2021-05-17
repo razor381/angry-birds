@@ -2,11 +2,12 @@ class Game {
   constructor() {
     this.canvas = new Canvas();
     this.ctx = this.canvas.ctx;
+    this.birds = this.generateBirds();
 
     this.entities = {
       bg: StaticObject.createBackground(),
       slingshot: new Slingshot(),
-      bird: Bird.generateBirds()[0],
+      bird: this.birds.pop(),
     };
 
     this.gameLoop();
@@ -17,12 +18,17 @@ class Game {
 
     (function animate() {
 
-      this.entities.bird.move();
+      if (this.entities.bird.isShot) {
+        this.entities.bird.move();
+      }
+
       this.render(this.ctx);
 
-      const isBirdDone = this.entities.bird.isDone();
+      if (this.entities.bird.isDone()) {
+        this.entities.bird = this.birds.pop();
+      }
 
-      !isBirdDone && requestAnimationFrame(animate.bind(this));
+      this.entities.bird && requestAnimationFrame(animate.bind(this));
     }.bind(this))();
   }
 
@@ -34,8 +40,22 @@ class Game {
   addClickListener() {
     document.addEventListener('mousedown', (e) => {
       e.preventDefault();
-      this.entities.bird.launch();
+      const { bird, slingshot } = this.entities;
+
+      bird && !bird.hasCharged ?
+        slingshot.charge(this.canvas.el, bird)
+        : slingshot.release(bird);
     })
+  }
+
+  generateBirds(n = BIRDS_QTY) {
+    const birds = [];
+
+    for (let i = 0; i < n; i++) {
+      birds.push(new Bird());
+    }
+
+    return birds;
   }
 
   static renderEntities(ctx, entities = []) {
