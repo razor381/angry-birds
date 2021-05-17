@@ -5,6 +5,7 @@ class Game {
     this.shouldRender = true;
     this.bg = StaticObject.createBackground();
     this.slingshot = new Slingshot(this.canvas);
+    this.pig = new Pig(new Vector(700, GROUND_Y - PIG_RADIUS / 2));
 
     this.play();
   }
@@ -41,6 +42,7 @@ class Game {
       this.bg,
       this.slingshot,
       this.slingshot.activeBird,
+      this.pig,
     ];
 
     toRender.forEach((entity) => Game.renderEntity(this.ctx, entity));

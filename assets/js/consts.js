@@ -5,11 +5,11 @@ const
   CLASS_BIRD = 'bird',
 
   BASE_MASS = 40,
+  DEFAULT_D2X = 0,
+  DEFAULT_D2Y = 0.3,
 
   BIRD_DX = 5,
   BIRD_DY = -15,
-  BIRD_D2X = 0,
-  BIRD_D2Y = 0.3,
   BIRD_MASS = 30,
   BIRD_RADIUS = 50,
   BIRDS_QTY = 2,
@@ -21,8 +21,13 @@ const
     HALTED: 'HALTED',
   },
 
+  PIG_MASS = 100,
+  PIG_RADIUS = 100,
+  PIG_STATE = {
+    RESTING: 'RESTING',
+  },
+
   SLINGSHOT_X = 80,
-  SLINGSHOT_Y = 385,
   SLINGSHOT_WIDTH = 60,
   SLINGSHOT_HEIGHT = 110,
   SLINGSHOT_MAX_LENGTH = 100,
@@ -31,11 +36,12 @@ const
 
   GROUND_HEIGHT = 131,
 
-  DAMPING_X = 0.68,
+  DAMPING_X = 0.58,
   DAMPING_Y = 0.4,
   MIN_JUMP_VELOCITY = 0.9,
 
   IMAGE_RED = '/assets/img/red.png',
+  IMAGE_PIG = '/assets/img/pig.png',
   IMAGE_SLINGSHOT = '/assets/img/slingshot.png',
   IMAGE_BACKGROUND = '/assets/img/background.jpeg',
 
@@ -44,6 +50,7 @@ const
 
 const GROUND_Y = DEFAULT_WINDOW_HEIGHT - GROUND_HEIGHT;
 
+const SLINGSHOT_Y = GROUND_Y - SLINGSHOT_HEIGHT / 1.8;
 const SLINGSHOT_RELAX_X = SLINGSHOT_X;
 const SLINGSHOT_RELAX_Y = SLINGSHOT_Y;
 

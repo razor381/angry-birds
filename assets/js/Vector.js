@@ -8,6 +8,10 @@ class Vector {
     return new Vector(0, 0);
   }
 
+  static getDefaultAcceleration() {
+    return new Vector(DEFAULT_D2X, DEFAULT_D2Y);
+  }
+
   static getDistanceBetween(p1, p2) {
     const xDiff = p2.x - p1.x;
     const yDiff = p2.y - p1.y;

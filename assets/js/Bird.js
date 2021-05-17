@@ -2,17 +2,14 @@ class Bird extends RoundObject {
   constructor() {
     super(
       Bird.getDefaultPosition(),
-      Vector.getZeroVector(),
-      Bird.getDefaultAcceleration(),
       BIRD_MASS,
       BIRD_RADIUS,
+      BIRD_STATE.WAITING,
       createImage(IMAGE_RED),
     );
-    this.state = BIRD_STATE.WAITING;
   }
 
   static getDefaultPosition = () => new Vector(BIRD_X, BIRD_Y);
-  static getDefaultAcceleration = () => new Vector(BIRD_D2X, BIRD_D2Y);
 
   charge() {
     this.hasCharged = true;
