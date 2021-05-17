@@ -4,18 +4,25 @@ const
   CLASS_CANVAS = 'canvas',
   CLASS_BIRD = 'bird',
 
-  BASE_MASS = 50,
+  BASE_MASS = 40,
 
   BIRD_DX = 5,
   BIRD_DY = -15,
   BIRD_D2X = 0,
   BIRD_D2Y = 0.3,
-  BIRD_MASS = 20,
+  BIRD_MASS = 30,
   BIRD_RADIUS = 50,
   BIRDS_QTY = 2,
+  BIRD_STATE = {
+    WAITING: 'WAITING',
+    READY: 'READY',
+    CHARGED: 'CHARGED',
+    FLIGHT: 'FLIGHT',
+    HALTED: 'HALTED',
+  },
 
   SLINGSHOT_X = 80,
-  SLINGSHOT_Y = 300,
+  SLINGSHOT_Y = 385,
   SLINGSHOT_WIDTH = 60,
   SLINGSHOT_HEIGHT = 110,
   SLINGSHOT_MAX_LENGTH = 100,
@@ -24,8 +31,9 @@ const
 
   GROUND_HEIGHT = 131,
 
-  DAMPING_X = 0.85,
-  DAMPING_Y = 0.52,
+  DAMPING_X = 0.68,
+  DAMPING_Y = 0.4,
+  MIN_JUMP_VELOCITY = 0.9,
 
   IMAGE_RED = '/assets/img/red.png',
   IMAGE_SLINGSHOT = '/assets/img/slingshot.png',
@@ -35,7 +43,6 @@ const
   DEFAULT_WINDOW_HEIGHT = 576;
 
 const GROUND_Y = DEFAULT_WINDOW_HEIGHT - GROUND_HEIGHT;
-
 
 const SLINGSHOT_RELAX_X = SLINGSHOT_X;
 const SLINGSHOT_RELAX_Y = SLINGSHOT_Y;

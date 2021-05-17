@@ -7,12 +7,22 @@ class Base {
     this.acceleration = acceleration;
     this.isDestructible = false;
     this.image = image;
+    this.isDescending = false;
   }
 
   move() {
-    if (this.position.y >= GROUND_Y) {
-      this.velocity.y = -this.velocity.y * DAMPING_Y;
-      this.velocity.x = this.velocity.x * DAMPING_X;
+    // topmost point of jump reached
+    if (!this.isDescending && this.velocity.y >= 0) {
+      this.isDescending = true;
+    }
+
+    // start bounce
+    if (this.isDescending && this.position.y >= GROUND_Y) {
+
+      const { x, y } = this.velocity;
+      this.position.y = GROUND_Y;
+      this.velocity.y = Base.isJumpNegligible(y) ? 0 : -y * DAMPING_Y;
+      this.velocity.x = Base.isJumpNegligible(x) ? 0 : x * DAMPING_X;
     }
 
     this.position.x += this.velocity.x;
@@ -20,5 +30,9 @@ class Base {
 
     this.velocity.x += this.acceleration.x;
     this.velocity.y += this.acceleration.y;
+  }
+
+  static isJumpNegligible(value) {
+    return Math.abs(value) < MIN_JUMP_VELOCITY;
   }
 }

@@ -2,64 +2,48 @@ class Game {
   constructor() {
     this.canvas = new Canvas();
     this.ctx = this.canvas.ctx;
-    this.birds = this.generateBirds();
+    this.shouldRender = true;
+    this.bg = StaticObject.createBackground();
+    this.slingshot = new Slingshot(this.canvas);
 
-    this.entities = {
-      bg: StaticObject.createBackground(),
-      slingshot: new Slingshot(),
-      bird: this.birds.pop(),
-    };
-
-    this.gameLoop();
+    this.play();
   }
 
-  gameLoop() {
-    this.addClickListener();
-
+  play() {
     (function animate() {
+      this.slingshot.isEmpty() && this.slingshot.loadBird();
 
-      if (this.entities.bird.isShot) {
-        this.entities.bird.move();
+      const { activeBird } = this.slingshot;
+
+      switch(this.slingshot.activeBird.state) {
+        case BIRD_STATE.WAITING:
+          break;
+        case BIRD_STATE.READY:
+          break;
+        case BIRD_STATE.FLIGHT:
+          activeBird.handleMovement();
+          break;
+        case BIRD_STATE.HALTED:
+          this.shouldRender = false;
+          break;
+        default:
       }
 
       this.render(this.ctx);
-
-      if (this.entities.bird.isDone()) {
-        this.entities.bird = this.birds.pop();
-      }
-
-      this.entities.bird && requestAnimationFrame(animate.bind(this));
+      this.shouldRender && requestAnimationFrame(animate.bind(this));
     }.bind(this))();
   }
 
   render(ctx) {
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    Game.renderEntities(ctx, Object.values(this.entities));
-  }
 
-  addClickListener() {
-    document.addEventListener('mousedown', (e) => {
-      e.preventDefault();
-      const { bird, slingshot } = this.entities;
+    const toRender = [
+      this.bg,
+      this.slingshot,
+      this.slingshot.activeBird,
+    ];
 
-      bird && !bird.hasCharged ?
-        slingshot.charge(this.canvas.el, bird)
-        : slingshot.release(bird);
-    })
-  }
-
-  generateBirds(n = BIRDS_QTY) {
-    const birds = [];
-
-    for (let i = 0; i < n; i++) {
-      birds.push(new Bird());
-    }
-
-    return birds;
-  }
-
-  static renderEntities(ctx, entities = []) {
-    entities.forEach((entity) => Game.renderEntity(ctx, entity));
+    toRender.forEach((entity) => Game.renderEntity(this.ctx, entity));
   }
 
   static renderEntity(ctx, entity) {

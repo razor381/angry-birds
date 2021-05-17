@@ -3,38 +3,44 @@ class Bird extends RoundObject {
     super(
       Bird.getDefaultPosition(),
       Vector.getZeroVector(),
-      Vector.getZeroVector(),
+      Bird.getDefaultAcceleration(),
       BIRD_MASS,
       BIRD_RADIUS,
       createImage(IMAGE_RED),
     );
-    this.isShot = false;
-    this.hasCharged = false;
+    this.state = BIRD_STATE.WAITING;
   }
 
   static getDefaultPosition = () => new Vector(BIRD_X, BIRD_Y);
-  static defaultVelocity = () => new Vector(BIRD_DX, BIRD_DY);
-  static defaultAcceleration = () => new Vector(BIRD_D2X, BIRD_D2Y);
+  static getDefaultAcceleration = () => new Vector(BIRD_D2X, BIRD_D2Y);
 
   charge() {
     this.hasCharged = true;
   }
 
-  reset() {
-    this.isShot = false;
-    this.hasCharged = false;
-    this.position = Bird.defaultPosition();
-    this.velocity = Vector.getZeroVector();
-    this.acceleration = Vector.getZeroVector();
-  }
-
   launch(launchVelocity) {
-    this.isShot = true;
-    this.velocity = launchVelocity || Bird.defaultVelocity();
-    this.acceleration = Bird.defaultAcceleration();
+    this.state = BIRD_STATE.FLIGHT;
+    this.velocity = launchVelocity;
   }
 
-  isDone(groundY) {
-    return this.isShot && (this.velocity.x < 0.05 && this.velocity.y < 0.05);
+  checkHalted() {
+    if (this.velocity.x < 0.05 && this.velocity.y < 0.05) {
+      this.state = BIRD_STATE.HALTED;
+    }
+  }
+
+  handleMovement() {
+    this.move();
+    this.checkHalted();
+  }
+
+  static generateBirds(n = BIRDS_QTY) {
+    const birds = [];
+
+    for (let i = 0; i < n; i++) {
+      birds.push(new Bird());
+    }
+
+    return birds;
   }
 }

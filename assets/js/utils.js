@@ -23,18 +23,12 @@ function createImage(src, classes = []) {
   return img;
 }
 
-function getMousePos(canvas, evt, entitySize) {
+function getMousePos(canvas, evt) {
   const { left, top } = canvas.getBoundingClientRect();
 
   return {
-    x: evt.clientX - left - entitySize.width / 2,
-    y: evt.clientY - top - entitySize.height / 2,
+    x: evt.clientX - left,
+    y: evt.clientY - top,
   };
 }
 
-function getDistanceBetween(p1, p2) {
-  const xDiff = p2.x - p1.x;
-  const yDiff = p2.y - p1.y;
-
-  return Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
-}
