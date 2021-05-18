@@ -10,7 +10,7 @@ class StaticObject extends Base {
       Vector.getZeroVector(),
       DEFAULT_WINDOW_WIDTH,
       DEFAULT_WINDOW_HEIGHT,
-      createImage(IMAGE_BACKGROUND),
+      Utils.createImage(IMAGE_BACKGROUND),
     );
   }
 }

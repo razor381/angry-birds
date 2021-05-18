@@ -5,7 +5,7 @@ class Bird extends RoundObject {
       BIRD_MASS,
       BIRD_RADIUS,
       BIRD_STATE.WAITING,
-      createImage(IMAGE_RED),
+      Utils.createImage(IMAGE_RED),
     );
   }
 

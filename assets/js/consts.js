@@ -1,5 +1,6 @@
 const
   TAG_BODY = 'body',
+  TAG_CANVAS = 'canvas',
 
   CLASS_CANVAS = 'canvas',
   CLASS_BIRD = 'bird',
@@ -27,10 +28,16 @@ const
     RESTING: 'RESTING',
   },
 
+  BLOCK_MASS = 40,
+  BLOCK_WIDTH = 80,
+  BLOCK_HEIGHT = 80,
+
   SLINGSHOT_X = 80,
   SLINGSHOT_WIDTH = 60,
   SLINGSHOT_HEIGHT = 110,
   SLINGSHOT_MAX_LENGTH = 100,
+  SLINGSHOT_DEFAULT_ANGLE = 0,
+  SLINGSHOT_DEFAULT_STRETCH_LENGTH = 0,
 
   HOOKES_CONSTANT = 0.4,
 
@@ -42,6 +49,7 @@ const
 
   IMAGE_RED = '/assets/img/red.png',
   IMAGE_PIG = '/assets/img/pig.png',
+  IMAGE_BLOCK = '/assets/img/hollow-block.png',
   IMAGE_SLINGSHOT = '/assets/img/slingshot.png',
   IMAGE_BACKGROUND = '/assets/img/background.jpeg',
 
@@ -56,3 +64,4 @@ const SLINGSHOT_RELAX_Y = SLINGSHOT_Y;
 
 const BIRD_X = SLINGSHOT_RELAX_X;
 const BIRD_Y = SLINGSHOT_RELAX_Y;
+

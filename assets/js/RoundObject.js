@@ -10,4 +10,8 @@ class RoundObject extends Base {
     this.radius = radius;
     this.state = state;
   }
+
+  isPointInside(point) {
+    return this.radius > Vector.getDistanceBetween(point, this.position);
+  }
 }

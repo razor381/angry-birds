@@ -1,12 +1,25 @@
 class Game {
   constructor() {
+    this.canvas = {};
+    this.ctx = {};
+    this.bg = {};
+    this.slingshot = {};
+    this.birds = [];
+    this.shouldRender = true;
+
+    this.pig = new Pig(new Vector(700, GROUND_Y - PIG_RADIUS / 2));
+    this.block = new Obstacle(new Vector(400, GROUND_Y-BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
+    this.block2 = new Obstacle(new Vector(400, GROUND_Y-3.5*BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
+
+    this.init();
+  }
+
+  init() {
     this.canvas = new Canvas();
     this.ctx = this.canvas.ctx;
-    this.shouldRender = true;
     this.bg = StaticObject.createBackground();
-    this.slingshot = new Slingshot(this.canvas);
-    this.pig = new Pig(new Vector(700, GROUND_Y - PIG_RADIUS / 2));
-
+    this.birds = Bird.generateBirds();
+    this.slingshot = new Slingshot(this.canvas, this.birds);
     this.play();
   }
 
@@ -43,6 +56,8 @@ class Game {
       this.slingshot,
       this.slingshot.activeBird,
       this.pig,
+      this.block,
+      this.block2,
     ];
 
     toRender.forEach((entity) => Game.renderEntity(this.ctx, entity));
