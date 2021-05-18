@@ -4,28 +4,20 @@ class Vector {
     this.y = y;
   }
 
+  getMagnitude() {
+    return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+  }
+
   static getZeroVector() {
     return new Vector(0, 0);
   }
 
+  static getNormal(point1, point2) {
+    return new Vector(point2.y - point1.y,- point2.x + point1.x);
+  }
+
   static getDefaultAcceleration() {
     return new Vector(DEFAULT_D2X, DEFAULT_D2Y);
-  }
-
-  static getDistanceBetween(p1, p2) {
-    const xDiff = p2.x - p1.x;
-    const yDiff = p2.y - p1.y;
-
-    return Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
-  }
-
-  static getAngle(p1, p2) {
-    const dx = p2.x - p1.x;
-    const dy = p1.y - p2.y;
-
-    const angle = Math.atan2(dy, dx);
-
-    return angle;
   }
 
   static getLaunchVelocity(x) {
@@ -36,10 +28,14 @@ class Vector {
     return new Vector(magnitude * Math.cos(angle), -magnitude * Math.sin(angle));
   }
 
+  static getDotProduct(vector1, vector2) {
+    return vector1.x * vector2.x + vector1.y * vector2.y;
+  }
+
   static calculateVelocity(p1, p2) {
     const
-      x = Vector.getDistanceBetween(p1, p2),
-      angle = Vector.getAngle(p1, p2),
+      x = Point.getDistanceBetween(p1, p2),
+      angle = Point.getAngle(p1, p2),
       velocity = Vector.getLaunchVelocity(x);
 
     return Vector.getComponents(velocity, angle);

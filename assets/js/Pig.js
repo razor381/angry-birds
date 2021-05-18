@@ -5,8 +5,7 @@ class Pig extends RoundObject {
       PIG_MASS,
       PIG_RADIUS,
       PIG_STATE.RESTING,
-      createImage(IMAGE_PIG),
+      Utils.createImage(IMAGE_PIG),
     );
   }
-
 }

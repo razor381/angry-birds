@@ -5,11 +5,11 @@ class Bird extends RoundObject {
       BIRD_MASS,
       BIRD_RADIUS,
       BIRD_STATE.WAITING,
-      createImage(IMAGE_RED),
+      Utils.createImage(IMAGE_RED),
     );
   }
 
-  static getDefaultPosition = () => new Vector(BIRD_X, BIRD_Y);
+  static getDefaultPosition = () => new Point(BIRD_X, BIRD_Y);
 
   charge() {
     this.hasCharged = true;
