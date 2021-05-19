@@ -19,6 +19,7 @@ class Slingshot extends StaticObject {
   }
 
   init() {
+    this.loadBird();
     this.addStartBirdChargeHandler();
   }
 
@@ -50,12 +51,14 @@ class Slingshot extends StaticObject {
   }
 
   loadBird() {
-    this.activeBird = this.birds.pop();
-    this.activeBird.state = BIRD_STATE.READY;
+    if (!this.isEmpty()) {
+      this.activeBird = this.birds.pop();
+      this.activeBird.state = BIRD_STATE.READY;
+    }
   }
 
   isEmpty() {
-    return !!this.birds.length;
+    return !this.birds.length;
   }
 
   birdPullbackHandler = (e) => {

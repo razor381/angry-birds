@@ -1,29 +1,25 @@
 class Game {
   constructor() {
-    this.canvas = {};
-    this.ctx = {};
-    this.bg = {};
-    this.slingshot = {};
-    this.fps = {};
-    this.birds = [];
-    this.shouldRender = true;
-
     this.init();
   }
 
   init() {
     this.canvas = new Canvas();
     this.ctx = this.canvas.ctx;
+    this.shouldRender = true;
     this.fps = new FrameThrottler(TARGET_FPS);
-    this.bg = StaticObject.createBackground();
+
+    this.initGameObjects();
+    this.play();
+  }
+
+  initGameObjects() {
+    this.background = StaticObject.createBackground();
     this.birds = Bird.generateBirds();
     this.slingshot = new Slingshot(this.canvas, this.birds);
-
-    this.pig = new Pig(new Point(700, GROUND_Y - PIG_RADIUS / 2));
-    this.block = new Obstacle(new Point(400, GROUND_Y-BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
-    this.block2 = new Obstacle(new Point(400, GROUND_Y-3.5*BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
-
-    this.play();
+    this.pig = new Pig(new Point(700, GROUND_Y-PIG_RADIUS));
+    this.block = new Obstacle(new Point(400, GROUND_Y-BLOCK_HEIGHT), BLOCK_WIDTH, BLOCK_HEIGHT);
+    this.block2 = new Obstacle(new Point(400, GROUND_Y-2*BLOCK_HEIGHT), BLOCK_WIDTH, BLOCK_HEIGHT);
   }
 
   play() {
@@ -31,7 +27,7 @@ class Game {
       this.shouldRender && requestAnimationFrame(animate.bind(this));
 
       if (this.fps.shouldRenderNextFrame(newTime)) {
-        this.slingshot.isEmpty() && this.slingshot.loadBird();
+        !this.slingshot.activeBird && this.slingshot.loadBird();
         const { activeBird } = this.slingshot;
 
         switch(this.slingshot.activeBird.state) {
@@ -57,24 +53,37 @@ class Game {
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     const toRender = [
-      this.bg,
+      this.background,
       this.slingshot,
-      this.slingshot.activeBird,
-      this.pig,
-      this.block,
       this.block2,
+      this.block,
+      this.pig,
+      this.slingshot.activeBird,
     ];
 
     toRender.forEach((entity) => Game.renderEntity(this.ctx, entity));
   }
 
   static renderEntity(ctx, entity) {
-    ctx.drawImage(
-      entity.image,
-      entity.position.x,
-      entity.position.y,
-      entity.width || entity.radius,
-      entity.height || entity.radius,
-    );
+    ctx.save();
+    ctx.beginPath();
+    !entity.isRound ?
+      ctx.drawImage(
+        entity.image,
+        entity.position.x,
+        entity.position.y,
+        entity.width,
+        entity.height,
+      ) :
+      ctx.drawImage(
+        entity.image,
+        entity.position.x - entity.radius,
+        entity.position.y - entity.radius,
+        entity.radius * 2,
+        entity.radius * 2,
+      )
+
+    ctx.closePath();
+    ctx.restore();
   }
 }

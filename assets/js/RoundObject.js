@@ -5,7 +5,8 @@ class RoundObject extends Base {
       Vector.getZeroVector(),
       Vector.getDefaultAcceleration(),
       mass,
-      image
+      image,
+      true,
     );
     this.radius = radius;
     this.state = state;
