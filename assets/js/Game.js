@@ -7,9 +7,9 @@ class Game {
     this.birds = [];
     this.shouldRender = true;
 
-    this.pig = new Pig(new Vector(700, GROUND_Y - PIG_RADIUS / 2));
-    this.block = new Obstacle(new Vector(400, GROUND_Y-BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
-    this.block2 = new Obstacle(new Vector(400, GROUND_Y-3.5*BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
+    this.pig = new Pig(new Point(700, GROUND_Y - PIG_RADIUS / 2));
+    this.block = new Obstacle(new Point(400, GROUND_Y-BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
+    this.block2 = new Obstacle(new Point(400, GROUND_Y-3.5*BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
 
     this.init();
   }

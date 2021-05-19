@@ -1,7 +1,7 @@
 class Slingshot extends StaticObject {
   constructor(canvas, birds) {
     super(
-      new Vector(SLINGSHOT_X, SLINGSHOT_Y),
+      new Point(SLINGSHOT_X, SLINGSHOT_Y),
       SLINGSHOT_WIDTH,
       SLINGSHOT_HEIGHT,
       Utils.createImage(IMAGE_SLINGSHOT),
@@ -10,7 +10,7 @@ class Slingshot extends StaticObject {
     this.canvas = canvas;
     this.birds = birds;
     this.activeBird = null;
-    this.relaxPos = new Vector(SLINGSHOT_RELAX_X, SLINGSHOT_RELAX_Y);
+    this.relaxPos = new Point(SLINGSHOT_RELAX_X, SLINGSHOT_RELAX_Y);
     this.stretchAngle = SLINGSHOT_DEFAULT_ANGLE;
     this.stretchLength = SLINGSHOT_DEFAULT_STRETCH_LENGTH;
     this.maxStretchLength = SLINGSHOT_MAX_LENGTH;
@@ -62,7 +62,7 @@ class Slingshot extends StaticObject {
     const mousePos = Utils.getMousePos(this.canvas.el, e);
     const { activeBird: { position, radius } } = this;
 
-    if (Vector.getDistanceBetween(mousePos, this.relaxPos) < this.maxStretchLength) {
+    if (Point.getDistanceBetween(mousePos, this.relaxPos) < this.maxStretchLength) {
       position.x = mousePos.x - radius / 2;
       position.y = mousePos.y - radius / 2;
     }

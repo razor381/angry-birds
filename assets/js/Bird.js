@@ -9,7 +9,7 @@ class Bird extends RoundObject {
     );
   }
 
-  static getDefaultPosition = () => new Vector(BIRD_X, BIRD_Y);
+  static getDefaultPosition = () => new Point(BIRD_X, BIRD_Y);
 
   charge() {
     this.hasCharged = true;
