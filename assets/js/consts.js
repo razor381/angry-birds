@@ -5,6 +5,8 @@ const
   CLASS_CANVAS = 'canvas',
   CLASS_BIRD = 'bird',
 
+  TARGET_FPS = 60,
+
   BASE_MASS = 40,
   DEFAULT_D2X = 0,
   DEFAULT_D2Y = 0.3,

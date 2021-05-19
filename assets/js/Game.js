@@ -4,12 +4,9 @@ class Game {
     this.ctx = {};
     this.bg = {};
     this.slingshot = {};
+    this.fps = {};
     this.birds = [];
     this.shouldRender = true;
-
-    this.pig = new Pig(new Point(700, GROUND_Y - PIG_RADIUS / 2));
-    this.block = new Obstacle(new Point(400, GROUND_Y-BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
-    this.block2 = new Obstacle(new Point(400, GROUND_Y-3.5*BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
 
     this.init();
   }
@@ -17,34 +14,42 @@ class Game {
   init() {
     this.canvas = new Canvas();
     this.ctx = this.canvas.ctx;
+    this.fps = new FrameThrottler(TARGET_FPS);
     this.bg = StaticObject.createBackground();
     this.birds = Bird.generateBirds();
     this.slingshot = new Slingshot(this.canvas, this.birds);
+
+    this.pig = new Pig(new Point(700, GROUND_Y - PIG_RADIUS / 2));
+    this.block = new Obstacle(new Point(400, GROUND_Y-BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
+    this.block2 = new Obstacle(new Point(400, GROUND_Y-3.5*BLOCK_HEIGHT/2.5), BLOCK_WIDTH, BLOCK_HEIGHT);
+
     this.play();
   }
 
   play() {
-    (function animate() {
-      this.slingshot.isEmpty() && this.slingshot.loadBird();
-
-      const { activeBird } = this.slingshot;
-
-      switch(this.slingshot.activeBird.state) {
-        case BIRD_STATE.WAITING:
-          break;
-        case BIRD_STATE.READY:
-          break;
-        case BIRD_STATE.FLIGHT:
-          activeBird.handleMovement();
-          break;
-        case BIRD_STATE.HALTED:
-          this.shouldRender = false;
-          break;
-        default:
-      }
-
-      this.render(this.ctx);
+    (function animate(newTime) {
       this.shouldRender && requestAnimationFrame(animate.bind(this));
+
+      if (this.fps.shouldRenderNextFrame(newTime)) {
+        this.slingshot.isEmpty() && this.slingshot.loadBird();
+        const { activeBird } = this.slingshot;
+
+        switch(this.slingshot.activeBird.state) {
+          case BIRD_STATE.WAITING:
+            break;
+          case BIRD_STATE.READY:
+            break;
+          case BIRD_STATE.FLIGHT:
+            activeBird.handleMovement();
+            break;
+          case BIRD_STATE.HALTED:
+            this.shouldRender = false;
+            break;
+          default:
+        }
+
+        this.render(this.ctx);
+      }
     }.bind(this))();
   }
 
