@@ -1,34 +1,44 @@
-function createNewElement(tag, classes) {
-  const newEl = document.createElement(tag);
-  newEl.classList.add(...classes);
-  return newEl;
-}
+class Utils {
+  static copyObject(obj) {
+    return JSON.parse(JSON.stringify(obj));
+  }
 
-function getRandomInteger(min, max) {
-  return Math.floor(Math.random() * (max - min) + min);
-}
+  static createNewElement(tag, classes) {
+    const newEl = document.createElement(tag);
+    newEl.classList.add(...classes);
+    return newEl;
+  }
 
-function getEl(name, all=false) {
-  return all?  document.querySelectorAll(name) : document.querySelector(name);
-}
+  static getRandomInteger(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+  }
 
-function addInsideParentEl(el, parentEl) {
-  parentEl.appendChild(el);
-}
+  static getEl(name, all=false) {
+    return all?  document.querySelectorAll(name) : document.querySelector(name);
+  }
 
-function createImage(src, classes = []) {
-  let img = new Image();
-  img.src = src;
-  img.classList.add(...classes);
-  return img;
-}
+  static addInsideParentEl(el, parentEl) {
+    parentEl.appendChild(el);
+  }
 
-function getMousePos(canvas, evt) {
-  const { left, top } = canvas.getBoundingClientRect();
+  static createImage(src, classes = []) {
+    let img = new Image();
+    img.src = src;
+    img.classList.add(...classes);
+    return img;
+  }
 
-  return {
-    x: evt.clientX - left,
-    y: evt.clientY - top,
-  };
+  static toRadians(deg) {
+    return deg * (Math.PI / 180);
+  }
+
+  static getMousePos(canvas, evt) {
+    const { left, top } = canvas.getBoundingClientRect();
+
+    return {
+      x: evt.clientX - left,
+      y: evt.clientY - top,
+    };
+  }
 }
 
