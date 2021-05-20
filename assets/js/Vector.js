@@ -12,6 +12,10 @@ class Vector {
     return new Vector(0, 0);
   }
 
+  static getNormal(point1, point2) {
+    return new Vector(point2.y - point1.y,- point2.x + point1.x);
+  }
+
   static getDefaultAcceleration() {
     return new Vector(DEFAULT_D2X, DEFAULT_D2Y);
   }

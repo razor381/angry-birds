@@ -1,7 +1,7 @@
 class Collision {
   static displayPoints = [];
 
-  static isCircleCircleColliding(circle1, circle2) {
+  static areCirclesColliding(circle1, circle2) {
     const distance = Point.getDistanceBetween(circle1.position, circle2.position);
     const combinedRadius = circle1.radius + circle2.radius;
 
@@ -9,10 +9,11 @@ class Collision {
   }
 
   static getProjectedPointOnLine(point, vector) {
-    const fraction = (point.x * vector.x + point.y * vector.y) / (vector.x * vector.x + vector.y * vector.y);
+    const dotProduct = (point.x * vector.x + point.y * vector.y);
+    const magnitude = (vector.x * vector.x + vector.y * vector.y);
+    const fraction = dotProduct / magnitude;
 
-    const toReturn = new Vector(fraction * vector.x, fraction * vector.y);
-    return toReturn;
+    return new Vector(fraction * vector.x, fraction * vector.y);
   }
 
   static getRotatedPolyPoints(polygon) {
@@ -28,31 +29,31 @@ class Collision {
     }
   }
 
-  static checkCollision(poly1, poly2) {
+  static getPositionDifference(poly1, poly2) {
     const point1 = poly1.position;
     const point2 = poly2.position;
 
+    return Point.subtract(point1, point2);
+  }
+
+  static checkCollision(poly1, poly2) {
+
     Collision.displayPoints = [];
 
-    // const positionDifference = new Vector(point2.x - point1.x, point2.y - point1.y);
-    const positionDifference = Vector.getZeroVector();
+    // const positionDifference = Collision.getPositionDifference(poly1, poly2);
+    const positionDifference = Point.getOrigin();
 
     // check circule collision first
-    // return false if no collision
 
     //get rotated points later
     const poly1Points = poly1.getCornerPoints();
     const poly2Points = poly2.getCornerPoints();
 
-
     // axes of first object
     for (let i = 0; i < poly1Points.length; i++) {
       const j = (i + 1) % poly1Points.length;
 
-      const lineVector = new Vector(
-        poly1Points[j].y - poly1Points[i].y,
-        - poly1Points[j].x + poly1Points[i].x,
-      );
+      const lineVector = Vector.getNormal(poly1Points[i], poly1Points[j]);
 
       if (!Collision.collidesOnAxis(lineVector, poly1Points, poly2Points, positionDifference)) {
         return false;
@@ -63,10 +64,7 @@ class Collision {
     for (let i = 0; i < poly2Points.length; i++) {
       const j = (i + 1) % poly2Points.length;
 
-      const lineVector = new Vector(
-        poly2Points[j].y - poly2Points[i].y,
-        - poly2Points[j].x + poly2Points[i].x,
-      );
+      const lineVector = Vector.getNormal(poly2Points[i], poly2Points[j]);
 
       if (!Collision.collidesOnAxis(lineVector, poly1Points, poly2Points, positionDifference)) {
         return false;
@@ -76,9 +74,8 @@ class Collision {
     return true;
   }
 
-  static collidesOnAxis(lineVector, points1, points2, positionDifference) {
-    /**
-    SCHEMA = {
+  /**
+    COLLISION_OBJECT_SCHEMA = {
       min: {
         value: Number.MAX_VALUE,
         point: 0,
@@ -89,55 +86,39 @@ class Collision {
       },
       distances: [],
     }
-    */
+  */
+  static projectAndCheckOverlap(points, lineVector) {
+    const polyObject = Utils.copyObject(COLLISION_OBJECT_SCHEMA);
 
-    const obj1 = Utils.copyObject(COLLISION_OBJECT_SCHEMA);
-    const obj2 = Utils.copyObject(COLLISION_OBJECT_SCHEMA);
-
-    points1.forEach((point, i) => {
+    points.forEach((point, i) => {
       const projected = Collision.getProjectedPointOnLine(point, lineVector);
-      const direction = (projected.x + projected.y < 0) ? -1 : 1;
-      const distanceOnLine = direction * projected.getMagnitude();
-
-      Collision.displayPoints.push(projected);
-
-      obj1.distances.push(distanceOnLine);
-
-      if (obj1.min.value > distanceOnLine) {
-        obj1.min.value = distanceOnLine;
-        obj1.min.point = i;
-      }
-
-      if (obj1.max.value < distanceOnLine) {
-        obj1.max.value = distanceOnLine;
-        obj1.max.point = i;
-      }
-    });
-
-    points2.forEach((point, i) => {
-      const adjustedPoint = new Point(
-        point.x + positionDifference.x,
-        point.y + positionDifference.y,
-      );
-
-      Collision.displayPoints.push(adjustedPoint);
-
-      const projected = Collision.getProjectedPointOnLine(adjustedPoint, lineVector);
       const direction = (projected.x + projected.y) < 0 ? -1 : 1;
       const distanceOnLine = direction * projected.getMagnitude();
 
-      obj2.distances.push(distanceOnLine);
+      polyObject.distances.push(distanceOnLine);
 
-      if (obj2.min.value > distanceOnLine) {
-        obj2.min.value = distanceOnLine;
-        obj2.min.point = i;
+      if (polyObject.min.value > distanceOnLine) {
+        polyObject.min.value = distanceOnLine;
+        polyObject.min.point = i;
       }
 
-      if (obj2.max.value < distanceOnLine) {
-        obj2.max.value = distanceOnLine;
-        obj2.max.point = i;
+      if (polyObject.max.value < distanceOnLine) {
+        polyObject.max.value = distanceOnLine;
+        polyObject.max.point = i;
       }
     });
+
+    return polyObject;
+  }
+
+  static adjustPositionDiff(points, positionDifference) {
+    return points.map((point) => Point.add(point, positionDifference));
+  }
+
+  static collidesOnAxis(lineVector, points1, points2, positionDifference) {
+    // const adjustedPoints2 = Collision.adjustPositionDiff(points2, positionDifference)
+    const obj1 = Collision.projectAndCheckOverlap(points1, lineVector);
+    const obj2 = Collision.projectAndCheckOverlap(points2, lineVector);
 
     return !(obj1.max.value <= obj2.min.value || obj2.max.value <= obj1.min.value);
   }

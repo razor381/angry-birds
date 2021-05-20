@@ -48,7 +48,7 @@ class Game {
         }
 
         this.render(this.ctx);
-        console.log(Collision.checkCollision(this.block, this.block4));
+        const isColliding = Collision.checkCollision(this.block, this.block4);
 
       }
     }.bind(this))();
