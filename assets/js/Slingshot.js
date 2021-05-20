@@ -32,7 +32,7 @@ class Slingshot extends StaticObject {
       switch (this.activeBird.state) {
 
         case BIRD_STATE.READY:
-          if (this.activeBird.isPointInside(mouseClickPos)) {
+          if (this.activeBird.isPointWithin(mouseClickPos)) {
             this.charge();
           }
           break;

@@ -12,7 +12,30 @@ class RoundObject extends Base {
     this.state = state;
   }
 
-  isPointInside(point) {
-    return this.radius > Point.getDistanceBetween(point, this.position);
+  getCenter() {
+    return Point.add(this.position, new Point(this.radius, this.radius));
+  }
+
+  render(ctx) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.translate(
+      this.position.x + this.radius,
+      this.position.y + this.radius,
+    );
+    ctx.rotate(this.angle);
+    ctx.drawImage(
+      this.image,
+      -this.radius,
+      -this.radius,
+      this.radius * 2,
+      this.radius * 2,
+    )
+    ctx.closePath();
+    ctx.restore();
+  }
+
+  isPointWithin(point) {
+    return this.radius > Point.getDistanceBetween(point, this.getCenter());
   }
 }

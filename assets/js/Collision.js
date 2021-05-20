@@ -4,6 +4,7 @@ class Collision {
   static isColliding(shape1, shape2) {
     if (shape1.isRound != shape2.isRound) return Collision.areCirclePolyColliding(shape1, shape2);
     else if (!shape1.isRound && !shape2.isRound) return Collision.arePolyonsColliding(shape1, shape2);
+    else return Collision.areCirclesColliding(shape1, shape2);
   }
 
   static areCirclesColliding(circle1, circle2) {

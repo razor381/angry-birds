@@ -28,6 +28,10 @@ class Utils {
     return img;
   }
 
+  static toRadians(deg) {
+    return deg * (Math.PI / 180);
+  }
+
   static getMousePos(canvas, evt) {
     const { left, top } = canvas.getBoundingClientRect();
 

@@ -19,7 +19,6 @@ class Game {
     this.slingshot = new Slingshot(this.canvas, this.birds);
     this.pig = new Pig(new Point(700, GROUND_Y-4 * PIG_RADIUS));
     this.block = new Obstacle(new Point(400, GROUND_Y-BLOCK_HEIGHT), BLOCK_WIDTH, BLOCK_HEIGHT);
-    this.block2 = new Obstacle(new Point(400, 200), BLOCK_WIDTH, BLOCK_HEIGHT);
   }
 
   play() {
@@ -27,9 +26,6 @@ class Game {
       this.shouldRender && requestAnimationFrame(animate.bind(this));
 
       if (this.fps.shouldRenderNextFrame(newTime)) {
-
-        this.block.stickToMouse(this.canvas);
-
         !this.slingshot.activeBird && this.slingshot.loadBird();
         const { activeBird } = this.slingshot;
 
@@ -48,7 +44,6 @@ class Game {
         }
 
         this.render(this.ctx);
-
       }
     }.bind(this))();
   }
@@ -60,35 +55,10 @@ class Game {
       this.background,
       this.slingshot,
       this.block,
-      this.block2,
       this.pig,
       this.slingshot.activeBird,
     ];
 
-    toRender.forEach((entity) => Game.renderEntity(this.ctx, entity));
-    Point.plotPoints(ctx, Collision.displayPoints);
-  }
-
-  static renderEntity(ctx, entity) {
-    ctx.save();
-    ctx.beginPath();
-    !entity.isRound ?
-      ctx.drawImage(
-        entity.image,
-        entity.position.x,
-        entity.position.y,
-        entity.width,
-        entity.height,
-      ) :
-      ctx.drawImage(
-        entity.image,
-        entity.position.x - entity.radius,
-        entity.position.y - entity.radius,
-        entity.radius * 2,
-        entity.radius * 2,
-      )
-
-    ctx.closePath();
-    ctx.restore();
+    toRender.forEach((entity) => entity.render(this.ctx));
   }
 }

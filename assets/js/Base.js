@@ -18,6 +18,10 @@ class Base {
     this.position.y = (bottomEdge > GROUND_Y) ? (GROUND_Y - this.getHeight()) : point.y;
   }
 
+  rotate(angle) {
+    this.angle = (this.angle + angle) % 360;
+  }
+
   move(x, y) {
     // topmost point of jump reached
     const bottomPosition = this.position.y + this.getHeight();
@@ -43,7 +47,32 @@ class Base {
   }
 
   getHeight() {
-    return this.isRound ? this.radius : this.height;
+    return this.isRound ? this.radius * 2 : this.height;
+  }
+
+  stickToMouse(canvas) {
+    canvas.el.addEventListener('mousemove', (e) => {
+      this.setPosition(Utils.getMousePos(canvas.el, e));
+    });
+  }
+
+  render(ctx) {
+    ctx.save();
+    ctx.translate(
+      this.position.x + this.width / 2,
+      this.position.y + this.height / 2,
+    );
+    ctx.rotate(this.angle);
+    ctx.beginPath();
+    ctx.drawImage(
+      this.image,
+      -this.width / 2,
+      -this.height /2,
+      this.width,
+      this.height,
+    )
+    ctx.closePath();
+    ctx.restore();
   }
 
   static isJumpNegligible(value) {
