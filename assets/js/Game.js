@@ -18,7 +18,7 @@ class Game {
     this.birds = Bird.generateBirds();
     this.slingshot = new Slingshot(this.canvas, this.birds);
     this.pig = new Pig(new Point(700, GROUND_Y-4 * PIG_RADIUS));
-    this.block = new Obstacle(new Point(400, GROUND_Y-BLOCK_HEIGHT), BLOCK_WIDTH, BLOCK_HEIGHT);
+    this.block = new Obstacle(new Point(400, GROUND_Y-4 * BLOCK_HEIGHT), BLOCK_WIDTH*4, BLOCK_HEIGHT);
   }
 
   play() {

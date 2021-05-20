@@ -1,6 +1,4 @@
 class Collision {
-  static displayPoints = [];
-
   static isColliding(shape1, shape2) {
     if (shape1.isRound != shape2.isRound) return Collision.areCirclePolyColliding(shape1, shape2);
     else if (!shape1.isRound && !shape2.isRound) return Collision.arePolyonsColliding(shape1, shape2);
@@ -8,7 +6,7 @@ class Collision {
   }
 
   static areCirclesColliding(circle1, circle2) {
-    const distance = Point.getDistanceBetween(circle1.position, circle2.position);
+    const distance = Point.getDistanceBetween(circle1.getCenter(), circle2.getCenter());
     const combinedRadius = circle1.radius + circle2.radius;
 
     return distance <= combinedRadius;
@@ -36,7 +34,7 @@ class Collision {
   }
 
   static getPositionDifference(shape1, shape2) {
-    return Point.subtract(shape2.position, shape1.position);
+    return Point.subtract(shape2.getCenter(), shape1.getCenter());
   }
 
   static areCollidingOnAxes(points1, points2, positionDiff) {
@@ -64,9 +62,8 @@ class Collision {
     const positionDifference = Point.getOrigin();
 
     // check circule collision first
-    //get rotated points later
-    const poly1Points = poly1.getCornerPoints();
-    const poly2Points = poly2.getCornerPoints();
+    const poly1Points = poly1.getVertices();
+    const poly2Points = poly2.getVertices();
 
     // axes of first object
     const isColliding1 = Collision.areCollidingOnAxes(poly1Points, poly2Points, positionDifference);
@@ -120,7 +117,6 @@ class Collision {
   }
 
   static isCollidesOnAxis(lineVector, points1, points2, positionDifference) {
-    // const adjustedPoints2 = Collision.adjustPositionDiff(points2, positionDifference)
     const obj1 = Collision.getProjectedCollisionObj(points1, lineVector);
     const obj2 = Collision.getProjectedCollisionObj(points2, lineVector);
 
@@ -172,10 +168,8 @@ class Collision {
     const circle = shape1.isRound ? shape1 : shape2;
     const poly = shape1.isRound ? shape2 : shape1;
 
-    const polyPoints = poly.getCornerPoints();
-    // const positionDifference = Collision.getPositionDifference(circle, poly);
-    const positionDifference = circle.position;
-
+    const polyPoints = poly.getVertices();
+    const positionDifference = circle.getCenter();
 
     const isColliding = Collision.areCollidingOnAxesWithCircle(
       polyPoints,

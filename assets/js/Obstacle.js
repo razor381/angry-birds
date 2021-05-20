@@ -12,7 +12,7 @@ class Obstacle extends Base {
     this.height = height;
   }
 
-  getCornerPoints() {
+  getStationaryVertices() {
     const cornerPoints = [];
 
     cornerPoints.push(this.position);
@@ -21,6 +21,21 @@ class Obstacle extends Base {
     cornerPoints.push(new Point(this.position.x, this.position.y + this.height));
 
     return cornerPoints;
+  }
+
+  getVertices() {
+    const stationaryVertices = this.getStationaryVertices();
+    return this.hasRotated ? this.getRotatedVertices(stationaryVertices) : stationaryVertices;
+  }
+
+  getRotatedVertices(vertices) {
+    return vertices.map((vertex) => {
+      const translatedPoint = Point.subtract(this.getCenter(), vertex);
+      const rotatedPoint = Point.rotatePoint(translatedPoint, this.angle)
+      const unTranslatedPoint = Point.add(this.getCenter(), rotatedPoint);
+
+      return unTranslatedPoint;
+    });
   }
 
   static generateBlocks() {

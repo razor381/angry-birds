@@ -4,6 +4,8 @@ class Point {
     this.y = y;
   }
 
+  static pointsToPlot = [];
+
   static getOrigin() {
     return new Point(0, 0);
   }
@@ -23,8 +25,8 @@ class Point {
     return new Point(p2.x - p1.x, p2.y - p1.y)
   }
 
-  static plotPoints(ctx, points) {
-    points.forEach((point) => {
+  static plotPoints(ctx) {
+    Point.pointsToPlot.forEach((point) => {
       ctx.save();
       ctx.beginPath();
       ctx.fillStyle = 'red';
@@ -36,10 +38,19 @@ class Point {
     });
   }
 
+  static rotatePoint(point, angle) {
+    const { x, y } = point;
+    const angleRadians = Utils.toRadians(angle);
+
+    return new Point(
+      x * Math.cos(angleRadians) - y * Math.sin(angleRadians),
+      x * Math.sin(angleRadians) + y * Math.cos(angleRadians),
+    );
+  }
+
   static getAngle(p1, p2) {
     const dx = p2.x - p1.x;
     const dy = p1.y - p2.y;
-
     const angle = Math.atan2(dy, dx);
 
     return angle;

@@ -4,11 +4,16 @@ class Base {
     this.velocity = velocity
     this.mass = mass || BASE_MASS;
     this.angle = BASE_ANGLE;
+    this.oldAngle = BASE_ANGLE;
     this.acceleration = acceleration;
     this.isDestructible = false;
     this.image = image;
     this.isDescending = false;
     this.isRound = isRound;
+  }
+
+  getCenter() {
+    return Point.add(this.position, new Point(this.width / 2, this.height / 2));
   }
 
   setPosition(point) {
@@ -19,7 +24,14 @@ class Base {
   }
 
   rotate(angle) {
+    this.oldAngle = this.angle;
     this.angle = (this.angle + angle) % 360;
+  }
+
+  hasRotated() {
+    const hasRotated = this.angle != this.oldAngle;
+    this.oldAngle = this.angle;
+    return hasRotated;
   }
 
   move(x, y) {
@@ -62,7 +74,7 @@ class Base {
       this.position.x + this.width / 2,
       this.position.y + this.height / 2,
     );
-    ctx.rotate(this.angle);
+    ctx.rotate(Utils.toRadians(this.angle));
     ctx.beginPath();
     ctx.drawImage(
       this.image,

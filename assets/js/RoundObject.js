@@ -23,7 +23,7 @@ class RoundObject extends Base {
       this.position.x + this.radius,
       this.position.y + this.radius,
     );
-    ctx.rotate(this.angle);
+    ctx.rotate(Utils.toRadians(this.angle));
     ctx.drawImage(
       this.image,
       -this.radius,
