@@ -5,7 +5,7 @@ const
   CLASS_CANVAS = 'canvas',
   CLASS_BIRD = 'bird',
 
-  TARGET_FPS = 60,
+  TARGET_FPS = 10,
 
   BASE_MASS = 40,
   BASE_ANGLE = 0,
@@ -32,7 +32,7 @@ const
   },
 
   BLOCK_MASS = 40,
-  BLOCK_WIDTH = 80,
+  BLOCK_WIDTH = 82,
   BLOCK_HEIGHT = 80,
 
   SLINGSHOT_X = 80,
@@ -43,6 +43,17 @@ const
   SLINGSHOT_DEFAULT_STRETCH_LENGTH = 0,
 
   HOOKES_CONSTANT = 0.4,
+  COLLISION_OBJECT_SCHEMA = {
+    min: {
+      value: Number.MAX_VALUE,
+      point: 0,
+    },
+    max: {
+      value: -Number.MAX_VALUE,
+      point: 0,
+    },
+    distances: [],
+  }
 
   GROUND_HEIGHT = 80,
 

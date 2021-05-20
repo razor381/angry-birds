@@ -1,4 +1,8 @@
 class Utils {
+  static copyObject(obj) {
+    return JSON.parse(JSON.stringify(obj));
+  }
+
   static createNewElement(tag, classes) {
     const newEl = document.createElement(tag);
     newEl.classList.add(...classes);

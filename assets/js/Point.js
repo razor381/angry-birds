@@ -15,6 +15,19 @@ class Point {
     return Math.sqrt(Math.pow(xDiff, 2) + Math.pow(yDiff, 2));
   }
 
+  static plotPoints(ctx, points) {
+    points.forEach((point) => {
+      ctx.save();
+      ctx.beginPath();
+      ctx.fillStyle = 'red';
+      ctx.arc(point.x, point.y, 8, 0, Math.PI * 2, false);
+      ctx.stroke();
+      ctx.fill();
+      ctx.closePath();
+      ctx.restore();
+    });
+  }
+
   static getAngle(p1, p2) {
     const dx = p2.x - p1.x;
     const dy = p1.y - p2.y;

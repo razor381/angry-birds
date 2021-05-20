@@ -19,7 +19,7 @@ class Game {
     this.slingshot = new Slingshot(this.canvas, this.birds);
     this.pig = new Pig(new Point(700, GROUND_Y-PIG_RADIUS));
     this.block = new Obstacle(new Point(400, GROUND_Y-BLOCK_HEIGHT), BLOCK_WIDTH, BLOCK_HEIGHT);
-    this.block2 = new Obstacle(new Point(400, GROUND_Y-2*BLOCK_HEIGHT), BLOCK_WIDTH, BLOCK_HEIGHT);
+    this.block4 = new Obstacle(new Point(350, GROUND_Y-3*BLOCK_HEIGHT), BLOCK_WIDTH, BLOCK_HEIGHT);
   }
 
   play() {
@@ -27,6 +27,9 @@ class Game {
       this.shouldRender && requestAnimationFrame(animate.bind(this));
 
       if (this.fps.shouldRenderNextFrame(newTime)) {
+
+        this.block.stickToMouse(this.canvas);
+
         !this.slingshot.activeBird && this.slingshot.loadBird();
         const { activeBird } = this.slingshot;
 
@@ -45,6 +48,8 @@ class Game {
         }
 
         this.render(this.ctx);
+        console.log(Collision.checkCollision(this.block, this.block4));
+
       }
     }.bind(this))();
   }
@@ -55,7 +60,7 @@ class Game {
     const toRender = [
       this.background,
       this.slingshot,
-      this.block2,
+      this.block4,
       this.block,
       this.pig,
       this.slingshot.activeBird,

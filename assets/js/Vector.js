@@ -4,6 +4,10 @@ class Vector {
     this.y = y;
   }
 
+  getMagnitude() {
+    return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+  }
+
   static getZeroVector() {
     return new Vector(0, 0);
   }
@@ -18,6 +22,10 @@ class Vector {
 
   static getComponents(magnitude, angle) {
     return new Vector(magnitude * Math.cos(angle), -magnitude * Math.sin(angle));
+  }
+
+  static getDotProduct(vector1, vector2) {
+    return vector1.x * vector2.x + vector1.y * vector2.y;
   }
 
   static calculateVelocity(p1, p2) {

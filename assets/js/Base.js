@@ -11,7 +11,14 @@ class Base {
     this.isRound = isRound;
   }
 
-  move() {
+  setPosition(point) {
+    const bottomEdge = point.y + this.getHeight();
+    this.position.x = point.x;
+
+    this.position.y = (bottomEdge > GROUND_Y) ? (GROUND_Y - this.getHeight()) : point.y;
+  }
+
+  move(x, y) {
     // topmost point of jump reached
     const bottomPosition = this.position.y + this.getHeight();
 
