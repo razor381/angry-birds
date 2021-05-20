@@ -17,9 +17,9 @@ class Game {
     this.background = StaticObject.createBackground();
     this.birds = Bird.generateBirds();
     this.slingshot = new Slingshot(this.canvas, this.birds);
-    this.pig = new Pig(new Point(700, GROUND_Y-PIG_RADIUS));
+    this.pig = new Pig(new Point(700, GROUND_Y-4 * PIG_RADIUS));
     this.block = new Obstacle(new Point(400, GROUND_Y-BLOCK_HEIGHT), BLOCK_WIDTH, BLOCK_HEIGHT);
-    this.block4 = new Obstacle(new Point(350, GROUND_Y-3*BLOCK_HEIGHT), BLOCK_WIDTH, BLOCK_HEIGHT);
+    this.block2 = new Obstacle(new Point(400, 200), BLOCK_WIDTH, BLOCK_HEIGHT);
   }
 
   play() {
@@ -48,7 +48,6 @@ class Game {
         }
 
         this.render(this.ctx);
-        const isColliding = Collision.checkCollision(this.block, this.block4);
 
       }
     }.bind(this))();
@@ -60,13 +59,14 @@ class Game {
     const toRender = [
       this.background,
       this.slingshot,
-      this.block4,
       this.block,
+      this.block2,
       this.pig,
       this.slingshot.activeBird,
     ];
 
     toRender.forEach((entity) => Game.renderEntity(this.ctx, entity));
+    Point.plotPoints(ctx, Collision.displayPoints);
   }
 
   static renderEntity(ctx, entity) {
