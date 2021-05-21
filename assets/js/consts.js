@@ -5,12 +5,14 @@ const
   CLASS_CANVAS = 'canvas',
   CLASS_BIRD = 'bird',
 
-  TARGET_FPS = 30,
+  TARGET_FPS = 60,
 
   BASE_MASS = 40,
   BASE_ANGLE = 0,
   DEFAULT_D2X = 0,
   DEFAULT_D2Y = 0.3,
+
+  FPS_COUNTER_FONT = '30px Arial';
 
   BIRD_DX = 5,
   BIRD_DY = -15,
@@ -43,7 +45,7 @@ const
   SLINGSHOT_DEFAULT_STRETCH_LENGTH = 0,
 
   HOOKES_CONSTANT = 0.4,
-  COLLISION_OBJECT_SCHEMA = {
+  PROJECTION_VECTORS_SCHEMA = {
     min: {
       value: Number.MAX_VALUE,
       point: 0,

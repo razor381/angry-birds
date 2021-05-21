@@ -1,4 +1,35 @@
 class Collision {
+
+  static getCollisionStatsSchema() {
+    return {
+      isColliding: false,
+      collisionDistance: 0,
+      shape1: {
+        collisionPoint: Point.getOrigin(),
+        reactionVector: Vector.getZeroVector(),
+      },
+      shape2: {
+        collisionPoint: Point.getOrigin(),
+        reactionVector: Vector.getZeroVector(),
+      },
+    };
+  }
+
+  static addCollisionDetection(objs) {
+    for (let i = 0; i < objs.length; i++) {
+      for (let j = 0; j < objs.length; j++) {
+        if (i != j) {
+          const collisionStats = Collision.isColliding(objs[i], objs[j]);
+
+          if (collisionStats.isColliding) {
+            objs[i].velocity = collisionStats.shape1.reactionVector;
+            objs[j].velocity = collisionStats.shape2.reactionVector;
+          }
+        }
+      }
+    }
+  }
+
   static isColliding(shape1, shape2) {
     if (shape1.isRound != shape2.isRound) return Collision.areCirclePolyColliding(shape1, shape2);
     else if (!shape1.isRound && !shape2.isRound) return Collision.arePolyonsColliding(shape1, shape2);
@@ -6,10 +37,81 @@ class Collision {
   }
 
   static areCirclesColliding(circle1, circle2) {
-    const distance = Point.getDistanceBetween(circle1.getCenter(), circle2.getCenter());
+    const collisionStats = Utils.copyObject(Collision.getCollisionStatsSchema());
+
+    const center1 = circle1.getCenter();
+    const center2 = circle2.getCenter();
+
+    const distance = Point.getDistanceBetween(center1, center2);
     const combinedRadius = circle1.radius + circle2.radius;
 
-    return distance <= combinedRadius;
+    if (distance <= combinedRadius) {
+      collisionStats.isColliding = true;
+      collisionStats.collisionDistance = combinedRadius - distance;
+
+      collisionStats.shape1.collisionPoint = new Point(
+        (center2.x - center1.x) / distance * circle1.radius,
+        (center2.y - center1.y) / distance * circle1.radius,
+      );
+
+      collisionStats.shape2.collisionPoint = new Point(
+        (center1.x - center2.x) / distance * circle2.radius,
+        (center1.y - center2.y) / distance * circle2.radius,
+      );
+
+      collisionStats.shape1.reactionVector = new Vector(
+        (center2.x - center1.x) - collisionStats.shape1.collisionPoint.x + collisionStats.shape2.collisionPoint.x,
+        (center2.y - center1.y) - collisionStats.shape1.collisionPoint.y + collisionStats.shape2.collisionPoint.y,
+      );
+
+      collisionStats.shape2.reactionVector = new Vector(
+        (center1.x - center2.x) - collisionStats.shape2.collisionPoint.x + collisionStats.shape1.collisionPoint.x,
+        (center1.y - center2.y) - collisionStats.shape2.collisionPoint.y + collisionStats.shape1.collisionPoint.y,
+      );
+    }
+
+    return collisionStats;
+  }
+
+  static areCirclePolyColliding(shape1, shape2) {
+    const collisionStats = Utils.copyObject(Collision.getCollisionStatsSchema());
+
+    const circle = shape1.isRound ? shape1 : shape2;
+    const poly = shape1.isRound ? shape2 : shape1;
+
+    const polyPoints = poly.getVertices();
+    const positionDifference = circle.getCenter();
+
+    const isColliding = Collision.areCollidingOnAxesWithCircle(
+      polyPoints,
+      circle.radius,
+      positionDifference,
+    );
+
+    if (!isColliding) return false;
+
+    return true;
+  }
+
+  static arePolyonsColliding(poly1, poly2) {
+    const collisionStats = Utils.copyObject(Collision.getCollisionStatsSchema());
+
+
+    // const positionDifference = Collision.getPositionDifference(poly1, poly2);
+    const positionDifference = Point.getOrigin();
+
+    // check circule collision first
+    const poly1Points = poly1.getVertices();
+    const poly2Points = poly2.getVertices();
+
+    // axes of first object
+    const isColliding1 = Collision.areCollidingOnAxes(poly1Points, poly2Points, positionDifference);
+    if (!isColliding1) return false;
+    // axes of second object
+    const isColliding2 = Collision.areCollidingOnAxes(poly2Points, poly1Points, positionDifference);
+    if (!isColliding2) return false;
+
+    return true;
   }
 
   static getProjectedPointOnLine(point, vector) {
@@ -18,19 +120,6 @@ class Collision {
     const fraction = dotProduct / magnitude;
 
     return new Vector(fraction * vector.x, fraction * vector.y);
-  }
-
-  static getRotatedPolyPoints(polygon) {
-    if (polygon.oldAngle !== polygon.angle) {
-      const rotatedPoints = [];
-
-      polygon.getCorners().forEach((point) => {
-        rotatedPoints.push(new Point(
-          point.x * Math.cos(polygon.angle) - point.y * Math.sin(polygon.angle),
-          point.x * Math.sin(polygon.angle) + point.y * Math.cos(polygon.angle),
-        ));
-      });
-    }
   }
 
   static getPositionDifference(shape1, shape2) {
@@ -56,27 +145,8 @@ class Collision {
     return true;
   }
 
-  static arePolyonsColliding(poly1, poly2) {
-
-    // const positionDifference = Collision.getPositionDifference(poly1, poly2);
-    const positionDifference = Point.getOrigin();
-
-    // check circule collision first
-    const poly1Points = poly1.getVertices();
-    const poly2Points = poly2.getVertices();
-
-    // axes of first object
-    const isColliding1 = Collision.areCollidingOnAxes(poly1Points, poly2Points, positionDifference);
-    if (!isColliding1) return false;
-    // axes of second object
-    const isColliding2 = Collision.areCollidingOnAxes(poly2Points, poly1Points, positionDifference);
-    if (!isColliding2) return false;
-
-    return true;
-  }
-
   /**
-    COLLISION_OBJECT_SCHEMA = {
+    PROJECTION_VECTORS_SCHEMA = {
       min: {
         value: Number.MAX_VALUE,
         point: 0,
@@ -89,7 +159,7 @@ class Collision {
     }
   */
   static getProjectedCollisionObj(points, lineVector) {
-    const polyObject = Utils.copyObject(COLLISION_OBJECT_SCHEMA);
+    const polyObject = Utils.copyObject(PROJECTION_VECTORS_SCHEMA);
 
     points.forEach((point, i) => {
       const projected = Collision.getProjectedPointOnLine(point, lineVector);
@@ -124,12 +194,11 @@ class Collision {
   }
 
   static getProjectedCollisionObjCircle(positionDifference, lineVector, radius) {
-    const polyObject = Utils.copyObject(COLLISION_OBJECT_SCHEMA);
+    const polyObject = Utils.copyObject(PROJECTION_VECTORS_SCHEMA);
 
     const projected = Collision.getProjectedPointOnLine(positionDifference, lineVector);
     const direction = (projected.x + projected.y) < 0 ? -1 : 1;
     const distanceOnLine = direction * projected.getMagnitude();
-
 
     polyObject.min.value = distanceOnLine - radius;
     polyObject.max.value = distanceOnLine + radius;
@@ -138,7 +207,6 @@ class Collision {
   }
 
   static isCollidesOnAxisWithCircle(lineVector, points, radius, positionDifference) {
-
     const obj1 = Collision.getProjectedCollisionObj(points, lineVector);
     const obj2 = Collision.getProjectedCollisionObjCircle(positionDifference, lineVector, radius);
 
@@ -160,24 +228,6 @@ class Collision {
 
       if (!isCollide) return false;
     }
-
-    return true;
-  }
-
-  static areCirclePolyColliding(shape1, shape2) {
-    const circle = shape1.isRound ? shape1 : shape2;
-    const poly = shape1.isRound ? shape2 : shape1;
-
-    const polyPoints = poly.getVertices();
-    const positionDifference = circle.getCenter();
-
-    const isColliding = Collision.areCollidingOnAxesWithCircle(
-      polyPoints,
-      circle.radius,
-      positionDifference,
-    );
-
-    if (!isColliding) return false;
 
     return true;
   }
