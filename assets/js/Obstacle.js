@@ -3,7 +3,7 @@ class Obstacle extends Base {
     super(
       position,
       Vector.getZeroVector(),
-      Vector.getZeroVector(),
+      Vector.getDefaultAcceleration(),
       BLOCK_MASS,
       Utils.createImage(IMAGE_BLOCK),
     );

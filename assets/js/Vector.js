@@ -8,8 +8,20 @@ class Vector {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   }
 
+  static add(p1, p2) {
+    return new Vector(p2.x + p1.x, p2.y + p1.y);
+  }
+
+  static subtract(p1, p2) {
+    return new Vector(p2.x - p1.x, p2.y - p1.y);
+  }
+
   static getZeroVector() {
     return new Vector(0, 0);
+  }
+
+  static multiplyVector(vector, multiplier) {
+    return new Vector(vector.x * multiplier, vector.y * multiplier);
   }
 
   static getNormal(point1, point2) {
