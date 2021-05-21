@@ -28,7 +28,7 @@ class Bird extends RoundObject {
 
   handleMovement() {
     this.move();
-    this.checkHalted();
+    // this.checkHalted();
   }
 
   static generateBirds(n = BIRDS_QTY) {

@@ -5,16 +5,19 @@ const
   CLASS_CANVAS = 'canvas',
   CLASS_BIRD = 'bird',
 
-  TARGET_FPS = 30,
+  TARGET_FPS = 60,
 
   BASE_MASS = 40,
   BASE_ANGLE = 0,
   DEFAULT_D2X = 0,
   DEFAULT_D2Y = 0.3,
 
+  FPS_COUNTER_FONT = '30px Arial';
+
   BIRD_DX = 5,
   BIRD_DY = -15,
-  BIRD_MASS = 30,
+  LAUNCH_MASS = 30,
+  BIRD_MASS = 60,
   BIRD_RADIUS = 25,
   BIRDS_QTY = 2,
   BIRD_STATE = {
@@ -25,15 +28,15 @@ const
     HALTED: 'HALTED',
   },
 
-  PIG_MASS = 100,
-  PIG_RADIUS = 50,
+  PIG_MASS = 10,
+  PIG_RADIUS = 20,
   PIG_STATE = {
     RESTING: 'RESTING',
   },
 
-  BLOCK_MASS = 40,
-  BLOCK_WIDTH = 82,
-  BLOCK_HEIGHT = 80,
+  BLOCK_MASS = 20,
+  BLOCK_WIDTH = 20,
+  BLOCK_HEIGHT = 20,
 
   SLINGSHOT_X = 80,
   SLINGSHOT_WIDTH = 60,
@@ -42,8 +45,8 @@ const
   SLINGSHOT_DEFAULT_ANGLE = 0,
   SLINGSHOT_DEFAULT_STRETCH_LENGTH = 0,
 
-  HOOKES_CONSTANT = 0.4,
-  COLLISION_OBJECT_SCHEMA = {
+  HOOKES_CONSTANT = 0.8,
+  PROJECTION_VECTORS_SCHEMA = {
     min: {
       value: Number.MAX_VALUE,
       point: 0,
@@ -55,9 +58,9 @@ const
     distances: [],
   }
 
-  GROUND_HEIGHT = 80,
+  GROUND_HEIGHT = 100,
 
-  DAMPING_X = 0.58,
+  DAMPING_X = 0.18,
   DAMPING_Y = 0.4,
   MIN_JUMP_VELOCITY = 0.9,
 
@@ -67,8 +70,8 @@ const
   IMAGE_SLINGSHOT = '/assets/img/slingshot.png',
   IMAGE_BACKGROUND = '/assets/img/background.jpeg',
 
-  DEFAULT_WINDOW_WIDTH = 1024,
-  DEFAULT_WINDOW_HEIGHT = 576;
+  DEFAULT_WINDOW_WIDTH = 1280,
+  DEFAULT_WINDOW_HEIGHT = 720;
 
 const GROUND_Y = DEFAULT_WINDOW_HEIGHT - GROUND_HEIGHT;
 

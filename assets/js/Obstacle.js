@@ -3,7 +3,7 @@ class Obstacle extends Base {
     super(
       position,
       Vector.getZeroVector(),
-      Vector.getZeroVector(),
+      Vector.getDefaultAcceleration(),
       BLOCK_MASS,
       Utils.createImage(IMAGE_BLOCK),
     );
@@ -41,8 +41,18 @@ class Obstacle extends Base {
   static generateBlocks() {
     const blocks = [];
 
-    for (let i = 0; i < 3; i++) {
-      blocks.push(new Obstacle(new Point(400 + i * 120, 200 + i * 100), BLOCK_WIDTH, BLOCK_HEIGHT));
+    const startPos = new Point(400, 20);
+
+    for (let i = 0; i < 15; i++) {
+      for (let j = 0; j < 3; j++) {
+        blocks.push(
+          new Obstacle(
+            Point.add(startPos, new Point(i * 40, j * 45)),
+            BLOCK_WIDTH,
+            BLOCK_HEIGHT,
+          )
+        );
+      }
     }
 
     return blocks;
