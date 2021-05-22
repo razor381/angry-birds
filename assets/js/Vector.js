@@ -8,12 +8,12 @@ class Vector {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   }
 
-  static add(p1, p2) {
-    return new Vector(p2.x + p1.x, p2.y + p1.y);
+  static add(v1, v2) {
+    return new Vector(v2.x + v1.x, v2.y + v1.y);
   }
 
-  static subtract(p1, p2) {
-    return new Vector(p2.x - p1.x, p2.y - p1.y);
+  static subtract(v1, v2) {
+    return new Vector(v2.x - v1.x, v2.y - v1.y);
   }
 
   static getZeroVector() {

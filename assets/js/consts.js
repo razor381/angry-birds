@@ -5,7 +5,7 @@ const
   CLASS_CANVAS = 'canvas',
   CLASS_BIRD = 'bird',
 
-  TARGET_FPS = 30,
+  TARGET_FPS = 50,
 
   BASE_MASS = 40,
   BASE_ANGLE = 0,
