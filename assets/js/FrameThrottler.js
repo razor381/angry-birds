@@ -1,11 +1,12 @@
 class FrameThrottler {
-  constructor(fps) {
+  constructor(fps, ctx) {
     this.frameInterval = 1000 / fps; //milliseconds
     this.frameCount = 0;
     this.then = window.performance.now();
     this.startTime = this.then;
     this.now = 0;
     this.elapsed = 0;
+    this.ctx = ctx;
   }
 
   shouldRenderNextFrame(newTime) {
@@ -23,6 +24,11 @@ class FrameThrottler {
 
   getFps() {
     const sinceStart = this.now - this.startTime;
-    return Math.round(1000 / (sinceStart / ++this.frameCount) * 100) / 100;
+    return Math.round(1000 / (sinceStart / ++this.frameCount));
+  }
+
+  renderFPS() {
+    this.ctx.font = FPS_COUNTER_FONT;
+    this.ctx.fillText(this.getFps(), DEFAULT_WINDOW_WIDTH - 50, 30);
   }
 }

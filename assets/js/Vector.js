@@ -8,8 +8,24 @@ class Vector {
     return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
   }
 
+  static add(v1, v2) {
+    return new Vector(v2.x + v1.x, v2.y + v1.y);
+  }
+
+  static subtract(v1, v2) {
+    return new Vector(v2.x - v1.x, v2.y - v1.y);
+  }
+
   static getZeroVector() {
     return new Vector(0, 0);
+  }
+
+  static multiplyVector(vector, multiplier) {
+    return new Vector(vector.x * multiplier, vector.y * multiplier);
+  }
+
+  static divideVector(vector, divider) {
+    return new Vector(vector.x / divider, vector.y / divider);
   }
 
   static getNormal(point1, point2) {
@@ -21,7 +37,7 @@ class Vector {
   }
 
   static getLaunchVelocity(x) {
-    return Math.sqrt((2 * HOOKES_CONSTANT * x * x) / BIRD_MASS);
+    return Math.sqrt((2 * HOOKES_CONSTANT * x * x) / LAUNCH_MASS);
   }
 
   static getComponents(magnitude, angle) {

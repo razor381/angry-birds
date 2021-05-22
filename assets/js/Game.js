@@ -7,7 +7,7 @@ class Game {
     this.canvas = new Canvas();
     this.ctx = this.canvas.ctx;
     this.shouldRender = true;
-    this.fps = new FrameThrottler(TARGET_FPS);
+    this.fps = new FrameThrottler(TARGET_FPS, this.ctx);
 
     this.initGameObjects();
     this.play();
@@ -17,15 +17,27 @@ class Game {
     this.background = StaticObject.createBackground();
     this.birds = Bird.generateBirds();
     this.slingshot = new Slingshot(this.canvas, this.birds);
-    this.pig = new Pig(new Point(700, GROUND_Y-4 * PIG_RADIUS));
-    this.block = new Obstacle(new Point(400, GROUND_Y-4 * BLOCK_HEIGHT), BLOCK_WIDTH*4, BLOCK_HEIGHT);
+
+    this.pigs = Pig.generatePigs();
+    this.blocks = Obstacle.generateBlocks();
+
+    this.collidableObjects = [
+      this.slingshot.activeBird,
+      ...this.pigs,
+      ...this.blocks,
+    ];
   }
 
   play() {
+
     (function animate(newTime) {
       this.shouldRender && requestAnimationFrame(animate.bind(this));
 
       if (this.fps.shouldRenderNextFrame(newTime)) {
+
+        this.moveGameObjects();
+
+        Collision.addCollisionDetection(this.collidableObjects);
         !this.slingshot.activeBird && this.slingshot.loadBird();
         const { activeBird } = this.slingshot;
 
@@ -54,11 +66,19 @@ class Game {
     const toRender = [
       this.background,
       this.slingshot,
-      this.block,
-      this.pig,
       this.slingshot.activeBird,
+      ...this.blocks,
+      ...this.pigs,
     ];
 
     toRender.forEach((entity) => entity.render(this.ctx));
+    Point.plotPoints(ctx);
+    this.fps.renderFPS(ctx);
+  }
+
+  moveGameObjects() {
+    const movables = [...this.pigs, ...this.blocks];
+
+    movables.forEach((obj) => obj.move());
   }
 }
