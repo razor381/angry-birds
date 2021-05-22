@@ -43,8 +43,8 @@ class Obstacle extends Base {
 
     const startPos = new Point(400, 20);
 
-    for (let i = 0; i < 15; i++) {
-      for (let j = 0; j < 3; j++) {
+    for (let i = 0; i < 1; i++) {
+      for (let j = 0; j < 4; j++) {
         blocks.push(
           new Obstacle(
             Point.add(startPos, new Point(i * 40, j * 45)),
