@@ -1,11 +1,13 @@
 class Game {
-  constructor() {
+  constructor(main) {
+    this.canvas = main.canvas;
+    this.ctx = main.ctx;
+    this.gameState = main.gameState;
+
     this.init();
   }
 
   init() {
-    this.canvas = new Canvas();
-    this.ctx = this.canvas.ctx;
     this.shouldRender = true;
     this.fps = new FrameThrottler(TARGET_FPS, this.ctx);
 
