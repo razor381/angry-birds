@@ -38,14 +38,14 @@ class Collision {
     return Collision.areCirclesColliding(shape1, shape2);
   }
 
-  static areCirclesColliding(circle1, circle2) {
+  static areCirclesColliding(shape1, shape2) {
     const collisionStats = Utils.copyObject(Collision.getCollisionStatsSchema());
 
-    const center1 = circle1.getCenter();
-    const center2 = circle2.getCenter();
+    const center1 = shape1.getCenter();
+    const center2 = shape2.getCenter();
 
-    const radius1 = circle1.radius || circle1.width / 2;
-    const radius2 = circle2.radius || circle2.width / 2;
+    const radius1 = shape1.radius || shape1.width / 2;
+    const radius2 = shape2.radius || shape2.width / 2;
 
     const distance = Point.getDistanceBetween(center1, center2);
     const combinedRadius = radius1 + radius2;
@@ -64,15 +64,26 @@ class Collision {
         (center1.y - center2.y) / distance * radius2,
       );
 
-      collisionStats.shape1.reactionVector = new Vector(
+      const reactionVector1 = new Vector(
         (center2.x - center1.x) - collisionStats.shape1.collisionPoint.x + collisionStats.shape2.collisionPoint.x,
         (center2.y - center1.y) - collisionStats.shape1.collisionPoint.y + collisionStats.shape2.collisionPoint.y,
       );
 
-      collisionStats.shape2.reactionVector = new Vector(
+      const reactionVector2 = new Vector(
         (center1.x - center2.x) - collisionStats.shape2.collisionPoint.x + collisionStats.shape1.collisionPoint.x,
         (center1.y - center2.y) - collisionStats.shape2.collisionPoint.y + collisionStats.shape1.collisionPoint.y,
       );
+
+      const combinedMass = shape1.mass + shape2.mass;
+      // const combinedMass = Math.max(shape1.mass, shape2.mass);
+
+      const effectiveMass1 = shape1.mass / combinedMass;
+      const effectiveMass2 = shape2.mass / combinedMass;
+
+      collisionStats.shape1.reactionVector = Vector.divideVector(reactionVector1, effectiveMass1);
+      collisionStats.shape2.reactionVector = Vector.divideVector(reactionVector2, effectiveMass2);
+      // collisionStats.shape1.reactionVector = reactionVector1;
+      // collisionStats.shape2.reactionVector = reactionVector2;
     }
 
     return collisionStats;

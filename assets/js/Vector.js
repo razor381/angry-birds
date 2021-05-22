@@ -24,6 +24,10 @@ class Vector {
     return new Vector(vector.x * multiplier, vector.y * multiplier);
   }
 
+  static divideVector(vector, divider) {
+    return new Vector(vector.x / divider, vector.y / divider);
+  }
+
   static getNormal(point1, point2) {
     return new Vector(point2.y - point1.y,- point2.x + point1.x);
   }
@@ -33,7 +37,7 @@ class Vector {
   }
 
   static getLaunchVelocity(x) {
-    return Math.sqrt((2 * HOOKES_CONSTANT * x * x) / BIRD_MASS);
+    return Math.sqrt((2 * HOOKES_CONSTANT * x * x) / LAUNCH_MASS);
   }
 
   static getComponents(magnitude, angle) {
