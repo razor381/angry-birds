@@ -162,6 +162,7 @@ body {
   color: white;
   text-shadow: var(--black-outline);
   font-size: 4em;
+  pointer-events: none;
 }
 
 .level-stars {
@@ -169,6 +170,7 @@ body {
   font-size: 2em;
   margin-top: 1rem;
   text-shadow: var(--black-outline);
+  pointer-events: none;
 }
 
 .results-card {
@@ -206,7 +208,6 @@ body {
   margin: 1rem 0;
   font-size: 3em;
 }
-
 
 .scores-stars-img {
   height: 6rem;

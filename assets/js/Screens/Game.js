@@ -1,5 +1,6 @@
 class Game {
   constructor(main) {
+    this.main = main;
     this.canvas = main.canvas;
     this.ctx = main.ctx;
     this.gameState = main.gameState;
@@ -8,11 +9,7 @@ class Game {
   }
 
   init() {
-    this.shouldRender = true;
-    this.fps = new FrameThrottler(TARGET_FPS, this.ctx);
-
     this.initGameObjects();
-    this.play();
   }
 
   initGameObjects() {
@@ -30,39 +27,31 @@ class Game {
     ];
   }
 
-  play() {
+  render() {
+    this.moveGameObjects();
 
-    (function animate(newTime) {
-      this.shouldRender && requestAnimationFrame(animate.bind(this));
+    Collision.addCollisionDetection(this.collidableObjects);
+    !this.slingshot.activeBird && this.slingshot.loadBird();
+    const { activeBird } = this.slingshot;
 
-      if (this.fps.shouldRenderNextFrame(newTime)) {
+    switch(this.slingshot.activeBird.state) {
+      case BIRD_STATE.WAITING:
+        break;
+      case BIRD_STATE.READY:
+        break;
+      case BIRD_STATE.FLIGHT:
+        activeBird.handleMovement();
+        break;
+      case BIRD_STATE.HALTED:
+        this.shouldRender = false;
+        break;
+      default:
+    }
 
-        this.moveGameObjects();
-
-        Collision.addCollisionDetection(this.collidableObjects);
-        !this.slingshot.activeBird && this.slingshot.loadBird();
-        const { activeBird } = this.slingshot;
-
-        switch(this.slingshot.activeBird.state) {
-          case BIRD_STATE.WAITING:
-            break;
-          case BIRD_STATE.READY:
-            break;
-          case BIRD_STATE.FLIGHT:
-            activeBird.handleMovement();
-            break;
-          case BIRD_STATE.HALTED:
-            this.shouldRender = false;
-            break;
-          default:
-        }
-
-        this.render(this.ctx);
-      }
-    }.bind(this))();
+    this.draw(this.ctx);
   }
 
-  render(ctx) {
+  draw(ctx) {
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     const toRender = [
@@ -75,7 +64,6 @@ class Game {
 
     toRender.forEach((entity) => entity.render(this.ctx));
     Point.plotPoints(ctx);
-    this.fps.renderFPS(ctx);
   }
 
   moveGameObjects() {

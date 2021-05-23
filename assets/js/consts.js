@@ -40,6 +40,7 @@ const MIN_JUMP_VELOCITY = 0.9;
 
 const LAUNCH_MASS = 30;
 const LEVELS_NUMBER = 5;
+const LEVEL_ONE = 1;
 
 const PIG_MASS = 10;
 const PIG_RADIUS = 20;

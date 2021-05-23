@@ -69,11 +69,9 @@ class Levels {
   }
 
   levelClickHandler = (e) => {
-    const level = e.target.dataset.levelData;
-    if (level) {
-      this.hideLevelScreen();
-      this.main.gameState = GAME_STATES.PLAYING;
-    }
+    this.hideLevelScreen();
+    this.main.gamePlayLevel = e.target.dataset.levelData;
+    this.main.gameState = GAME_STATES.PLAYING;
   }
 
   addLevelsSelectionListener() {

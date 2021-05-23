@@ -6,70 +6,63 @@ class Main {
   init() {
     this.canvas = new Canvas(this);
     this.ctx = this.canvas.ctx;
-    this.gameState = GAME_STATES.RESULTS;
+    this.gameState = GAME_STATES.MENU;
     this.fps = new FrameThrottler(this, TARGET_FPS);
     this.loader = new Loader(this);
     this.game = new Game(this);
     this.menu = new Menu(this);
     this.levels = new Levels(this);
+    this.gamePlayLevel = LEVEL_ONE;
     this.results = new Results(this);
-    // this.animateId = undefined;
-    // this.start();
+    this.animateId = undefined;
 
-    this.runGame.bind(this);
-
-    this.runGame();
+    this.start();
   }
 
   runGame(time) {
-    this.clearScreen();
+    this.animateId = undefined;
 
-    switch(this.gameState) {
-      case GAME_STATES.LOADING:
-        this.loader.render();
-        break;
+    if(this.fps.shouldRenderNextFrame(time)) {
+      this.clearScreen();
 
-      case GAME_STATES.MENU:
-        this.menu.render();
-        break;
+      switch(this.gameState) {
+        case GAME_STATES.LOADING:
+          this.loader.render();
+          break;
 
-      case GAME_STATES.LEVEL_SELECTION:
-        this.levels.render();
-        break;
+        case GAME_STATES.MENU:
+          this.menu.render();
+          break;
 
-      case GAME_STATES.PLAYING:
-        break;
+        case GAME_STATES.LEVEL_SELECTION:
+          this.levels.render();
+          break;
 
-      case GAME_STATES.RESULTS:
-        this.results.render();
-        break;
+        case GAME_STATES.PLAYING:
+          this.game.render(this.gamePlayLevel);
+          break;
+
+        case GAME_STATES.RESULTS:
+          this.results.render();
+          break;
+      }
     }
+    this.start();
+  }
 
-    window.requestAnimationFrame(this.runGame.bind(this));
+  start() {
+    if (!this.animateId) {
+      this.animateId = window.requestAnimationFrame(this.runGame.bind(this));
+    }
+  }
+
+  stop() {
+    if (this.animateId) {
+      window.cancelAnimationFrame(this.animateId);
+    }
   }
 
   clearScreen() {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
   }
-
-  // loop(time) {
-  //   if (this.fps.shouldRenderNextFrame(time)) {
-  //     this.runGame();
-  //     this.start();
-  //   }
-  // }
-
-  // start() {
-  //   if (!this.animateId) {
-  //     this.animateId = window.requestAnimationFrame(this.loop.bind(this));
-  //   }
-  // }
-
-  // stop() {
-  //   if (this.animateId) {
-  //     window.cancelAnimationFrame(this.animateId);
-  //     this.animateId = undefined;
-  //   }
-  // }
 }
