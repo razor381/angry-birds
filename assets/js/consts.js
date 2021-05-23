@@ -111,6 +111,12 @@ const CLASS_RESULTS_LEVELS_BTN = '.results__levels-btn';
 const CLASS_MENU_SCREEN = '.menu-screen';
 const CLASS_RESULTS_SCREEN = '.results-screen';
 const CLASS_START_BTN = '.start-btn';
+const CLASS_PAUSE_BTN = '.pause-btn';
+const CLASS_PAUSE_SCREEN = '.pause-screen';
+const CLASS_RESUME_BTN = '.pause-card__resume-btn';
+const CLASS_RESTART_BTN = '.pause-card__restart-btn';
+const CLASS_EXIT_BTN = '.pause-card__exit-btn';
+const CLASS_PLAY_BTN = '.play-btn';
 const ID_CONTAINER = '#main-container';
 
 
