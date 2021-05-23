@@ -39,6 +39,7 @@ const IMAGE_BACKGROUND = '/assets/img/background.jpeg';
 const MIN_JUMP_VELOCITY = 0.9;
 
 const LAUNCH_MASS = 30;
+const LEVELS_NUMBER = 5;
 
 const PIG_MASS = 10;
 const PIG_RADIUS = 20;
@@ -69,6 +70,9 @@ const TARGET_FPS = 60;
 
 const TAG_BODY = 'body';
 const TAG_CANVAS = 'canvas';
+const TAG_DIV = 'div';
+const TAG_UL = 'ul';
+const TAG_LI = 'li';
 
 // states
 
@@ -92,11 +96,21 @@ const GAME_STATES = {
 
 // DOM ids and classes
 
-const ID_CONTAINER = '#main-container';
-const CLASS_MENU_SCREEN = '.menu-screen';
+const CLASS_BUILD_BTN = '.build-btn';
 const CLASS_HIDDEN = 'hidden';
-const START_BTN = '.start-btn';
-const BUILD_BTN = '.build-btn';
+const CLASS_LEVELS_LISTING = '.levels-listing';
+const CLASS_LEVELS = 'levels';
+const CLASS_LEVEL = 'level';
+const CLASS_LEVEL_NUMBER = 'level-number';
+const CLASS_LEVEL_STARS = 'level-stars';
+const CLASS_LEVELS_SCREEN = '.level-selector-screen';
+const CLASS_LEVELS_BACK_BTN = '.levels-back-btn';
+const CLASS_RESULTS_MENU_BTN = '.results__menu-btn';
+const CLASS_RESULTS_LEVELS_BTN = '.results__levels-btn';
+const CLASS_MENU_SCREEN = '.menu-screen';
+const CLASS_RESULTS_SCREEN = '.results-screen';
+const CLASS_START_BTN = '.start-btn';
+const ID_CONTAINER = '#main-container';
 
 
 // ** relative consts **

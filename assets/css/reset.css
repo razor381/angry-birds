@@ -26,3 +26,7 @@ button {
   border-style: none;
   background-color: none;
 }
+
+li {
+  list-style: none;
+}

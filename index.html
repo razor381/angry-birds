@@ -12,25 +12,73 @@
 </head>
 <body id="body">
 
-  <div id="main-container">
+  <main id="main-container">
 
     <!-- menu screen -->
-    <div class="screen menu-screen hidden">
-      <div class="menu-screen__controls">
-        <button class="btn start-btn">Start</button>
-        <button class="btn build-btn">Build</button>
+    <article class="screen menu-screen hidden">
+      <div class="screen-content menu-content">
+        <div class="menu-screen__controls">
+          <button class="btn start-btn">Start</button>
+          <button class="btn build-btn">Build</button>
+        </div>
       </div>
-    </div>
+    </article>
 
-  </div>
+    <!-- level selector screen -->
+    <article class="screen level-selector-screen hidden">
+      <div class="screen-header">
+        <button class="btn screen-header__back-btn levels-back-btn">Back</button>
+        <h2 class="screen-header__title">Select Level</h2>
+      </div>
+      <div class="screen-content levels-listing">
+        <ul class="levels">
+        </ul>
+      </div>
+    </article>
+
+    <!-- results screen -->
+    <article class="screen results-screen hidden">
+      <div class="screen-header">
+        <h2 class="screen-header__title">Level Cleared!</h2>
+      </div>
+      <div class="screen-content">
+        <div class="results-card">
+          <div class="results-stats">
+            <div class="results-stats__scores">
+              <p class="scores-title">Score:</p>
+              <p class="scores-number">140,000,000</p>
+              <div class="scores-stars">
+                <img src="/assets/img/results-stars.png" alt="stars" class="scores-stars-img">
+              </div>
+            </div>
+            <div class="results-stats__rank">
+              <img
+                src="/assets/img/results.png"
+                alt="amazed birds image"
+                class="results-stats__rank-img"
+              >
+            </div>
+          </div>
+          <div class="results-buttons">
+            <button class="btn results__menu-btn">Menu</button>
+            <button class="btn results__levels-btn">Levels</button>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </main>
 
   <script src="assets/js/consts.js"></script>
 
   <script src="assets/js/Utilities/utils.js"></script>
   <script src="assets/js/Utilities/FrameThrottler.js"></script>
-  <script src="assets/js/Utilities/Point.js"></script>
-  <script src="assets/js/Utilities/Vector.js"></script>
   <script src="assets/js/Utilities/Collision.js"></script>
+
+  <script src="assets/js/Components/Canvas.js"></script>
+  <script src="assets/js/Components/Point.js"></script>
+  <script src="assets/js/Components/Vector.js"></script>
+  <script src="assets/js/Components/LevelCard.js"></script>
 
   <script src="assets/js/GameObjects/Base.js"></script>
   <script src="assets/js/GameObjects/RoundObject.js"></script>
@@ -42,10 +90,10 @@
 
   <script src="assets/js/Screens/Loader.js"></script>
   <script src="assets/js/Screens/Menu.js"></script>
+  <script src="assets/js/Screens/Levels.js"></script>
   <script src="assets/js/Screens/Game.js"></script>
   <script src="assets/js/Screens/Results.js"></script>
 
-  <script src="assets/js/Canvas.js"></script>
   <script src="assets/js/Main.js"></script>
 
   <script> const game = new Main() </script>
