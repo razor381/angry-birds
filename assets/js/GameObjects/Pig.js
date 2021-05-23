@@ -14,7 +14,7 @@ class Pig extends RoundObject {
 
     const startPos = new Point(500, 200);
 
-    for (let i = 0; i < 13; i++) {
+    for (let i = 0; i < 1; i++) {
       for (let j = 0; j < 3; j++) {
         pigs.push(
           new Pig(

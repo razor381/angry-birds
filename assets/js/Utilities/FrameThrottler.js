@@ -1,5 +1,5 @@
 class FrameThrottler {
-  constructor(fps, ctx) {
+  constructor(ctx, fps) {
     this.frameInterval = 1000 / fps; //milliseconds
     this.frameCount = 0;
     this.then = window.performance.now();

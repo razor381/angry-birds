@@ -1,7 +1,15 @@
+@font-face {
+  font-family: "angrybirds";
+  src: url("/assets/fonts/angrybirds-regular.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
 * {
   margin: 0;
   box-sizing: border-box;
   user-select: none;
+  font-family: 'angrybirds';
 }
 
 html, body {
@@ -11,11 +19,14 @@ html, body {
 
 body {
   height: inherit;
-  font-family: 'Roboto slab';
   background-color: #17705d;
 }
 
 button {
   border-style: none;
   background-color: none;
+}
+
+li {
+  list-style: none;
 }
