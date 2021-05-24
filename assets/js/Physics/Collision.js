@@ -15,21 +15,6 @@ class Collision {
     };
   }
 
-  static addCollisionDetection(objs) {
-    for (let i = 0; i < objs.length - 1; i++) {
-      for (let j = i + 1; j < objs.length; j++) {
-        if (i != j) {
-          const collisionStats = Collision.isColliding(objs[i], objs[j]);
-
-          if (collisionStats.isColliding) {
-            objs[i].velocity = collisionStats.shape1.reactionVector;
-            objs[j].velocity = collisionStats.shape2.reactionVector;
-          }
-        }
-      }
-    }
-  }
-
   static isColliding(shape1, shape2) {
     // if (shape1.isRound != shape2.isRound) return Collision.areCirclePolyColliding(shape1, shape2);
     // else if (!shape1.isRound && !shape2.isRound) return Collision.arePolyonsColliding(shape1, shape2);
@@ -80,10 +65,11 @@ class Collision {
       const effectiveMass1 = shape1.mass / combinedMass;
       const effectiveMass2 = shape2.mass / combinedMass;
 
-      collisionStats.shape1.reactionVector = Vector.divideVector(reactionVector1, effectiveMass1);
-      collisionStats.shape2.reactionVector = Vector.divideVector(reactionVector2, effectiveMass2);
-      // collisionStats.shape1.reactionVector = reactionVector1;
-      // collisionStats.shape2.reactionVector = reactionVector2;
+      // collisionStats.shape1.reactionVector = Vector.divideVector(reactionVector1, effectiveMass1);
+      // collisionStats.shape2.reactionVector = Vector.divideVector(reactionVector2, effectiveMass2);
+
+      collisionStats.shape1.reactionVector = reactionVector1;
+      collisionStats.shape2.reactionVector = reactionVector2;
     }
 
     return collisionStats;
@@ -267,67 +253,67 @@ class Collision {
           }
         });
 
-        // if (noObj1LinePoints == 1 && noObj2LinePoints > 1) {
-        //   collisionStats.shape1.collisionPoint = points1[obj1.max.point];
-        //   collisionStats.shape1.reactionVector = new Vector(
-        //     lineVector.x / collisionStats.vectorLength * collisionStats.collisionDistance,
-        //     lineVector.y / collisionStats.vectorLength * collisionStats.collisionDistance,
-        //   );
+        if (noObj1LinePoints == 1 && noObj2LinePoints > 1) {
+          collisionStats.shape1.collisionPoint = points1[obj1.max.point];
+          collisionStats.shape1.reactionVector = new Vector(
+            lineVector.x / collisionStats.vectorLength * collisionStats.collisionDistance,
+            lineVector.y / collisionStats.vectorLength * collisionStats.collisionDistance,
+          );
 
-        //   if (Vector.getDotProduct(
-        //     collisionStats.shape1.reactionVector,
-        //     collisionStats.shape1.collisionPoint
-        //   ) > 0) {
-        //     collisionStats.shape1.reactionVector = Vector.multiplyVector(
-        //       collisionStats.shape1.reactionVector,
-        //       -1,
-        //     );
-        //   }
+          if (Vector.getDotProduct(
+            collisionStats.shape1.reactionVector,
+            collisionStats.shape1.collisionPoint
+          ) > 0) {
+            collisionStats.shape1.reactionVector = Vector.multiplyVector(
+              collisionStats.shape1.reactionVector,
+              -1,
+            );
+          }
 
-        //   collisionStats.shape2.collisionPoint = Point.add(
-        //     Point.subtract(
-        //       positionDifference,
-        //       collisionStats.shape1.collisionPoint,
-        //     ),
-        //     collisionStats.shape1.reactionVector,
-        //   );
+          collisionStats.shape2.collisionPoint = Point.add(
+            Point.subtract(
+              positionDifference,
+              collisionStats.shape1.collisionPoint,
+            ),
+            collisionStats.shape1.reactionVector,
+          );
 
-        //   collisionStats.shape2.reactionVector = Vector.multiplyVector(
-        //     collisionStats.shape1.reactionVector,
-        //     -1,
-        //   )
-        // }
+          collisionStats.shape2.reactionVector = Vector.multiplyVector(
+            collisionStats.shape1.reactionVector,
+            -1,
+          )
+        }
 
-        // if (noObj1LinePoints > 1 && noObj2LinePoints == 1) {
-        //   collisionStats.shape2.collisionPoint = points1[obj2.min.point];
-        //   collisionStats.shape2.reactionVector = new Vector(
-        //     lineVector.x / collisionStats.vectorLength * collisionStats.collisionDistance,
-        //     lineVector.y / collisionStats.vectorLength * collisionStats.collisionDistance,
-        //   );
+        if (noObj1LinePoints > 1 && noObj2LinePoints == 1) {
+          collisionStats.shape2.collisionPoint = points1[obj2.min.point];
+          collisionStats.shape2.reactionVector = new Vector(
+            lineVector.x / collisionStats.vectorLength * collisionStats.collisionDistance,
+            lineVector.y / collisionStats.vectorLength * collisionStats.collisionDistance,
+          );
 
-        //   if (Vector.getDotProduct(
-        //     collisionStats.shape2.reactionVector,
-        //     collisionStats.shape2.collisionPoint
-        //   ) > 0) {
-        //     collisionStats.shape2.reactionVector = Vector.multiplyVector(
-        //       collisionStats.shape2.reactionVector,
-        //       -1,
-        //     );
-        //   }
+          if (Vector.getDotProduct(
+            collisionStats.shape2.reactionVector,
+            collisionStats.shape2.collisionPoint
+          ) > 0) {
+            collisionStats.shape2.reactionVector = Vector.multiplyVector(
+              collisionStats.shape2.reactionVector,
+              -1,
+            );
+          }
 
-        //   collisionStats.shape1.collisionPoint = Point.add(
-        //     Point.add(
-        //       collisionStats.shape2.collisionPoint,
-        //       positionDifference,
-        //     ),
-        //     collisionStats.shape2.reactionVector,
-        //   );
+          collisionStats.shape1.collisionPoint = Point.add(
+            Point.add(
+              collisionStats.shape2.collisionPoint,
+              positionDifference,
+            ),
+            collisionStats.shape2.reactionVector,
+          );
 
-        //   collisionStats.shape1.reactionVector = Vector.multiplyVector(
-        //     collisionStats.shape2.reactionVector,
-        //     -1,
-        //   )
-        // }
+          collisionStats.shape1.reactionVector = Vector.multiplyVector(
+            collisionStats.shape2.reactionVector,
+            -1,
+          )
+        }
 
         if (noObj1LinePoints > 1 && noObj2LinePoints > 1) {
           collisionStats.shape1.collisionPoint = closestObj1Point;
@@ -409,67 +395,67 @@ class Collision {
           }
         });
 
-        // if (noObj1LinePoints == 1 && noObj2LinePoints > 1) {
-        //   collisionStats.shape1.collisionPoint = points1[obj1.min.point];
-        //   collisionStats.shape1.reactionVector = new Vector(
-        //     lineVector.x / collisionStats.vectorLength * collisionStats.collisionDistance,
-        //     lineVector.y / collisionStats.vectorLength * collisionStats.collisionDistance,
-        //   );
+        if (noObj1LinePoints == 1 && noObj2LinePoints > 1) {
+          collisionStats.shape1.collisionPoint = points1[obj1.min.point];
+          collisionStats.shape1.reactionVector = new Vector(
+            lineVector.x / collisionStats.vectorLength * collisionStats.collisionDistance,
+            lineVector.y / collisionStats.vectorLength * collisionStats.collisionDistance,
+          );
 
-        //   if (Vector.getDotProduct(
-        //     collisionStats.shape1.reactionVector,
-        //     collisionStats.shape1.collisionPoint
-        //   ) > 0) {
-        //     collisionStats.shape1.reactionVector = Vector.multiplyVector(
-        //       collisionStats.shape1.reactionVector,
-        //       -1,
-        //     );
-        //   }
+          if (Vector.getDotProduct(
+            collisionStats.shape1.reactionVector,
+            collisionStats.shape1.collisionPoint
+          ) > 0) {
+            collisionStats.shape1.reactionVector = Vector.multiplyVector(
+              collisionStats.shape1.reactionVector,
+              -1,
+            );
+          }
 
-        //   collisionStats.shape2.collisionPoint = Point.add(
-        //     Point.subtract(
-        //       positionDifference,
-        //       collisionStats.shape1.collisionPoint,
-        //     ),
-        //     collisionStats.shape1.reactionVector,
-        //   );
+          collisionStats.shape2.collisionPoint = Point.add(
+            Point.subtract(
+              positionDifference,
+              collisionStats.shape1.collisionPoint,
+            ),
+            collisionStats.shape1.reactionVector,
+          );
 
-        //   collisionStats.shape2.reactionVector = Vector.multiplyVector(
-        //     collisionStats.shape1.reactionVector,
-        //     -1,
-        //   )
-        // }
+          collisionStats.shape2.reactionVector = Vector.multiplyVector(
+            collisionStats.shape1.reactionVector,
+            -1,
+          )
+        }
 
-        // if (noObj1LinePoints > 1 && noObj2LinePoints == 1) {
-        //   collisionStats.shape2.collisionPoint = points1[obj2.max.point];
-        //   collisionStats.shape2.reactionVector = new Vector(
-        //     lineVector.x / collisionStats.vectorLength * collisionStats.collisionDistance,
-        //     lineVector.y / collisionStats.vectorLength * collisionStats.collisionDistance,
-        //   );
+        if (noObj1LinePoints > 1 && noObj2LinePoints == 1) {
+          collisionStats.shape2.collisionPoint = points1[obj2.max.point];
+          collisionStats.shape2.reactionVector = new Vector(
+            lineVector.x / collisionStats.vectorLength * collisionStats.collisionDistance,
+            lineVector.y / collisionStats.vectorLength * collisionStats.collisionDistance,
+          );
 
-        //   if (Vector.getDotProduct(
-        //     collisionStats.shape2.reactionVector,
-        //     collisionStats.shape2.collisionPoint
-        //   ) > 0) {
-        //     collisionStats.shape2.reactionVector = Vector.multiplyVector(
-        //       collisionStats.shape2.reactionVector,
-        //       -1,
-        //     );
-        //   }
+          if (Vector.getDotProduct(
+            collisionStats.shape2.reactionVector,
+            collisionStats.shape2.collisionPoint
+          ) > 0) {
+            collisionStats.shape2.reactionVector = Vector.multiplyVector(
+              collisionStats.shape2.reactionVector,
+              -1,
+            );
+          }
 
-        //   collisionStats.shape1.collisionPoint = Point.add(
-        //     Point.add(
-        //       collisionStats.shape2.collisionPoint,
-        //       positionDifference,
-        //     ),
-        //     collisionStats.shape2.reactionVector,
-        //   );
+          collisionStats.shape1.collisionPoint = Point.add(
+            Point.add(
+              collisionStats.shape2.collisionPoint,
+              positionDifference,
+            ),
+            collisionStats.shape2.reactionVector,
+          );
 
-        //   collisionStats.shape1.reactionVector = Vector.multiplyVector(
-        //     collisionStats.shape2.reactionVector,
-        //     -1,
-        //   )
-        // }
+          collisionStats.shape1.reactionVector = Vector.multiplyVector(
+            collisionStats.shape2.reactionVector,
+            -1,
+          )
+        }
 
         if (noObj1LinePoints > 1 && noObj2LinePoints > 1) {
           collisionStats.shape1.collisionPoint = closestObj1Point;

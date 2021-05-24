@@ -2,12 +2,12 @@ class Levels {
   constructor(main) {
     this.main = main;
     this.ctx = main.ctx;
-    this.levelCards = [];
 
     this.init();
   }
 
   init() {
+    this.levelCards = [];
     this.levelsScreen = Utils.getEl(CLASS_LEVELS_SCREEN);
     this.levelsListing = Utils.getEl(CLASS_LEVELS_LISTING);
     this.backButton = Utils.getEl(CLASS_LEVELS_BACK_BTN);

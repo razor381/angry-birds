@@ -1,29 +1,14 @@
 class Pig extends RoundObject {
-  constructor(position) {
+  constructor(position, subtype) {
     super(
       position,
       PIG_MASS,
       PIG_RADIUS,
       PIG_STATE.RESTING,
       Utils.createImage(IMAGE_PIG),
+      ENTITY_TYPE.ENEMY,
     );
-  }
 
-  static generatePigs() {
-    const pigs = [];
-
-    const startPos = new Point(500, 200);
-
-    for (let i = 0; i < 1; i++) {
-      for (let j = 0; j < 3; j++) {
-        pigs.push(
-          new Pig(
-            Point.add(startPos, new Point(i * 45, j * 65)),
-          )
-        );
-      }
-    }
-
-    return pigs;
+    this.subtype = subtype;
   }
 }

@@ -1,5 +1,7 @@
 class Base {
-  constructor(position, velocity, acceleration, mass, image, isRound = false) {
+  constructor(position, velocity, acceleration, mass, image, type, isRound = false) {
+    this.id = Utils.getUniqueId();
+    this.type = type;
     this.position = position;
     this.velocity = velocity
     this.mass = mass || BASE_MASS;
