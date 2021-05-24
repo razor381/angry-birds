@@ -1,13 +1,14 @@
 class Bird extends RoundObject {
-  constructor(position, type) {
+  constructor(position, subtype) {
     super(
       position,
       BIRD_MASS,
       BIRD_RADIUS,
       BIRD_STATE.WAITING,
       Utils.createImage(IMAGE_RED),
+      ENTITY_TYPE.BIRD,
     );
-    this.type = type;
+    this.subtype = subtype;
   }
 
   static getReadyPosition = () => new Point(LOADED_BIRD_X, LOADED_BIRD_Y);

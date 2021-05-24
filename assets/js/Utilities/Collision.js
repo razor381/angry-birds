@@ -15,15 +15,30 @@ class Collision {
     };
   }
 
-  static addCollisionDetection(objs) {
-    for (let i = 0; i < objs.length - 1; i++) {
-      for (let j = i + 1; j < objs.length; j++) {
+  static handleCollision(entities) {
+    const entitiesArray = Utils.flattenObjectToArray(entities);
+
+    for (let i = 0; i < entitiesArray.length - 1; i++) {
+      for (let j = i + 1; j < entitiesArray.length; j++) {
         if (i != j) {
-          const collisionStats = Collision.isColliding(objs[i], objs[j]);
+          const entity1 = entitiesArray[i];
+          const entity2 = entitiesArray[j];
+
+          const collisionStats = Collision.isColliding(entity1, entity2);
 
           if (collisionStats.isColliding) {
-            objs[i].velocity = collisionStats.shape1.reactionVector;
-            objs[j].velocity = collisionStats.shape2.reactionVector;
+            if (entity1.type === ENTITY_TYPE.BIRD || entity2.type === ENTITY_TYPE.BIRD) {
+              if (entity1.type === entity2.type) continue;
+
+              const notBird = entity1.type === ENTITY_TYPE.BIRD ? entity2 : entity1;
+
+              entities[ENTITY_KEY_MAPPER[notBird.type]] =
+                Utils.deleteFromArray(entities[ENTITY_KEY_MAPPER[notBird.type]], [notBird]);
+
+            } else {
+              entity1.velocity = collisionStats.shape1.reactionVector;
+              entity2.velocity = collisionStats.shape2.reactionVector;
+            }
           }
         }
       }

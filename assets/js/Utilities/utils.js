@@ -1,4 +1,29 @@
 class Utils {
+  static getUniqueId() {
+    return 'id' + Math.random().toString(16).slice(2);
+  }
+
+  static flattenObjectToArray(obj) {
+    let resultArr = [];
+
+    Object.values(obj).forEach((value) => {
+      const flat = Array.isArray(value) ? value : [value];
+      resultArr = [...resultArr, ...flat];
+    });
+
+    return resultArr;
+  }
+
+  static deleteFromArray(list, itemsToDelete) {
+    let newList = list;
+
+    itemsToDelete.forEach((itemToDelete) => {
+      newList = newList.filter((item) => item.id !== itemToDelete.id);
+    });
+
+    return newList;
+  }
+
   static copyObject(obj) {
     return JSON.parse(JSON.stringify(obj));
   }

@@ -1,11 +1,12 @@
 class RoundObject extends Base {
-  constructor(position, mass, radius, state, image) {
+  constructor(position, mass, radius, state, image, type) {
     super(
       position,
       Vector.getZeroVector(),
       Vector.getDefaultAcceleration(),
       mass,
       image,
+      type,
       true,
     );
     this.radius = radius;

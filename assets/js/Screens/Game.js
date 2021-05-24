@@ -15,22 +15,16 @@ class Game {
     this.resumeButton = Utils.getEl(CLASS_RESUME_BTN);
     this.restartButton = Utils.getEl(CLASS_RESTART_BTN);
     this.exitButton = Utils.getEl(CLASS_EXIT_BTN);
-    this.entities = [];
+    this.entities = {};
 
+    this.readyDomElements();
     this.initGameObjects();
   }
 
   initGameObjects() {
     this.background = StaticObject.createBackground();
     this.entities = this.generator.generateGameEntities();
-    this.slingshot = new Slingshot(this.canvas, this.entities.birds);
-
-    this.collidableObjects = [
-      this.slingshot.activeBird,
-      ...this.entities.birds,
-      ...this.entities.pigs,
-      ...this.entities.blocks,
-    ];
+    this.slingshot = new Slingshot(this.canvas, this.entities);
   }
 
   readyDomElements() {
@@ -38,18 +32,22 @@ class Game {
     this.pauseButton.addEventListener('click', this.pauseClickHandler);
   }
 
+  reset() {
+    this.entities = {};
+    this.isGameInitialized = true;
+  }
+
   render() {
     if (!this.isGameInitialized) {
-      this.entities = [];
-      this.isGameInitialized = true;
+      this.reset();
       this.init();
-      this.readyDomElements();
     }
 
     if (!this.isPaused) {
       this.moveGameObjects();
 
-      Collision.addCollisionDetection(this.collidableObjects);
+      Collision.handleCollision(this.entities);
+
       !this.slingshot.activeBird && this.slingshot.loadBird();
       const { activeBird } = this.slingshot;
 
@@ -62,7 +60,7 @@ class Game {
           activeBird.handleMovement();
           break;
         case BIRD_STATE.HALTED:
-          const isBirdsFinished = this.slingshot.checkIsEmptyAndReload();
+          const isBirdsFinished = this.slingshot.checkIsEmptyAndReload(this.entities);
 
           if (isBirdsFinished) {
             this.exitGame();
@@ -80,10 +78,7 @@ class Game {
     const toRender = [
       this.background,
       this.slingshot,
-      this.slingshot.activeBird,
-      ...this.entities.birds,
-      ...this.entities.blocks,
-      ...this.entities.pigs,
+      ...Utils.flattenObjectToArray(this.entities),
     ];
 
     toRender.forEach((entity) => entity.render(this.ctx));

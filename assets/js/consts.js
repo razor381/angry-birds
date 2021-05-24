@@ -28,6 +28,19 @@ const DEFAULT_WINDOW_HEIGHT = 720;
 const DEFAULT_D2X = 0;
 const DEFAULT_D2Y = 0.3;
 
+const ENTITY_TYPE = {
+  BIRD: 'BIRD',
+  ENEMY: 'ENEMY',
+  OBSTACLE: 'OBSTACLE',
+  STATIC: 'STATIC',
+};
+
+const ENTITY_KEY_MAPPER = {
+  BIRD: 'birds',
+  ENEMY: 'pigs',
+  OBSTACLE: 'blocks',
+};
+
 const FPS_COUNTER_FONT = '30px Arial';
 
 const GROUND_HEIGHT = 100;

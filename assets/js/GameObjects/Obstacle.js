@@ -1,14 +1,15 @@
 class Obstacle extends Base {
-  constructor(position, type) {
+  constructor(position, subtype) {
     super(
       position,
       Vector.getZeroVector(),
       Vector.getDefaultAcceleration(),
       BLOCK_MASS,
       Utils.createImage(IMAGE_BLOCK),
+      ENTITY_TYPE.OBSTACLE,
     );
 
-    this.type = type;
+    this.subtype = subtype;
     this.width = BLOCK_WIDTH;
     this.height = BLOCK_HEIGHT;
   }

@@ -2,16 +2,16 @@
   "data": {
     "birds": [
       {
-        "type": "bird"
+        "type": "red"
       },
       {
-        "type": "bird"
+        "type": "red"
       },
       {
-        "type": "bird"
+        "type": "red"
       },
       {
-        "type": "bird"
+        "type": "red"
       }
     ],
     "pigs": [

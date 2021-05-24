@@ -16,14 +16,14 @@ class Generator {
   }
 
   generateBirds({ birds }) {
-    const createdBirds = birds.map(({ type }, index) => {
+    const createdBirds = birds.map((bird, index) => {
 
       const birdPosition = new Point(
         BIRD_QUEUE_START.x,
         BIRD_QUEUE_START.y - (index+1) * BIRD_QUEUE_GAP,
       );
 
-      return new Bird(birdPosition, type);
+      return new Bird(birdPosition, bird.type);
     });
 
     return createdBirds;
