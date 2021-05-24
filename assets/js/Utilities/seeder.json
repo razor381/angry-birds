@@ -1,0 +1,78 @@
+{
+  "data": {
+    "birds": [
+      {
+        "type": "bird",
+        "quantity": 3
+      },
+      {
+        "type": "bird",
+        "quantity": 2
+      },
+      {
+        "type": "bird",
+        "quantity": 2
+      }
+    ],
+    "pigs": [
+      {
+        "type": "basic",
+        "position": {
+          "x": 777,
+          "y": 475
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "type": "wood",
+        "position": {
+          "x": 700,
+          "y": 395
+        }
+      },
+      {
+        "type": "wood",
+        "position": {
+          "x": 700,
+          "y": 470
+        }
+      },
+      {
+        "type": "wood",
+        "position": {
+          "x": 700,
+          "y": 545
+        }
+      },
+      {
+        "type": "wood",
+        "position": {
+          "x": 775,
+          "y": 545
+        }
+      },
+      {
+        "type": "wood",
+        "position": {
+          "x": 850,
+          "y": 545
+        }
+      },
+      {
+        "type": "wood",
+        "position": {
+          "x": 850,
+          "y": 470
+        }
+      },
+      {
+        "type": "wood",
+        "position": {
+          "x": 850,
+          "y": 395
+        }
+      }
+    ]
+  }
+}

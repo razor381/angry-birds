@@ -5,6 +5,7 @@ class Game {
     this.ctx = main.ctx;
     this.gameState = main.gameState;
     this.isGameInitialized = false;
+    this.generator = new Generator();
   }
 
   init() {
@@ -14,8 +15,21 @@ class Game {
     this.resumeButton = Utils.getEl(CLASS_RESUME_BTN);
     this.restartButton = Utils.getEl(CLASS_RESTART_BTN);
     this.exitButton = Utils.getEl(CLASS_EXIT_BTN);
+    this.entities = [];
 
     this.initGameObjects();
+  }
+
+  initGameObjects() {
+    this.background = StaticObject.createBackground();
+    this.entities = this.generator.generateGameEntities();
+    this.slingshot = new Slingshot(this.canvas, this.entities.birds);
+
+    this.collidableObjects = [
+      this.slingshot.activeBird,
+      ...this.entities.pigs,
+      ...this.entities.blocks,
+    ];
   }
 
   readyDomElements() {
@@ -23,56 +37,9 @@ class Game {
     this.pauseButton.addEventListener('click', this.pauseClickHandler);
   }
 
-  pauseClickHandler = () => {
-    this.isPaused = true;
-    this.pauseButton.classList.add(CLASS_HIDDEN);
-    this.showPauseCard();
-  }
-
-  resumeGame = () => {
-    this.isPaused = false;
-    this.pauseCard.classList.add(CLASS_HIDDEN);
-    this.pauseButton.classList.remove(CLASS_HIDDEN);
-  }
-
-  restartGame = () => {
-    this.isPaused = false;
-    this.pauseCard.classList.add(CLASS_HIDDEN);
-    this.pauseButton.classList.remove(CLASS_HIDDEN);
-    this.isGameInitialized = false;
-  }
-
-  exitGame = () => {
-    this.pauseCard.classList.add(CLASS_HIDDEN);
-    this.pauseButton.classList.add(CLASS_HIDDEN);
-    this.main.gameState = GAME_STATES.RESULTS;
-    this.isGameInitialized = false;
-  }
-
-  showPauseCard() {
-    this.pauseCard.classList.remove(CLASS_HIDDEN);
-    this.resumeButton.addEventListener('click', this.resumeGame);
-    this.restartButton.addEventListener('click', this.restartGame);
-    this.exitButton.addEventListener('click', this.exitGame);
-  }
-
-  initGameObjects() {
-    this.background = StaticObject.createBackground();
-    this.birds = Bird.generateBirds();
-    this.slingshot = new Slingshot(this.canvas, this.birds);
-
-    this.pigs = Pig.generatePigs();
-    this.blocks = Obstacle.generateBlocks();
-
-    this.collidableObjects = [
-      this.slingshot.activeBird,
-      ...this.pigs,
-      ...this.blocks,
-    ];
-  }
-
   render() {
     if (!this.isGameInitialized) {
+      this.entities = [];
       this.isGameInitialized = true;
       this.init();
       this.readyDomElements();
@@ -110,8 +77,8 @@ class Game {
       this.background,
       this.slingshot,
       this.slingshot.activeBird,
-      ...this.blocks,
-      ...this.pigs,
+      ...this.entities.blocks,
+      ...this.entities.pigs,
     ];
 
     toRender.forEach((entity) => entity.render(this.ctx));
@@ -119,8 +86,45 @@ class Game {
   }
 
   moveGameObjects() {
-    const movables = [...this.pigs, ...this.blocks];
+    const movables = [
+      ...this.entities.pigs,
+      ...this.entities.blocks
+    ];
 
     movables.forEach((obj) => obj.move());
   }
+
+  pauseClickHandler = () => {
+    this.isPaused = true;
+    this.pauseButton.classList.add(CLASS_HIDDEN);
+    this.showPauseCard();
+  }
+
+  resumeGame = () => {
+    this.isPaused = false;
+    this.pauseCard.classList.add(CLASS_HIDDEN);
+    this.pauseButton.classList.remove(CLASS_HIDDEN);
+  }
+
+  restartGame = () => {
+    this.isPaused = false;
+    this.pauseCard.classList.add(CLASS_HIDDEN);
+    this.pauseButton.classList.remove(CLASS_HIDDEN);
+    this.isGameInitialized = false;
+  }
+
+  exitGame = () => {
+    this.pauseCard.classList.add(CLASS_HIDDEN);
+    this.pauseButton.classList.add(CLASS_HIDDEN);
+    this.main.gameState = GAME_STATES.RESULTS;
+    this.isGameInitialized = false;
+  }
+
+  showPauseCard() {
+    this.pauseCard.classList.remove(CLASS_HIDDEN);
+    this.resumeButton.addEventListener('click', this.resumeGame);
+    this.restartButton.addEventListener('click', this.restartGame);
+    this.exitButton.addEventListener('click', this.exitGame);
+  }
+
 }

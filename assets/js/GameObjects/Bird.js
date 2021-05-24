@@ -1,5 +1,5 @@
 class Bird extends RoundObject {
-  constructor() {
+  constructor(type) {
     super(
       Bird.getDefaultPosition(),
       BIRD_MASS,
@@ -7,6 +7,7 @@ class Bird extends RoundObject {
       BIRD_STATE.WAITING,
       Utils.createImage(IMAGE_RED),
     );
+    this.type = type;
   }
 
   static getDefaultPosition = () => new Point(BIRD_X, BIRD_Y);

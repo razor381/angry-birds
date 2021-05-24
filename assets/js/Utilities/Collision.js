@@ -80,10 +80,11 @@ class Collision {
       const effectiveMass1 = shape1.mass / combinedMass;
       const effectiveMass2 = shape2.mass / combinedMass;
 
-      collisionStats.shape1.reactionVector = Vector.divideVector(reactionVector1, effectiveMass1);
-      collisionStats.shape2.reactionVector = Vector.divideVector(reactionVector2, effectiveMass2);
-      // collisionStats.shape1.reactionVector = reactionVector1;
-      // collisionStats.shape2.reactionVector = reactionVector2;
+      // collisionStats.shape1.reactionVector = Vector.divideVector(reactionVector1, effectiveMass1);
+      // collisionStats.shape2.reactionVector = Vector.divideVector(reactionVector2, effectiveMass2);
+
+      collisionStats.shape1.reactionVector = reactionVector1;
+      collisionStats.shape2.reactionVector = reactionVector2;
     }
 
     return collisionStats;

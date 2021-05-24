@@ -8,8 +8,8 @@ const BASE_MASS = 40;
 const BASE_ANGLE = 0;
 
 const BLOCK_MASS = 20;
-const BLOCK_WIDTH = 20;
-const BLOCK_HEIGHT = 20;
+const BLOCK_WIDTH = 70;
+const BLOCK_HEIGHT = 70;
 
 const CLASS_CANVAS = 'canvas';
 const CLASS_BIRD = 'bird';
@@ -43,7 +43,7 @@ const LEVELS_NUMBER = 5;
 const LEVEL_ONE = 1;
 
 const PIG_MASS = 10;
-const PIG_RADIUS = 20;
+const PIG_RADIUS = 30;
 const PIG_STATE = {
    RESTING: 'RESTING',
  };
