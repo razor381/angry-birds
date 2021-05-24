@@ -39,25 +39,19 @@
     <!-- results screen -->
     <article class="screen results-screen hidden">
       <div class="screen-header">
-        <h2 class="screen-header__title">Level Cleared!</h2>
+        <h2 class="screen-header__title">
+          <span class="results__end-status"></span>
+        </h2>
       </div>
       <div class="screen-content">
         <div class="results-card">
           <div class="results-stats">
             <div class="results-stats__scores">
               <p class="scores-title">Score:</p>
-              <p class="scores-number">140,000,000</p>
-              <div class="scores-stars">
-                <img src="/assets/img/results-stars.png" alt="stars" class="scores-stars-img">
-              </div>
+              <p class="scores-number">0</p>
+              <div class="scores-stars"></div>
             </div>
-            <div class="results-stats__rank">
-              <img
-                src="/assets/img/results.png"
-                alt="amazed birds image"
-                class="results-stats__rank-img"
-              >
-            </div>
+            <div class="results-stats__rank"></div>
           </div>
           <div class="results-buttons">
             <button class="btn results__menu-btn">Menu</button>
@@ -67,11 +61,12 @@
       </div>
     </article>
 
-    <!-- pause button and card -->
+    <!-- pause button -->
     <button class="btn pause-btn hidden">
       <img src="/assets/img/pause-btn.png" alt="pause button">
     </button>
 
+    <!-- pause screen -->
     <article class="screen pause-screen hidden">
       <div class="screen-header">
         <h2 class="screen-header__title">Game Paused</h2>
@@ -87,11 +82,18 @@
 
   </main>
 
-  <script src="assets/js/consts.js"></script>
+  <script src="assets/js/constants/global.js"></script>
+  <script src="assets/js/constants/css-selectors.js"></script>
+  <script src="assets/js/constants/dom-elements.js"></script>
+  <script src="assets/js/constants/mappers.js"></script>
+  <script src="assets/js/constants/paths.js"></script>
+  <script src="assets/js/constants/schemas.js"></script>
+  <script src="assets/js/constants/states.js"></script>
 
   <script src="assets/js/Utilities/utils.js"></script>
   <script src="assets/js/Utilities/FrameThrottler.js"></script>
-  <script src="assets/js/Utilities/Collision.js"></script>
+
+  <script src="assets/js/Physics/Collision.js"></script>
 
   <script src="assets/js/Components/Canvas.js"></script>
   <script src="assets/js/Components/Point.js"></script>

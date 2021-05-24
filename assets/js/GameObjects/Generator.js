@@ -1,16 +1,15 @@
 class Generator {
   constructor() {
-    this.generationObject = undefined;
-
     this.init();
   }
 
   init() {
+    this.generationObject = undefined;
     this.loadJson();
   }
 
   async loadJson() {
-    const res = await fetch('/assets/js/Utilities/seeder.json');
+    const res = await fetch(PATH_SEEDERS);
     const json = await res.json();
     this.generationObject = json.data;
   }
@@ -23,18 +22,18 @@ class Generator {
         BIRD_QUEUE_START.y - (index+1) * BIRD_QUEUE_GAP,
       );
 
-      return new Bird(birdPosition, bird.type);
+      return new Bird(birdPosition, bird.subtype);
     });
 
     return createdBirds;
   }
 
   generatePigs({ pigs }) {
-    return pigs.map(({ position, type }) => new Pig(position, type));
+    return pigs.map(({ position, subtype }) => new Pig(position, subtype));
   }
 
   generateBlocks({ blocks }) {
-    return blocks.map(({ position, type }) => new Obstacle(position, type));
+    return blocks.map(({ position, subtype }) => new Obstacle(position, subtype));
   }
 
   generateGameEntities() {

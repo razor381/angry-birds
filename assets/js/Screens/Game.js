@@ -6,6 +6,8 @@ class Game {
     this.gameState = main.gameState;
     this.isGameInitialized = false;
     this.generator = new Generator();
+    this.maxScore = 0;
+    this.playerScore = 0;
   }
 
   init() {
@@ -25,6 +27,23 @@ class Game {
     this.background = StaticObject.createBackground();
     this.entities = this.generator.generateGameEntities();
     this.slingshot = new Slingshot(this.canvas, this.entities);
+
+    this.setMaxScore();
+  }
+
+  setMaxScore() {
+    this.maxScore = this.calculateMaxScore();
+  }
+
+  calculateMaxScore() {
+    const scoreEntites = [
+      ...this.entities.pigs,
+      ...this.entities.blocks,
+    ];
+
+    return scoreEntites.reduce((acc, entity) => {
+      return acc + SCORE_SUBTYPE_MAPPER[entity.subtype];
+    }, 0);
   }
 
   readyDomElements() {
@@ -33,6 +52,7 @@ class Game {
   }
 
   reset() {
+    this.playerScore = 0;
     this.entities = {};
     this.isGameInitialized = true;
   }
@@ -45,11 +65,7 @@ class Game {
 
     if (!this.isPaused) {
       this.moveGameObjects();
-
-      Collision.handleCollision(this.entities);
-
-      !this.slingshot.activeBird && this.slingshot.loadBird();
-      const { activeBird } = this.slingshot;
+      this.checkEntitesCollision();
 
       switch(this.slingshot.activeBird.state) {
         case BIRD_STATE.WAITING:
@@ -57,14 +73,11 @@ class Game {
         case BIRD_STATE.READY:
           break;
         case BIRD_STATE.FLIGHT:
-          activeBird.handleMovement();
+          this.moveActiveBird();
           break;
         case BIRD_STATE.HALTED:
-          const isBirdsFinished = this.slingshot.checkIsEmptyAndReload(this.entities);
-
-          if (isBirdsFinished) {
-            this.exitGame();
-          }
+          this.checkHasGameEnded();
+          this.reloadSlingshot();
           break;
       }
     }
@@ -72,17 +85,100 @@ class Game {
     this.draw(this.ctx);
   }
 
+  moveActiveBird() {
+    this.slingshot.activeBird.handleMovement();
+  }
+
+  reloadSlingshot() {
+    this.slingshot.handleBirdLoading(this.entities);
+  }
+
+  checkHasGameEnded() {
+    if (this.checkAllEnemyKilled()) {
+      this.exitGame(GAME_WON);
+      return;
+    }
+
+    if (this.slingshot.isBirdsEmpty()) {
+      this.exitGame(GAME_LOST);
+      return;
+    }
+  }
+
+  checkAllEnemyKilled() {
+    return !this.entities.pigs.length;
+  }
+
+  checkEntitesCollision() {
+    const entitiesArray = Utils.flattenObjectToArray(this.entities);
+
+    for (let i = 0; i < entitiesArray.length - 1; i++) {
+      for (let j = i + 1; j < entitiesArray.length; j++) {
+        if (i != j) {
+          const collisionStats = Collision.isColliding(entitiesArray[i], entitiesArray[j]);
+
+          if (collisionStats.isColliding) {
+            this.resolveCollision(collisionStats, entitiesArray[i], entitiesArray[j]);
+          }
+        }
+      }
+    }
+  }
+
+  resolveCollision(stats, entity1, entity2) {
+    if (entity1.type === ENTITY_TYPE.BIRD || entity2.type === ENTITY_TYPE.BIRD) {
+      if (entity1.type === entity2.type) return;
+
+      const notBird = entity1.type === ENTITY_TYPE.BIRD ? entity2 : entity1;
+
+      this.destroyNotBirdEntity(notBird);
+      this.addDestroyedEntityScore(notBird);
+
+      return;
+    }
+
+    this.addReactionToEntities(stats, entity1, entity2);
+  }
+
+  destroyNotBirdEntity(entity) {
+    this.entities[ENTITY_KEY_MAPPER[entity.type]] =
+        Utils.deleteFromArray(this.entities[ENTITY_KEY_MAPPER[entity.type]], [entity]);
+  }
+
+  addDestroyedEntityScore(entity) {
+    this.playerScore += SCORE_SUBTYPE_MAPPER[entity.subtype];
+  }
+
+  addReactionToEntities(stats, entity1, entity2) {
+    entity1.velocity = stats.shape1.reactionVector;
+    entity2.velocity = stats.shape2.reactionVector;
+  }
+
   draw(ctx) {
     ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    const toRender = [
+    this.drawVisualEntities();
+    this.displayScores();
+  }
+
+  displayScores() {
+    const scoreText = `SCORE: ${this.playerScore}/${this.maxScore}`;
+
+    this.ctx.font = SCORE_TEXT.font;
+    this.ctx.fillStyle = 'white';
+    this.ctx.strokeStyle = 'black';
+    this.ctx.fillText(scoreText, SCORE_TEXT.position.x, SCORE_TEXT.position.y);
+    this.ctx.strokeText(scoreText, SCORE_TEXT.position.x, SCORE_TEXT.position.y);
+  }
+
+  drawVisualEntities() {
+    const toDraw = [
       this.background,
       this.slingshot,
       ...Utils.flattenObjectToArray(this.entities),
     ];
 
-    toRender.forEach((entity) => entity.render(this.ctx));
-    Point.plotPoints(ctx);
+    toDraw.forEach((entity) => entity.render(this.ctx));
   }
 
   moveGameObjects() {
@@ -113,10 +209,13 @@ class Game {
     this.isGameInitialized = false;
   }
 
-  exitGame = () => {
+  exitGame = (endStatus) => {
     this.pauseCard.classList.add(CLASS_HIDDEN);
     this.pauseButton.classList.add(CLASS_HIDDEN);
+    this.main.playerScore = this.playerScore;
+    this.main.maxScore =this.maxScore;
     this.main.gameState = GAME_STATES.RESULTS;
+    this.main.gameEndStatus = endStatus;
     this.isGameInitialized = false;
   }
 

@@ -15,6 +15,9 @@ class Main {
     this.gamePlayLevel = LEVEL_ONE;
     this.results = new Results(this);
     this.animateId = undefined;
+    this.playerScore = undefined;
+    this.maxScore = undefined;
+    this.gameEndStatus = GAME_LOST;
 
     this.start();
   }

@@ -53,22 +53,14 @@ class Slingshot extends StaticObject {
     entities.activeBird = this.activeBird;
   }
 
-  checkIsEmptyAndReload(entities) {
-    if (this.isEmpty()) {
-      return true;
-    }
-
-    this.handleBirdLoading(entities);
-
-    return false;
-  }
-
   loadBird() {
-    this.activeBird = this.birds.pop();
-    this.activeBird.getReady();
+    if (this.birds.length) {
+      this.activeBird = this.birds.pop();
+      this.activeBird.getReady();
+    }
   }
 
-  isEmpty() {
+  isBirdsEmpty() {
     return !this.birds.length;
   }
 

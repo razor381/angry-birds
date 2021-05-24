@@ -181,8 +181,8 @@ body {
   border-radius: 2rem;
   border: 0.5rem solid var(--primary);
   position: relative;
-  width: 80%;
-  height: 80%;
+  width: 70%;
+  height: 90%;
   margin: 0 auto;
 }
 
@@ -202,13 +202,13 @@ body {
 }
 
 .scores-title {
-  text-shadow: var(--black-outline);
   font-size: 4em;
 }
 
 .scores-number {
+  text-shadow: var(--black-outline);
   margin: 1rem 0;
-  font-size: 3em;
+  font-size: 4em;
 }
 
 .scores-stars-img {
@@ -223,7 +223,7 @@ body {
 }
 
 .results-stats__rank-img {
-  height: 80%;
+  height: 60%;
   margin: 0 auto;
 }
 

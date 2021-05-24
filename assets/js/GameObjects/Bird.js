@@ -37,14 +37,4 @@ class Bird extends RoundObject {
     this.move();
     this.checkHalted();
   }
-
-  static generateBirds(n = BIRDS_QTY) {
-    const birds = [];
-
-    for (let i = 0; i < n; i++) {
-      birds.push(new Bird());
-    }
-
-    return birds;
-  }
 }

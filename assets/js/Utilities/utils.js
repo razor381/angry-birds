@@ -46,6 +46,13 @@ class Utils {
     parentEl.appendChild(el);
   }
 
+  static createDomImage(imageSource, ...classes) {
+    const image = Utils.createNewElement(TAG_IMG, classes);
+    image.src = imageSource;
+
+    return image;
+  }
+
   static createImage(src, classes = []) {
     let img = new Image();
     img.src = src;
