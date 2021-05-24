@@ -40,8 +40,6 @@ class Slingshot extends StaticObject {
         case BIRD_STATE.CHARGED:
           this.release();
           break;
-
-        default:
       }
     }
   }
@@ -50,11 +48,19 @@ class Slingshot extends StaticObject {
     document.addEventListener('mousedown', this.startBirdChargeHandler);
   }
 
-  loadBird() {
-    if (!this.isEmpty()) {
-      this.activeBird = this.birds.pop();
-      this.activeBird.state = BIRD_STATE.READY;
+  checkIsEmptyAndReload() {
+    if (this.isEmpty()) {
+      return true;
     }
+
+    this.loadBird();
+
+    return false;
+  }
+
+  loadBird() {
+    this.activeBird = this.birds.pop();
+    this.activeBird.getReady();
   }
 
   isEmpty() {

@@ -27,6 +27,7 @@ class Game {
 
     this.collidableObjects = [
       this.slingshot.activeBird,
+      ...this.entities.birds,
       ...this.entities.pigs,
       ...this.entities.blocks,
     ];
@@ -61,9 +62,12 @@ class Game {
           activeBird.handleMovement();
           break;
         case BIRD_STATE.HALTED:
-          this.shouldRender = false;
+          const isBirdsFinished = this.slingshot.checkIsEmptyAndReload();
+
+          if (isBirdsFinished) {
+            this.exitGame();
+          }
           break;
-        default:
       }
     }
 
@@ -77,6 +81,7 @@ class Game {
       this.background,
       this.slingshot,
       this.slingshot.activeBird,
+      ...this.entities.birds,
       ...this.entities.blocks,
       ...this.entities.pigs,
     ];

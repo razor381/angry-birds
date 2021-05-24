@@ -2,24 +2,24 @@
   "data": {
     "birds": [
       {
-        "type": "bird",
-        "quantity": 3
+        "type": "bird"
       },
       {
-        "type": "bird",
-        "quantity": 2
+        "type": "bird"
       },
       {
-        "type": "bird",
-        "quantity": 2
+        "type": "bird"
+      },
+      {
+        "type": "bird"
       }
     ],
     "pigs": [
       {
         "type": "basic",
         "position": {
-          "x": 777,
-          "y": 475
+          "x": 977,
+          "y": 430
         }
       }
     ],
@@ -27,49 +27,49 @@
       {
         "type": "wood",
         "position": {
-          "x": 700,
+          "x": 900,
           "y": 395
         }
       },
       {
         "type": "wood",
         "position": {
-          "x": 700,
+          "x": 900,
           "y": 470
         }
       },
       {
         "type": "wood",
         "position": {
-          "x": 700,
+          "x": 900,
           "y": 545
         }
       },
       {
         "type": "wood",
         "position": {
-          "x": 775,
+          "x": 975,
           "y": 545
         }
       },
       {
         "type": "wood",
         "position": {
-          "x": 850,
+          "x": 1050,
           "y": 545
         }
       },
       {
         "type": "wood",
         "position": {
-          "x": 850,
+          "x": 1050,
           "y": 470
         }
       },
       {
         "type": "wood",
         "position": {
-          "x": 850,
+          "x": 1050,
           "y": 395
         }
       }

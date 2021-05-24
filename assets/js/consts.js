@@ -3,6 +3,11 @@ const BIRD_DY = -15;
 const BIRD_MASS = 60;
 const BIRD_RADIUS = 25;
 const BIRDS_QTY = 2;
+const BIRD_QUEUE_START = {
+  x: 20,
+  y: 400
+};
+const BIRD_QUEUE_GAP = 60;
 
 const BASE_MASS = 40;
 const BASE_ANGLE = 0;
@@ -17,7 +22,7 @@ const CLASS_BIRD = 'bird';
 const DAMPING_X = 0.18;
 const DAMPING_Y = 0.4;
 
-const DEFAULT_WINDOW_WIDTH = 1280;
+const DEFAULT_WINDOW_WIDTH = 1600;
 const DEFAULT_WINDOW_HEIGHT = 720;
 
 const DEFAULT_D2X = 0;
@@ -60,7 +65,7 @@ const PIG_STATE = {
   distances: [],
 };
 
-const SLINGSHOT_X = 80;
+const SLINGSHOT_X = 200;
 const SLINGSHOT_WIDTH = 60;
 const SLINGSHOT_HEIGHT = 110;
 const SLINGSHOT_MAX_LENGTH = 100;
@@ -128,6 +133,6 @@ const SLINGSHOT_Y = GROUND_Y - SLINGSHOT_HEIGHT;
 const SLINGSHOT_RELAX_X = SLINGSHOT_X;
 const SLINGSHOT_RELAX_Y = SLINGSHOT_Y;
 
-const BIRD_X = SLINGSHOT_RELAX_X;
-const BIRD_Y = SLINGSHOT_RELAX_Y;
+const LOADED_BIRD_X = SLINGSHOT_RELAX_X;
+const LOADED_BIRD_Y = SLINGSHOT_RELAX_Y;
 
