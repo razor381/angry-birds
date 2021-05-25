@@ -1,15 +1,17 @@
 class Obstacle extends Base {
-  constructor(position, width, height) {
+  constructor(position, subtype) {
     super(
       position,
       Vector.getZeroVector(),
       Vector.getDefaultAcceleration(),
       BLOCK_MASS,
       Utils.createImage(IMAGE_BLOCK),
+      ENTITY_TYPE.OBSTACLE,
     );
 
-    this.width = width;
-    this.height = height;
+    this.subtype = subtype;
+    this.width = BLOCK_WIDTH;
+    this.height = BLOCK_HEIGHT;
   }
 
   getStationaryVertices() {
@@ -36,25 +38,5 @@ class Obstacle extends Base {
 
       return unTranslatedPoint;
     });
-  }
-
-  static generateBlocks() {
-    const blocks = [];
-
-    const startPos = new Point(400, 20);
-
-    for (let i = 0; i < 1; i++) {
-      for (let j = 0; j < 4; j++) {
-        blocks.push(
-          new Obstacle(
-            Point.add(startPos, new Point(i * 40, j * 45)),
-            BLOCK_WIDTH,
-            BLOCK_HEIGHT,
-          )
-        );
-      }
-    }
-
-    return blocks;
   }
 }

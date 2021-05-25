@@ -1,5 +1,5 @@
 class Slingshot extends StaticObject {
-  constructor(canvas, birds) {
+  constructor(canvas, entities) {
     super(
       new Point(SLINGSHOT_X, SLINGSHOT_Y),
       SLINGSHOT_WIDTH,
@@ -8,18 +8,18 @@ class Slingshot extends StaticObject {
     );
 
     this.canvas = canvas;
-    this.birds = birds;
+    this.birds = entities.birds;
     this.activeBird = null;
     this.relaxPos = new Point(SLINGSHOT_RELAX_X, SLINGSHOT_RELAX_Y);
     this.stretchAngle = SLINGSHOT_DEFAULT_ANGLE;
     this.stretchLength = SLINGSHOT_DEFAULT_STRETCH_LENGTH;
     this.maxStretchLength = SLINGSHOT_MAX_LENGTH;
 
-    this.init();
+    this.init(entities);
   }
 
-  init() {
-    this.loadBird();
+  init(entities) {
+    this.handleBirdLoading(entities);
     this.addStartBirdChargeHandler();
   }
 
@@ -40,8 +40,6 @@ class Slingshot extends StaticObject {
         case BIRD_STATE.CHARGED:
           this.release();
           break;
-
-        default:
       }
     }
   }
@@ -50,14 +48,19 @@ class Slingshot extends StaticObject {
     document.addEventListener('mousedown', this.startBirdChargeHandler);
   }
 
+  handleBirdLoading(entities) {
+    this.loadBird();
+    entities.activeBird = this.activeBird;
+  }
+
   loadBird() {
-    if (!this.isEmpty()) {
+    if (this.birds.length) {
       this.activeBird = this.birds.pop();
-      this.activeBird.state = BIRD_STATE.READY;
+      this.activeBird.getReady();
     }
   }
 
-  isEmpty() {
+  isBirdsEmpty() {
     return !this.birds.length;
   }
 

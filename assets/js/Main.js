@@ -6,7 +6,7 @@ class Main {
   init() {
     this.canvas = new Canvas(this);
     this.ctx = this.canvas.ctx;
-    this.gameState = GAME_STATES.MENU;
+    this.gameState = GAME_STATES.LEVEL_SELECTION;
     this.fps = new FrameThrottler(this, TARGET_FPS);
     this.loader = new Loader(this);
     this.game = new Game(this);
@@ -15,6 +15,9 @@ class Main {
     this.gamePlayLevel = LEVEL_ONE;
     this.results = new Results(this);
     this.animateId = undefined;
+    this.playerScore = undefined;
+    this.maxScore = undefined;
+    this.gameEndStatus = GAME_LOST;
 
     this.start();
   }

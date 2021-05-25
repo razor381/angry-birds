@@ -1,6 +1,13 @@
 class StaticObject extends Base {
   constructor(position, width, height, image) {
-    super(position, Vector.getZeroVector(), Vector.getZeroVector(), 0, image);
+    super(
+      position,
+      Vector.getZeroVector(),
+      Vector.getZeroVector(),
+      0,
+      image,
+      ENTITY_TYPE.STATIC,
+    );
     this.width = width;
     this.height = height;
   }
