@@ -5,7 +5,6 @@ class Generator {
 
   init() {
     this.generationObject = undefined;
-    this.loadJson();
   }
 
   async loadJson() {
@@ -36,7 +35,9 @@ class Generator {
     return blocks.map(({ position, subtype }) => new Obstacle(position, subtype));
   }
 
-  generateGameEntities() {
+  async generateGameEntities() {
+    await this.loadJson();
+
     return {
       birds: this.generateBirds(this.generationObject),
       pigs: this.generatePigs(this.generationObject),

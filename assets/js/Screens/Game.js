@@ -4,35 +4,49 @@ class Game {
     this.canvas = main.canvas;
     this.ctx = main.ctx;
     this.gameState = main.gameState;
-    this.isGameInitialized = false;
     this.generator = new Generator();
+  }
+
+  reset() {
+    this.isGameInitialized = false;
+    this.isLoading = true;
     this.maxScore = 0;
+    this.pigsKilled = 0;
     this.playerScore = 0;
   }
 
   init() {
     this.isPaused = false;
+    this.queryDomElements();
+    this.activatePauseButton();
+    this.initGameObjects();
+    this.isGameInitialized = true;
+  }
+
+  queryDomElements() {
     this.pauseButton = Utils.getEl(CLASS_PAUSE_BTN);
     this.pauseCard = Utils.getEl(CLASS_PAUSE_SCREEN);
     this.resumeButton = Utils.getEl(CLASS_RESUME_BTN);
     this.restartButton = Utils.getEl(CLASS_RESTART_BTN);
     this.exitButton = Utils.getEl(CLASS_EXIT_BTN);
-    this.entities = {};
-
-    this.readyDomElements();
-    this.initGameObjects();
   }
 
-  initGameObjects() {
+  async initGameObjects() {
     this.background = StaticObject.createBackground();
-    this.entities = this.generator.generateGameEntities();
+    this.entities = await this.generator.generateGameEntities();
     this.slingshot = new Slingshot(this.canvas, this.entities);
+    this.isLoading = false;
 
-    this.setMaxScore();
+    this.setupScoreBoard();
   }
 
-  setMaxScore() {
+  setupScoreBoard() {
     this.maxScore = this.calculateMaxScore();
+    this.maxPigsNumber = this.getPigsNumber();
+  }
+
+  getPigsNumber() {
+    return this.entities.pigs.length;
   }
 
   calculateMaxScore() {
@@ -46,15 +60,9 @@ class Game {
     }, 0);
   }
 
-  readyDomElements() {
+  activatePauseButton() {
     this.pauseButton.classList.remove(CLASS_HIDDEN);
     this.pauseButton.addEventListener('click', this.pauseClickHandler);
-  }
-
-  reset() {
-    this.playerScore = 0;
-    this.entities = {};
-    this.isGameInitialized = true;
   }
 
   render() {
@@ -62,6 +70,8 @@ class Game {
       this.reset();
       this.init();
     }
+
+    if (this.isLoading) return;
 
     if (!this.isPaused) {
       this.moveGameObjects();
@@ -82,7 +92,7 @@ class Game {
       }
     }
 
-    this.draw(this.ctx);
+    this.draw();
   }
 
   moveActiveBird() {
@@ -132,7 +142,7 @@ class Game {
       const notBird = entity1.type === ENTITY_TYPE.BIRD ? entity2 : entity1;
 
       this.destroyNotBirdEntity(notBird);
-      this.addDestroyedEntityScore(notBird);
+      this.updateScores(notBird);
 
       return;
     }
@@ -145,8 +155,9 @@ class Game {
         Utils.deleteFromArray(this.entities[ENTITY_KEY_MAPPER[entity.type]], [entity]);
   }
 
-  addDestroyedEntityScore(entity) {
+  updateScores(entity) {
     this.playerScore += SCORE_SUBTYPE_MAPPER[entity.subtype];
+    this.pigsKilled = this.maxPigsNumber - this.getPigsNumber();
   }
 
   addReactionToEntities(stats, entity1, entity2) {
@@ -154,21 +165,37 @@ class Game {
     entity2.velocity = stats.shape2.reactionVector;
   }
 
-  draw(ctx) {
-    ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  draw() {
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.drawVisualEntities();
-    this.displayScores();
+    this.displayScoreBoard();
   }
 
-  displayScores() {
-    const scoreText = `SCORE: ${this.playerScore}/${this.maxScore}`;
+  displayScoreBoard() {
+    this.setScoreFontStyle(this.ctx);
+    this.displayScore(this.ctx);
+    this.displayPigsLeft(this.ctx);
+  }
 
-    this.ctx.font = SCORE_TEXT.font;
-    this.ctx.fillStyle = 'white';
-    this.ctx.strokeStyle = 'black';
-    this.ctx.fillText(scoreText, SCORE_TEXT.position.x, SCORE_TEXT.position.y);
-    this.ctx.strokeText(scoreText, SCORE_TEXT.position.x, SCORE_TEXT.position.y);
+  setScoreFontStyle(ctx) {
+    ctx.font = SCORE_TEXT.font;
+    ctx.fillStyle = FONT_FILL_COLOR;
+    ctx.strokeStyle = FONT_OUTLINE_COLOR;
+  }
+
+  displayScore(ctx) {
+    const scoreText = `SCORE - ${this.playerScore}/${this.maxScore}`;
+
+    ctx.fillText(scoreText, SCORE_TEXT.position.x, SCORE_TEXT.position.y);
+    ctx.strokeText(scoreText, SCORE_TEXT.position.x, SCORE_TEXT.position.y);
+  }
+
+  displayPigsLeft(ctx) {
+    const pigsNumberText = `PIGS - ${this.pigsKilled}/${this.maxPigsNumber}`;
+
+    ctx.fillText(pigsNumberText, SCORE_TEXT.position.x, SCORE_TEXT.position.y + 60);
+    ctx.strokeText(pigsNumberText, SCORE_TEXT.position.x, SCORE_TEXT.position.y + 60);
   }
 
   drawVisualEntities() {

@@ -24,6 +24,9 @@ const DEFAULT_WINDOW_HEIGHT = 720;
 const DEFAULT_D2X = 0;
 const DEFAULT_D2Y = 0.3;
 
+const FONT_FILL_COLOR = 'white';
+const FONT_OUTLINE_COLOR = 'black';
+
 const FPS_COUNTER_FONT = '30px Angry';
 
 const GROUND_HEIGHT = 100;

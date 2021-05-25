@@ -15,6 +15,27 @@
           "x": 977,
           "y": 430
         }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 800,
+          "y": 480
+        }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 800,
+          "y": 400
+        }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 800,
+          "y": 320
+        }
       }
     ],
     "blocks": [
