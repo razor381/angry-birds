@@ -5,7 +5,7 @@ class Obstacle extends Base {
       Vector.getZeroVector(),
       Vector.getDefaultAcceleration(),
       BLOCK_MASS,
-      Utils.createImage(IMAGE_BLOCK),
+      Utils.getSubtypeImage(subtype),
       ENTITY_TYPE.OBSTACLE,
     );
 

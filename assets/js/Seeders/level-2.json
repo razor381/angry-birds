@@ -2,10 +2,10 @@
   "data": {
     "birds": [
       {
-        "subtype": "RED"
+        "subtype": "CHUCK"
       },
       {
-        "subtype": "RED"
+        "subtype": "CHUCK"
       },
       {
         "subtype": "RED"
@@ -40,14 +40,14 @@
         }
       },
       {
-        "subtype": "UNARMORED_PIG",
+        "subtype": "ARMORED_PIG",
         "position": {
           "x": 1130,
           "y": 398
         }
       },
       {
-        "subtype": "UNARMORED_PIG",
+        "subtype": "ARMORED_PIG",
         "position": {
           "x": 1200,
           "y": 473
@@ -56,7 +56,7 @@
     ],
     "blocks": [
       {
-        "subtype": "WOOD",
+        "subtype": "STONE",
         "position": {
           "x": 900,
           "y": 545
@@ -84,14 +84,14 @@
         }
       },
       {
-        "subtype": "WOOD",
+        "subtype": "ICE",
         "position": {
           "x": 900,
           "y": 245
         }
       },
       {
-        "subtype": "WOOD",
+        "subtype": "STONE",
         "position": {
           "x": 975,
           "y": 545
@@ -112,14 +112,14 @@
         }
       },
       {
-        "subtype": "WOOD",
+        "subtype": "ICE",
         "position": {
           "x": 975,
           "y": 320
         }
       },
       {
-        "subtype": "WOOD",
+        "subtype": "STONE",
         "position": {
           "x": 1050,
           "y": 545
@@ -133,28 +133,28 @@
         }
       },
       {
-        "subtype": "WOOD",
+        "subtype": "ICE",
         "position": {
           "x": 1050,
           "y": 395
         }
       },
       {
-        "subtype": "WOOD",
+        "subtype": "STONE",
         "position": {
           "x": 1125,
           "y": 545
         }
       },
       {
-        "subtype": "WOOD",
+        "subtype": "ICE",
         "position": {
           "x": 1125,
           "y": 470
         }
       },
       {
-        "subtype": "WOOD",
+        "subtype": "ICE",
         "position": {
           "x": 1200,
           "y": 545

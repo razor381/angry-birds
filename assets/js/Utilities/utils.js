@@ -64,6 +64,10 @@ class Utils {
     return deg * (Math.PI / 180);
   }
 
+  static getSubtypeImage(subtype) {
+    return Utils.createImage(SUBTYPE_IMAGE_MAPPER[subtype]);
+  }
+
   static getMousePos(canvas, evt) {
     const { left, top } = canvas.getBoundingClientRect();
 

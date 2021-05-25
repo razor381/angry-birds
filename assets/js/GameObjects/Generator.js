@@ -16,6 +16,7 @@ class Generator {
   generateBirds({ birds }) {
     const createdBirds = birds.map((bird, index) => {
 
+      // give vertical bottom to top queued position to birds
       const birdPosition = new Point(
         BIRD_QUEUE_START.x,
         BIRD_QUEUE_START.y - (index+1) * BIRD_QUEUE_GAP,

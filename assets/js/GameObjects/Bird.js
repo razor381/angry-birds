@@ -5,7 +5,7 @@ class Bird extends RoundObject {
       BIRD_MASS,
       BIRD_RADIUS,
       BIRD_STATE.WAITING,
-      Utils.createImage(IMAGE_RED),
+      Utils.getSubtypeImage(subtype),
       ENTITY_TYPE.BIRD,
     );
     this.subtype = subtype;
