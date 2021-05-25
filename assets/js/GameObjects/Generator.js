@@ -7,8 +7,8 @@ class Generator {
     this.generationObject = undefined;
   }
 
-  async loadJson() {
-    const res = await fetch(PATH_SEEDERS);
+  async loadJson(level) {
+    const res = await fetch(LEVEL_SEED_MAPPER[level]);
     const json = await res.json();
     this.generationObject = json.data;
   }
@@ -35,8 +35,8 @@ class Generator {
     return blocks.map(({ position, subtype }) => new Obstacle(position, subtype));
   }
 
-  async generateGameEntities() {
-    await this.loadJson();
+  async generateGameEntities(level) {
+    await this.loadJson(level);
 
     return {
       birds: this.generateBirds(this.generationObject),

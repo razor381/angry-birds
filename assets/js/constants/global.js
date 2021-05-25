@@ -4,7 +4,7 @@ const BIRD_MASS = 60;
 const BIRD_RADIUS = 25;
 const BIRD_QUEUE_START = {
   x: 20,
-  y: 400
+  y: 550
 };
 const BIRD_QUEUE_GAP = 60;
 
@@ -63,7 +63,7 @@ const SLINGSHOT_DEFAULT_STRETCH_LENGTH = 0;
 const TARGET_FPS = 60;
 const TOTAL_STARS_NUMBER = 3;
 
-// relative consts
+// relative constants
 
 const GROUND_Y = DEFAULT_WINDOW_HEIGHT - GROUND_HEIGHT;
 

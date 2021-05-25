@@ -17,6 +17,7 @@ class Game {
 
   init() {
     this.isPaused = false;
+    this.gameLevel = this.main.gamePlayLevel;
     this.queryDomElements();
     this.activatePauseButton();
     this.initGameObjects();
@@ -33,7 +34,7 @@ class Game {
 
   async initGameObjects() {
     this.background = StaticObject.createBackground();
-    this.entities = await this.generator.generateGameEntities();
+    this.entities = await this.generator.generateGameEntities(this.gameLevel);
     this.slingshot = new Slingshot(this.canvas, this.entities);
     this.isLoading = false;
 

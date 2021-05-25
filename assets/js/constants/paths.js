@@ -1,4 +1,8 @@
-const PATH_SEEDERS = '/assets/js/Seeders/seeder.json';
+const PATH_SEEDER_LVL_1 = '/assets/js/Seeders/level-1.json';
+const PATH_SEEDER_LVL_2 = '/assets/js/Seeders/level-2.json';
+const PATH_SEEDER_LVL_3 = '/assets/js/Seeders/level-3.json';
+const PATH_SEEDER_LVL_4 = '/assets/js/Seeders/level-4.json';
+const PATH_SEEDER_LVL_5 = '/assets/js/Seeders/level-5.json';
 
 const IMAGE_PATH = '/assets/img/';
 const IMAGE_BACKGROUND = IMAGE_PATH + 'background.jpeg';

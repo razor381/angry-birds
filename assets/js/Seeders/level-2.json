@@ -1,0 +1,165 @@
+{
+  "data": {
+    "birds": [
+      {
+        "subtype": "RED"
+      },
+      {
+        "subtype": "RED"
+      },
+      {
+        "subtype": "RED"
+      },
+      {
+        "subtype": "RED"
+      },
+      {
+        "subtype": "RED"
+      }
+    ],
+    "pigs": [
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 905,
+          "y": 180
+        }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 980,
+          "y": 248
+        }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 1055,
+          "y": 323
+        }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 1130,
+          "y": 398
+        }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 1200,
+          "y": 473
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 900,
+          "y": 545
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 900,
+          "y": 470
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 900,
+          "y": 395
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 900,
+          "y": 320
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 900,
+          "y": 245
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 975,
+          "y": 545
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 975,
+          "y": 470
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 975,
+          "y": 395
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 975,
+          "y": 320
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 1050,
+          "y": 545
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 1050,
+          "y": 470
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 1050,
+          "y": 395
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 1125,
+          "y": 545
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 1125,
+          "y": 470
+        }
+      },
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 1200,
+          "y": 545
+        }
+      }
+    ]
+  }
+}
