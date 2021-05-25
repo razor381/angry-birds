@@ -25,12 +25,15 @@ class Point {
     return new Point(p2.x - p1.x, p2.y - p1.y)
   }
 
-  static plotPoints(ctx) {
-    Point.pointsToPlot.forEach((point) => {
+  static plotPoints(ctx, points2Plot) {
+
+    const points = [...Point.pointsToPlot, ...points2Plot];
+
+    points.forEach((point) => {
       ctx.save();
       ctx.beginPath();
-      ctx.fillStyle = 'red';
-      ctx.arc(point.x, point.y, 8, 0, Math.PI * 2, false);
+      ctx.fillStyle = POINT_FILL_COLOR;
+      ctx.arc(point.x, point.y, POINT_RADIUS, 0, Math.PI * 2, false);
       ctx.stroke();
       ctx.fill();
       ctx.closePath();

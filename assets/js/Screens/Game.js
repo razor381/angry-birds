@@ -171,6 +171,7 @@ class Game {
 
     this.drawVisualEntities();
     this.displayScoreBoard();
+    Point.plotPoints(this.ctx, this.slingshot.trajectoryPoints);
   }
 
   displayScoreBoard() {

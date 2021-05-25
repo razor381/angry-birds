@@ -44,6 +44,8 @@ const LEVEL_ONE = 1;
 
 const PIG_MASS = 10;
 const PIG_RADIUS = 30;
+const POINT_FILL_COLOR = 'red';
+const POINT_RADIUS = 6;
 
 const SCORE_TEXT = {
   position: {
@@ -62,6 +64,10 @@ const SLINGSHOT_DEFAULT_STRETCH_LENGTH = 0;
 
 const TARGET_FPS = 60;
 const TOTAL_STARS_NUMBER = 3;
+
+const TRAJECTORY_START_X = 30;
+const TRAJECTORY_END_X = 700;
+const TRAJECTORY_POINTS_GAP = 40;
 
 // relative constants
 

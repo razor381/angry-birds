@@ -36,24 +36,11 @@ class Vector {
     return new Vector(DEFAULT_D2X, DEFAULT_D2Y);
   }
 
-  static getLaunchVelocity(x) {
-    return Math.sqrt((2 * HOOKES_CONSTANT * x * x) / LAUNCH_MASS);
-  }
-
   static getComponents(magnitude, angle) {
     return new Vector(magnitude * Math.cos(angle), -magnitude * Math.sin(angle));
   }
 
   static getDotProduct(vector1, vector2) {
     return vector1.x * vector2.x + vector1.y * vector2.y;
-  }
-
-  static calculateVelocity(p1, p2) {
-
-    const x = Point.getDistanceBetween(p1, p2);
-    const angle = Point.getAngle(p1, p2);
-    const velocity = Vector.getLaunchVelocity(x);
-
-    return Vector.getComponents(velocity, angle);
   }
 }
