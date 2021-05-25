@@ -64,14 +64,37 @@ class Slingshot extends StaticObject {
     return !this.birds.length;
   }
 
+  getCenterPosition(position) {
+    return new Point(
+      position.x - this.activeBird.radius / 2,
+      position.y - this.activeBird.radius / 2,
+    );
+  }
+
   birdPullbackHandler = (e) => {
     const mousePos = Utils.getMousePos(this.canvas.el, e);
-    const { activeBird: { position, radius } } = this;
 
     if (Point.getDistanceBetween(mousePos, this.relaxPos) < this.maxStretchLength) {
-      position.x = mousePos.x - radius / 2;
-      position.y = mousePos.y - radius / 2;
+      this.activeBird.position = this.getCenterPosition(mousePos);
+      return;
     }
+
+    this.getMaxStretchedPosition(mousePos);
+  }
+
+  getMaxStretchedPosition(mousePos) {
+    const getPointOnBoundary = this.getPointOnBoundary(mousePos);
+    this.activeBird.position = this.getCenterPosition(getPointOnBoundary);
+  }
+
+  getPointOnBoundary(mousePos) {
+    const angle = Point.getAngle(this.relaxPos, mousePos);
+    const components = Vector.getComponents(this.maxStretchLength, angle);
+
+    return new Point(
+      this.relaxPos.x + components.x,
+      this.relaxPos.y + components.y,
+    );
   }
 
   charge() {

@@ -27,9 +27,14 @@ class Bird extends RoundObject {
     this.velocity = launchVelocity;
   }
 
+  haltBird = () => {
+    this.state = BIRD_STATE.HALTED;
+  }
+
   checkHalted() {
-    if (this.velocity.x < 0.01 && this.velocity.y < 0.01) {
-      this.state = BIRD_STATE.HALTED;
+    // if bird comes to rest, ie velocity is negligible
+    if (Math.abs(this.velocity.x) < 0.3 && Math.abs(this.velocity.y) < 0.3) {
+      setTimeout(this.haltBird, 1000);
     }
   }
 

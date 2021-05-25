@@ -49,10 +49,10 @@ class Vector {
   }
 
   static calculateVelocity(p1, p2) {
-    const
-      x = Point.getDistanceBetween(p1, p2),
-      angle = Point.getAngle(p1, p2),
-      velocity = Vector.getLaunchVelocity(x);
+
+    const x = Point.getDistanceBetween(p1, p2);
+    const angle = Point.getAngle(p1, p2);
+    const velocity = Vector.getLaunchVelocity(x);
 
     return Vector.getComponents(velocity, angle);
   }
