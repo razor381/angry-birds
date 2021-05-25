@@ -19,6 +19,7 @@ class Slingshot extends StaticObject {
   }
 
   init(entities) {
+    this.trajectoryPoints =[];
     this.handleBirdLoading(entities);
     this.addStartBirdChargeHandler();
   }
@@ -64,14 +65,68 @@ class Slingshot extends StaticObject {
     return !this.birds.length;
   }
 
+  adjustToCenterPosition(position, isBelow = true) {
+    const direction = isBelow ? -1 : 1;
+    const offset = direction * this.activeBird.radius;
+
+    return new Point(position.x + offset, position.y + offset);
+  }
+
+  getTrajectoryPathPoint(i, angle, launchVelocity) {
+    const direction = Projectile.isAimedBackwards(angle) ? -1 : 1;
+    const xCoordinate = direction * i;
+    const yCoordinate = Projectile.getVerticalTrajectoryPosition(xCoordinate, angle, launchVelocity);
+
+    return new Point(xCoordinate, yCoordinate);
+  }
+
+  getTrajectoryPathPoints() {
+    const pointsToPlot = [];
+    const { position: birdPosition } = this.activeBird;
+    const launchVelocity = Projectile.getLaunchMagnitude(this.activeBird.position, this.relaxPos);
+    const angle = Point.getAngle(this.activeBird.position, this.relaxPos);
+
+    for (let i = TRAJECTORY_START_X; i <= TRAJECTORY_END_X; i += TRAJECTORY_POINTS_GAP) {
+      const pathPoint = this.getTrajectoryPathPoint(i, angle, launchVelocity);
+
+      pointsToPlot.push(this.adjustToCenterPosition(
+        Point.add(birdPosition, pathPoint),
+        false,
+      ));
+    }
+
+    return pointsToPlot;
+  }
+
+  calculateTrajectoryPath() {
+    this.trajectoryPoints =  this.getTrajectoryPathPoints();
+  }
+
   birdPullbackHandler = (e) => {
     const mousePos = Utils.getMousePos(this.canvas.el, e);
-    const { activeBird: { position, radius } } = this;
+    const mouseOffsetLength = Point.getDistanceBetween(mousePos, this.relaxPos);
+    const isMouseInRange = mouseOffsetLength < this.maxStretchLength;
 
-    if (Point.getDistanceBetween(mousePos, this.relaxPos) < this.maxStretchLength) {
-      position.x = mousePos.x - radius / 2;
-      position.y = mousePos.y - radius / 2;
-    }
+    this.activeBird.position = isMouseInRange
+      ? this.adjustToCenterPosition(mousePos)
+      : this.getMaxStretchedPosition(mousePos);
+
+    this.calculateTrajectoryPath(e);
+  }
+
+  getMaxStretchedPosition(mousePos) {
+    const getPointOnBoundary = this.getPointOnBoundary(mousePos);
+    return this.adjustToCenterPosition(getPointOnBoundary);
+  }
+
+  getPointOnBoundary(mousePos) {
+    const angle = Point.getAngle(this.relaxPos, mousePos);
+    const components = Vector.getComponents(this.maxStretchLength, angle);
+
+    return new Point(
+      this.relaxPos.x + components.x,
+      this.relaxPos.y + components.y,
+    );
   }
 
   charge() {
@@ -80,9 +135,13 @@ class Slingshot extends StaticObject {
   }
 
   release() {
-    this.activeBird.state = BIRD_STATE.FLIGHT;
+    const point1 = this.activeBird.position;
+    const point2 = this.relaxPos;
+
+    const launchVelocityVector = Projectile.getLaunchVelocityVector(point1, point2);
+
+    this.activeBird.launch(launchVelocityVector);
     document.removeEventListener('mousemove', this.birdPullbackHandler);
-    const launchVelocity = Vector.calculateVelocity(this.activeBird.position, this.relaxPos);
-    this.activeBird.launch(launchVelocity);
+    this.activeBird.state = BIRD_STATE.FLIGHT;
   }
 }

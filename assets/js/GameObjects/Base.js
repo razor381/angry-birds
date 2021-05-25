@@ -46,7 +46,6 @@ class Base {
 
     // start bounce
     if (this.isDescending && bottomPosition >= GROUND_Y) {
-
       const { x, y } = this.velocity;
       this.position.y = GROUND_Y - this.getHeight();
       this.velocity.y = Base.isJumpNegligible(y) ? 0 : -y * DAMPING_Y;

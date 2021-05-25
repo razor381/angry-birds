@@ -15,6 +15,7 @@ const CLASS_LEVELS_BACK_BTN = '.levels-back-btn';
 
 const CLASS_MENU_SCREEN = '.menu-screen';
 
+const CLASS_RESULTS_RESTART_BTN = '.results__restart-btn'
 const CLASS_RESULTS_MENU_BTN = '.results__menu-btn';
 const CLASS_RESULTS_LEVELS_BTN = '.results__levels-btn';
 const CLASS_RESULTS_SCREEN = '.results-screen';

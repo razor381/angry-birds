@@ -7,8 +7,8 @@ class Generator {
     this.generationObject = undefined;
   }
 
-  async loadJson() {
-    const res = await fetch(PATH_SEEDERS);
+  async loadJson(level) {
+    const res = await fetch(LEVEL_SEED_MAPPER[level]);
     const json = await res.json();
     this.generationObject = json.data;
   }
@@ -16,6 +16,7 @@ class Generator {
   generateBirds({ birds }) {
     const createdBirds = birds.map((bird, index) => {
 
+      // give vertical bottom to top queued position to birds
       const birdPosition = new Point(
         BIRD_QUEUE_START.x,
         BIRD_QUEUE_START.y - (index+1) * BIRD_QUEUE_GAP,
@@ -35,8 +36,8 @@ class Generator {
     return blocks.map(({ position, subtype }) => new Obstacle(position, subtype));
   }
 
-  async generateGameEntities() {
-    await this.loadJson();
+  async generateGameEntities(level) {
+    await this.loadJson(level);
 
     return {
       birds: this.generateBirds(this.generationObject),

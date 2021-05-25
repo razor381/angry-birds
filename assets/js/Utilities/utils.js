@@ -64,6 +64,14 @@ class Utils {
     return deg * (Math.PI / 180);
   }
 
+  static toDegrees(radians) {
+    return radians * (180 / Math.PI);
+  }
+
+  static getSubtypeImage(subtype) {
+    return Utils.createImage(SUBTYPE_IMAGE_MAPPER[subtype]);
+  }
+
   static getMousePos(canvas, evt) {
     const { left, top } = canvas.getBoundingClientRect();
 
