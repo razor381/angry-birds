@@ -10,7 +10,9 @@ class Projectile {
   static getVerticalTrajectoryPosition(x, angle, u) {
     const firstPart = x * Math.tan(angle);
     const secondPart = (DEFAULT_D2Y * x * x) / (2 * u * u * Math.pow(Math.cos(angle), 2));
-    return firstPart - secondPart;
+
+    // negating as y coordinate is inverted in canvas
+    return -(firstPart - secondPart);
   }
 
   static getLaunchMagnitude(p1, p2) {

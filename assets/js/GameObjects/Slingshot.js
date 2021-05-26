@@ -73,10 +73,11 @@ class Slingshot extends StaticObject {
   }
 
   getTrajectoryPathPoint(i, angle, launchVelocity) {
-    const xCoordinate = i * (Projectile.isAimedBackwards(angle) ? -1 : 1);
-    const yCoordinate = Projectile.getVerticalTrajectoryPosition(i, angle, launchVelocity);
+    const direction = Projectile.isAimedBackwards(angle) ? -1 : 1;
+    const xCoordinate = direction * i;
+    const yCoordinate = Projectile.getVerticalTrajectoryPosition(xCoordinate, angle, launchVelocity);
 
-    return new Point(xCoordinate, -yCoordinate);
+    return new Point(xCoordinate, yCoordinate);
   }
 
   getTrajectoryPathPoints() {

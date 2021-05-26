@@ -2,18 +2,63 @@
   "data": {
     "birds": [
       {
-        "subtype": "RED"
+        "subtype": "CHUCK"
       },
       {
-        "subtype": "RED"
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
       }
     ],
     "pigs": [
       {
         "subtype": "UNARMORED_PIG",
         "position": {
-          "x": 977,
-          "y": 430
+          "x": 800,
+          "y": 250
         }
       },
       {
@@ -42,49 +87,7 @@
       {
         "subtype": "WOOD",
         "position": {
-          "x": 900,
-          "y": 395
-        }
-      },
-      {
-        "subtype": "WOOD",
-        "position": {
-          "x": 900,
-          "y": 470
-        }
-      },
-      {
-        "subtype": "WOOD",
-        "position": {
-          "x": 900,
-          "y": 545
-        }
-      },
-      {
-        "subtype": "WOOD",
-        "position": {
-          "x": 975,
-          "y": 545
-        }
-      },
-      {
-        "subtype": "WOOD",
-        "position": {
-          "x": 1050,
-          "y": 545
-        }
-      },
-      {
-        "subtype": "WOOD",
-        "position": {
-          "x": 1050,
-          "y": 470
-        }
-      },
-      {
-        "subtype": "WOOD",
-        "position": {
-          "x": 1050,
+          "x": 450,
           "y": 395
         }
       }

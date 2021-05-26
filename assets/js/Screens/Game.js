@@ -136,19 +136,34 @@ class Game {
     }
   }
 
+  identifyEntities(entity1, entity2) {
+    const bird = entity1.type === ENTITY_TYPE.BIRD ? entity1 : entity2;
+    const notBird = entity1.type === ENTITY_TYPE.BIRD ? entity2 : entity1;
+
+    return  { bird, notBird };
+  }
+
   resolveCollision(stats, entity1, entity2) {
+    // collisions involving birds
     if (entity1.type === ENTITY_TYPE.BIRD || entity2.type === ENTITY_TYPE.BIRD) {
+
+      // stop interaction between two birds
       if (entity1.type === entity2.type) return;
 
-      const notBird = entity1.type === ENTITY_TYPE.BIRD ? entity2 : entity1;
+      const { bird, notBird } = this.identifyEntities(entity1, entity2);
 
       this.destroyNotBirdEntity(notBird);
+      this.addNegativeImpulse(bird);
       this.updateScores(notBird);
 
       return;
     }
 
     this.addReactionToEntities(stats, entity1, entity2);
+  }
+
+  addNegativeImpulse(bird) {
+    bird.velocity = Vector.divideVector(bird.velocity, 1.5);
   }
 
   destroyNotBirdEntity(entity) {
@@ -171,7 +186,6 @@ class Game {
 
     this.drawVisualEntities();
     this.displayScoreBoard();
-    Point.plotPoints(this.ctx, this.slingshot.trajectoryPoints);
   }
 
   displayScoreBoard() {
@@ -204,6 +218,7 @@ class Game {
     const toDraw = [
       this.background,
       this.slingshot,
+      ...this.slingshot.trajectoryPoints,
       ...Utils.flattenObjectToArray(this.entities),
     ];
 

@@ -4,6 +4,17 @@ class Point {
     this.y = y;
   }
 
+  render(ctx) {
+    ctx.save();
+    ctx.beginPath();
+    ctx.fillStyle = POINT_FILL_COLOR;
+    ctx.arc(this.x, this.y, POINT_RADIUS, 0, Math.PI * 2, false);
+    ctx.stroke();
+    ctx.fill();
+    ctx.closePath();
+    ctx.restore();
+  }
+
   static pointsToPlot = [];
 
   static getOrigin() {
