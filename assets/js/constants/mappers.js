@@ -14,6 +14,8 @@ const ENTITY_SUBTYPE = {
   STONE: 'STONE',
   ARMORED_PIG: 'ARMORED_PIG',
   UNARMORED_PIG: 'UNARMORED_PIG',
+  SLINGSHOT: 'SLINGSHOT',
+  BACKGROUND: 'BACKGROUND',
 };
 
 const ENTITY_KEY_MAPPER = {
@@ -52,3 +54,86 @@ const PIG_HP_MAPPER = {
   ARMORED_PIG: 2,
   UNARMORED_PIG: 1,
 }
+
+const SUBTYPE_SPRITE_MAPPER = {
+  RED: getSpriteData(SPRITE_RED, 68, 62, 0, 0),
+  CHUCK:getSpriteData(SPRITE_CHUCK, 72, 69, 0, 0),
+  ICE: getSpriteData(SPRITE_ICE_BLOCK, 83, 83, 0, 0),
+  WOOD: getSpriteData(SPRITE_WOOD_BLOCK, 82, 82, 0, 0),
+  STONE: getSpriteData(SPRITE_STONE_BLOCK, 82, 80, 0, 0),
+  ARMORED_PIG: getSpriteData(SPRITE_PIG_ARMORED, 95, 84, 0, 0),
+  UNARMORED_PIG: getSpriteData(SPRITE_UNARMORED_PIG, 100, 100, 0, 0),
+  SLINGSHOT: getSpriteData(SPRITE_RED, 64, 62, 0, 0),
+  BACKGROUND: getSpriteData(SPRITE_RED, 64, 62, 0, 0),
+};
+
+
+/**
+ * @TODO refactor
+ */
+const TYPE_STATE_FRAME_MAPPER = {
+  RED: {
+    WAITING: { x: 68 * 0, y:0 },
+    READY: { x: 68 * 0, y:0 },
+    CHARGED: { x: 68 * 1, y:0 },
+    FLIGHT: { x: 68 * 3, y:0 },
+    HALTED: { x: 68 * 2, y:0 },
+  },
+  CHUCK: {
+    WAITING: { x: 72 * 0, y:0 },
+    READY: { x: 72 * 0, y:0 },
+    CHARGED: { x: 72 * 1, y:0 },
+    FLIGHT: { x: 72 * 3, y:0 },
+    HALTED: { x: 72 * 2, y:0 },
+  },
+  ICE: {
+    HEALTHY: { x: 0, y:0 },
+    CRACKED: { x: 0, y:0 },
+  },
+  WOOD: {
+    HEALTHY: { x: 0, y:0 },
+    CRACKED: { x: 0, y:0 },
+  },
+  STONE: {
+    HEALTHY: { x: 0, y:0 },
+    CRACKED: { x: 0, y:0 },
+  },
+  ARMORED_PIG: {
+    HEALTHY: { x: 0, y:0 },
+    INJURED: { x: 95, y:0 },
+  },
+  UNARMORED_PIG: {
+    HEALTHY: { x: 0, y:0 },
+    INJURED: { x: 100, y:0 },
+  },
+};
+
+/**
+ * Get animation sprite data corresponding to entity subtype
+ *
+ * @param {String} sprite
+ * @param {Number} frameWidth
+ * @param {Number} frameHeight
+ * @returns Object containing data for sprite animation
+ */
+function getSpriteData(sprite, frameWidth, frameHeight, frameX, frameY) {
+  return {
+    sprite,
+    frameBox: {
+      width: frameWidth,
+      height: frameHeight,
+    },
+    framePos: {
+      x: frameX,
+      y: frameY,
+    },
+    stateMapper: {},
+  };
+}
+
+
+
+
+
+
+

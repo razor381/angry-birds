@@ -7,8 +7,8 @@ class Bird extends RoundObject {
       BIRD_STATE.WAITING,
       Utils.getSubtypeImage(subtype),
       ENTITY_TYPE.BIRD,
+      subtype,
     );
-    this.subtype = subtype;
   }
 
   static getReadyPosition = () => new Point(LOADED_BIRD_X, LOADED_BIRD_Y);

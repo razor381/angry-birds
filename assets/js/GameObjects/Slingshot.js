@@ -5,6 +5,7 @@ class Slingshot extends StaticObject {
       SLINGSHOT_WIDTH,
       SLINGSHOT_HEIGHT,
       Utils.createImage(IMAGE_SLINGSHOT),
+      ENTITY_SUBTYPE.SLINGSHOT,
     );
 
     this.canvas = canvas;

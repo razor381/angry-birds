@@ -89,7 +89,7 @@ body {
 
 .btn:hover,
 .btn:active {
-  transform: scale(1.1);
+  transform: scale(1.2) rotate(6deg);
 }
 
 .menu-screen {
@@ -157,7 +157,7 @@ body {
 
 .level:hover,
 .level:active {
-  transform: scale(1.1);
+  transform: scale(1.2);
 }
 
 .level-number {

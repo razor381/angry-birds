@@ -1,5 +1,5 @@
 class StaticObject extends Base {
-  constructor(position, width, height, image) {
+  constructor(position, width, height, image, subtype) {
     super(
       position,
       Vector.getZeroVector(),
@@ -7,6 +7,7 @@ class StaticObject extends Base {
       0,
       image,
       ENTITY_TYPE.STATIC,
+      subtype,
     );
     this.width = width;
     this.height = height;
@@ -18,6 +19,7 @@ class StaticObject extends Base {
       DEFAULT_WINDOW_WIDTH,
       DEFAULT_WINDOW_HEIGHT,
       Utils.createImage(IMAGE_BACKGROUND),
+      ENTITY_SUBTYPE.BACKGROUND,
     );
   }
 }

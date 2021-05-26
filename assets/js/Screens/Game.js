@@ -87,8 +87,7 @@ class Game {
           this.moveActiveBird();
           break;
         case BIRD_STATE.HALTED:
-          this.checkHasGameEnded();
-          this.reloadSlingshot();
+          this.handleBirdHalted();
           break;
       }
     }
@@ -107,6 +106,11 @@ class Game {
 
   resetPigsVulnerability() {
     this.entities.pigs.forEach((pig) => pig.makeVulnerable());
+  }
+
+  handleBirdHalted() {
+    this.checkHasGameEnded();
+    this.reloadSlingshot();
   }
 
   checkHasGameEnded() {
@@ -236,14 +240,16 @@ class Game {
   }
 
   drawVisualEntities() {
-    const toDraw = [
+    const toRender = [
       this.background,
       this.slingshot,
       ...this.slingshot.trajectoryPoints,
-      ...Utils.flattenObjectToArray(this.entities),
     ];
 
-    toDraw.forEach((entity) => entity.render(this.ctx));
+    const toAnimate = Utils.flattenObjectToArray(this.entities);
+
+    toRender.forEach((entity) => entity.render(this.ctx));
+    toAnimate.forEach((entity) => entity.animator.animate(this.ctx));
   }
 
   moveGameObjects() {

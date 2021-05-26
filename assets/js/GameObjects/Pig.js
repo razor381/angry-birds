@@ -4,12 +4,12 @@ class Pig extends RoundObject {
       position,
       PIG_MASS,
       PIG_RADIUS,
-      PIG_STATE.RESTING,
+      PIG_STATE.HEALTHY,
       Utils.getSubtypeImage(subtype),
       ENTITY_TYPE.ENEMY,
+      subtype,
     );
 
-    this.subtype = subtype;
     this.init();
   }
 
@@ -23,6 +23,7 @@ class Pig extends RoundObject {
   }
 
   takeHit() {
+    this.state = PIG_STATE.INJURED;
     this.canBlockHit = true;
     this.hitsLeft -= 1;
   }
