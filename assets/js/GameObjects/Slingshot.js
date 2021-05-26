@@ -5,6 +5,7 @@ class Slingshot extends StaticObject {
       SLINGSHOT_WIDTH,
       SLINGSHOT_HEIGHT,
       Utils.createImage(IMAGE_SLINGSHOT),
+      ENTITY_SUBTYPE.SLINGSHOT,
     );
 
     this.canvas = canvas;
@@ -14,6 +15,7 @@ class Slingshot extends StaticObject {
     this.stretchAngle = SLINGSHOT_DEFAULT_ANGLE;
     this.stretchLength = SLINGSHOT_DEFAULT_STRETCH_LENGTH;
     this.maxStretchLength = SLINGSHOT_MAX_LENGTH;
+    this.pocketImage = Utils.createImage(IMAGE_POCKET);
 
     this.init(entities);
   }
@@ -21,32 +23,34 @@ class Slingshot extends StaticObject {
   init(entities) {
     this.trajectoryPoints =[];
     this.handleBirdLoading(entities);
-    this.addStartBirdChargeHandler();
+    this.addBirdChargeHandler();
+    this.addBirdReleaseHandler();
   }
 
-  startBirdChargeHandler = (e) => {
-    e.preventDefault();
-
+  birdChargeHandler = (e) => {
     const mouseClickPos = Utils.getMousePos(this.canvas.el, e);
 
-    if (this.activeBird) {
-      switch (this.activeBird.state) {
-
-        case BIRD_STATE.READY:
-          if (this.activeBird.isPointWithin(mouseClickPos)) {
-            this.charge();
-          }
-          break;
-
-        case BIRD_STATE.CHARGED:
-          this.release();
-          break;
-      }
+    if (
+      this.activeBird &&
+      this.activeBird.state === BIRD_STATE.READY &&
+      this.activeBird.isPointWithin(mouseClickPos)
+    ) {
+      this.charge();
     }
   }
 
-  addStartBirdChargeHandler() {
-    document.addEventListener('mousedown', this.startBirdChargeHandler);
+  birdReleaseHandler = () => {
+    if (this.activeBird && this.activeBird.state === BIRD_STATE.CHARGED) {
+      this.release();
+    }
+  }
+
+  addBirdChargeHandler() {
+    document.addEventListener('mousedown', this.birdChargeHandler);
+  }
+
+  addBirdReleaseHandler() {
+    document.addEventListener('mouseup', this.birdReleaseHandler);
   }
 
   handleBirdLoading(entities) {
@@ -143,5 +147,48 @@ class Slingshot extends StaticObject {
     this.activeBird.launch(launchVelocityVector);
     document.removeEventListener('mousemove', this.birdPullbackHandler);
     this.activeBird.state = BIRD_STATE.FLIGHT;
+  }
+
+  drawSlingshotRubber(ctx) {
+    if (!(this.activeBird.state === BIRD_STATE.CHARGED)) return;
+
+    const { activeBird } = this;
+
+    const bandEndPos = Point.add(
+      activeBird.getCenter(),
+      new Point(-activeBird.radius, activeBird.radius / 2),
+    );
+
+    this.drawBand(ctx, bandEndPos);
+    this.drawPocket(ctx, bandEndPos);
+  }
+
+  drawBand(ctx, bandEndPos) {
+    // rubber band back part
+    Utils.drawLine(
+      ctx,
+      SLINGSHOT_BACK_HANDLE_POSITION,
+      bandEndPos,
+      SLINGSHOT_RUBBER_WIDTH,
+      SLINGSHOT_RUBBER_COLOR,
+    );
+
+    // rubber band front part
+    Utils.drawLine(
+      ctx,
+      SLINGSHOT_FRONT_HANDLE_POSITION,
+      bandEndPos,
+      SLINGSHOT_RUBBER_WIDTH,
+      SLINGSHOT_RUBBER_COLOR,
+    );
+  }
+
+  drawPocket(ctx, position) {
+    ctx.drawImage(this.pocketImage,
+      position.x - 7,
+      position.y - 13,
+      SLINGSHOT_POCKET_WIDTH,
+      SLINGSHOT_POCKET_HEIGHT
+    );
   }
 }

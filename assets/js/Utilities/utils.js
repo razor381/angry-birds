@@ -80,5 +80,17 @@ class Utils {
       y: evt.clientY - top,
     };
   }
+
+  static drawLine(ctx, startPoint, endPoint, thickness, color) {
+    ctx.save();
+    ctx.lineWidth = thickness;
+    ctx.strokeStyle = color;
+    ctx.beginPath();
+    ctx.moveTo(startPoint.x, startPoint.y);
+    ctx.lineTo(endPoint.x, endPoint.y);
+    ctx.stroke();
+    ctx.closePath();
+    ctx.restore();
+  }
 }
 

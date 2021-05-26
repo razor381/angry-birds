@@ -8,9 +8,11 @@ class Point {
     ctx.save();
     ctx.beginPath();
     ctx.fillStyle = POINT_FILL_COLOR;
+    ctx.strokeStyle = POINT_STROKE_COLOR;
+    ctx.lineWidth = POINT_LINE_WIDTH;
     ctx.arc(this.x, this.y, POINT_RADIUS, 0, Math.PI * 2, false);
-    ctx.stroke();
     ctx.fill();
+    ctx.stroke();
     ctx.closePath();
     ctx.restore();
   }

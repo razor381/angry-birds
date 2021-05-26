@@ -87,8 +87,7 @@ class Game {
           this.moveActiveBird();
           break;
         case BIRD_STATE.HALTED:
-          this.checkHasGameEnded();
-          this.reloadSlingshot();
+          this.handleBirdHalted();
           break;
       }
     }
@@ -107,6 +106,11 @@ class Game {
 
   resetPigsVulnerability() {
     this.entities.pigs.forEach((pig) => pig.makeVulnerable());
+  }
+
+  handleBirdHalted() {
+    this.checkHasGameEnded();
+    this.reloadSlingshot();
   }
 
   checkHasGameEnded() {
@@ -157,6 +161,8 @@ class Game {
 
       const { bird, notBird } = this.identifyEntities(entity1, entity2);
 
+      this.showCollisionAnimation(entity1, stats);
+
       // when bird hits pig
       if (notBird.type === ENTITY_TYPE.ENEMY) {
         this.handleBirdHitPig(notBird);
@@ -192,6 +198,15 @@ class Game {
         Utils.deleteFromArray(this.entities[ENTITY_KEY_MAPPER[entity.type]], [entity]);
   }
 
+  showCollisionAnimation(entity, stats) {
+    const collisionPoint = Point.add(
+      entity.position,
+      stats.shape1.collisionPoint,
+    );
+
+    Animator.showCollisionAt(collisionPoint);
+  }
+
   updateScores(entity) {
     this.playerScore += SCORE_SUBTYPE_MAPPER[entity.subtype];
     this.pigsKilled = this.maxPigsNumber - this.getPigsNumber();
@@ -206,6 +221,8 @@ class Game {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.drawVisualEntities();
+    this.slingshot.drawSlingshotRubber(this.ctx);
+    this.drawAnimations();
     this.displayScoreBoard();
   }
 
@@ -236,14 +253,21 @@ class Game {
   }
 
   drawVisualEntities() {
-    const toDraw = [
+    const toRender = [
       this.background,
       this.slingshot,
       ...this.slingshot.trajectoryPoints,
-      ...Utils.flattenObjectToArray(this.entities),
     ];
 
-    toDraw.forEach((entity) => entity.render(this.ctx));
+    const toAnimate = Utils.flattenObjectToArray(this.entities);
+
+    toRender.forEach((entity) => entity.render(this.ctx));
+    toAnimate.forEach((entity) => entity.animator.animate(this.ctx));
+  }
+
+  drawAnimations() {
+    Animator.showCollisionAnimations(this.ctx);
+    Animator.showSmokeAnimations(this.ctx);
   }
 
   moveGameObjects() {

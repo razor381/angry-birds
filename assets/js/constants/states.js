@@ -15,7 +15,13 @@ const GAME_STATES = {
 };
 
 const PIG_STATE = {
-  RESTING: 'RESTING',
+  HEALTHY: 'HEALTHY',
+  INJURED: 'INJURED',
+};
+
+const BLOCK_STATE = {
+  HEALTHY: 'HEALTHY',
+  CRACKED: 'CRACKED',
 };
 
 const GAME_WON = 'GAME_WON';
