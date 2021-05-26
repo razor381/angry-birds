@@ -10,5 +10,24 @@ class Pig extends RoundObject {
     );
 
     this.subtype = subtype;
+    this.init();
+  }
+
+  init() {
+    this.canBlockHit = false;
+    this.hitsLeft = PIG_HP_MAPPER[this.subtype];
+  }
+
+  makeVulnerable() {
+    this.canBlockHit = false;
+  }
+
+  takeHit() {
+    this.canBlockHit = true;
+    this.hitsLeft -= 1;
+  }
+
+  isDead() {
+    return this.hitsLeft <= 0;
   }
 }

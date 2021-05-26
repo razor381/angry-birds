@@ -101,7 +101,12 @@ class Game {
   }
 
   reloadSlingshot() {
+    this.resetPigsVulnerability();
     this.slingshot.handleBirdLoading(this.entities);
+  }
+
+  resetPigsVulnerability() {
+    this.entities.pigs.forEach((pig) => pig.makeVulnerable());
   }
 
   checkHasGameEnded() {
@@ -147,19 +152,35 @@ class Game {
     // collisions involving birds
     if (entity1.type === ENTITY_TYPE.BIRD || entity2.type === ENTITY_TYPE.BIRD) {
 
-      // stop interaction between two birds
+      // avoid interaction between two birds
       if (entity1.type === entity2.type) return;
 
       const { bird, notBird } = this.identifyEntities(entity1, entity2);
 
+      // when bird hits pig
+      if (notBird.type === ENTITY_TYPE.ENEMY) {
+        this.handleBirdHitPig(notBird);
+        return;
+      }
+
       this.destroyNotBirdEntity(notBird);
-      this.addNegativeImpulse(bird);
+      // this.addNegativeImpulse(bird);
       this.updateScores(notBird);
 
       return;
     }
 
     this.addReactionToEntities(stats, entity1, entity2);
+  }
+
+  handleBirdHitPig(pig) {
+    if (pig.canBlockHit) return;
+
+    pig.takeHit();
+    if (pig.isDead()) {
+      this.destroyNotBirdEntity(pig);
+      this.updateScores(pig);
+    }
   }
 
   addNegativeImpulse(bird) {

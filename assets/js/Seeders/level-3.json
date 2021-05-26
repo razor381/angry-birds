@@ -55,7 +55,7 @@
     ],
     "pigs": [
       {
-        "subtype": "UNARMORED_PIG",
+        "subtype": "ARMORED_PIG",
         "position": {
           "x": 800,
           "y": 250
