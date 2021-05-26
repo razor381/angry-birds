@@ -22,32 +22,34 @@ class Slingshot extends StaticObject {
   init(entities) {
     this.trajectoryPoints =[];
     this.handleBirdLoading(entities);
-    this.addStartBirdChargeHandler();
+    this.addBirdChargeHandler();
+    this.addBirdReleaseHandler();
   }
 
-  startBirdChargeHandler = (e) => {
-    e.preventDefault();
-
+  birdChargeHandler = (e) => {
     const mouseClickPos = Utils.getMousePos(this.canvas.el, e);
 
-    if (this.activeBird) {
-      switch (this.activeBird.state) {
-
-        case BIRD_STATE.READY:
-          if (this.activeBird.isPointWithin(mouseClickPos)) {
-            this.charge();
-          }
-          break;
-
-        case BIRD_STATE.CHARGED:
-          this.release();
-          break;
-      }
+    if (
+      this.activeBird &&
+      this.activeBird.state === BIRD_STATE.READY &&
+      this.activeBird.isPointWithin(mouseClickPos)
+    ) {
+      this.charge();
     }
   }
 
-  addStartBirdChargeHandler() {
-    document.addEventListener('mousedown', this.startBirdChargeHandler);
+  birdReleaseHandler = () => {
+    if (this.activeBird && this.activeBird.state === BIRD_STATE.CHARGED) {
+      this.release();
+    }
+  }
+
+  addBirdChargeHandler() {
+    document.addEventListener('mousedown', this.birdChargeHandler);
+  }
+
+  addBirdReleaseHandler() {
+    document.addEventListener('mouseup', this.birdReleaseHandler);
   }
 
   handleBirdLoading(entities) {
