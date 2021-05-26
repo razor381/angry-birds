@@ -221,6 +221,7 @@ class Game {
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
     this.drawVisualEntities();
+    this.slingshot.drawSlingshotRubber(this.ctx);
     this.drawAnimations();
     this.displayScoreBoard();
   }

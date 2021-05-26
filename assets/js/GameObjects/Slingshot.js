@@ -15,6 +15,7 @@ class Slingshot extends StaticObject {
     this.stretchAngle = SLINGSHOT_DEFAULT_ANGLE;
     this.stretchLength = SLINGSHOT_DEFAULT_STRETCH_LENGTH;
     this.maxStretchLength = SLINGSHOT_MAX_LENGTH;
+    this.pocketImage = Utils.createImage(IMAGE_POCKET);
 
     this.init(entities);
   }
@@ -146,5 +147,48 @@ class Slingshot extends StaticObject {
     this.activeBird.launch(launchVelocityVector);
     document.removeEventListener('mousemove', this.birdPullbackHandler);
     this.activeBird.state = BIRD_STATE.FLIGHT;
+  }
+
+  drawSlingshotRubber(ctx) {
+    if (!(this.activeBird.state === BIRD_STATE.CHARGED)) return;
+
+    const { activeBird } = this;
+
+    const bandEndPos = Point.add(
+      activeBird.getCenter(),
+      new Point(-activeBird.radius, activeBird.radius / 2),
+    );
+
+    this.drawBand(ctx, bandEndPos);
+    this.drawPocket(ctx, bandEndPos);
+  }
+
+  drawBand(ctx, bandEndPos) {
+    // rubber band back part
+    Utils.drawLine(
+      ctx,
+      SLINGSHOT_BACK_HANDLE_POSITION,
+      bandEndPos,
+      SLINGSHOT_RUBBER_WIDTH,
+      SLINGSHOT_RUBBER_COLOR,
+    );
+
+    // rubber band front part
+    Utils.drawLine(
+      ctx,
+      SLINGSHOT_FRONT_HANDLE_POSITION,
+      bandEndPos,
+      SLINGSHOT_RUBBER_WIDTH,
+      SLINGSHOT_RUBBER_COLOR,
+    );
+  }
+
+  drawPocket(ctx, position) {
+    ctx.drawImage(this.pocketImage,
+      position.x - 7,
+      position.y - 13,
+      SLINGSHOT_POCKET_WIDTH,
+      SLINGSHOT_POCKET_HEIGHT
+    );
   }
 }
