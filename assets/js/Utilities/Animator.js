@@ -6,6 +6,11 @@ class Animator {
     this.init();
   }
 
+  static collisionImage = Utils.createImage(IMAGE_COLLISION);
+  static smokeImage = Utils.createImage(IMAGE_SMOKE);
+  static collisionPoints = [];
+  static smokePoints = [];
+
   init() {
     const spriteData = SUBTYPE_SPRITE_MAPPER[this.subtype];
 
@@ -14,6 +19,7 @@ class Animator {
     this.framePos = spriteData.framePos;
     this.stateMapper = spriteData.stateMapper;
     this.frameCounter = 0;
+    this.animationEventTimer = 20;
   }
 
   getFramePosition() {
@@ -50,5 +56,53 @@ class Animator {
     );
     ctx.closePath();
     ctx.restore();
+  }
+
+  static showCollisionAt(point) {
+    Animator.collisionPoints.push(point);
+  }
+
+  static showCollisionAnimations(ctx) {
+    Animator.collisionPoints.forEach((point) => {
+      Animator.showCollision(ctx, point);
+    });
+  }
+
+  static showSmokeAt(point) {
+    Animator.smokePoints.push(point);
+  }
+
+  static showSmokeAnimations(ctx) {
+    Animator.smokePoints.forEach((point) => {
+      Animator.showSmoke(ctx, point);
+    });
+  }
+
+  static showCollision(ctx, position) {
+    ctx.drawImage(
+      Animator.collisionImage,
+      position.x,
+      position.y,
+      COLLISION_IMAGE_WIDTH,
+      COLLISION_IMAGE_WIDTH
+    );
+
+    setTimeout(() => {
+      Animator.collisionPoints =[];
+    }, COLLISION_ANIMATION_DURATION);
+  }
+
+  static showSmoke(ctx, position) {
+    ctx.drawImage(
+      Animator.smokeImage,
+      position.x,
+      position.y,
+      SMOKE_IMAGE_WIDTH,
+      SMOKE_IMAGE_WIDTH
+    );
+
+    setTimeout(() => {
+      Animator.smokePoints =[];
+    }, SMOKE_ANIMATION_DURATION);
   }
 }

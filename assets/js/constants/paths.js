@@ -25,6 +25,8 @@ const SPRITE_CHUCK = SPRITE_PATH + 'chuck-sprite.png';
 const SPRITE_UNARMORED_PIG = SPRITE_PATH + 'unarmored-pig-sprite.png';
 const SPRITE_PIG_ARMORED = SPRITE_PATH + 'armored-pig-sprite.png';
 
+const IMAGE_COLLISION = IMAGE_PATH + 'collision.png';
+const IMAGE_SMOKE = IMAGE_PATH + 'smoke.png';
 const IMAGE_RESULTS_WON = IMAGE_PATH + 'results-won.png';
 const IMAGE_RESULTS_LOST = IMAGE_PATH + 'results-lost.png';
 const IMAGE_SLINGSHOT = IMAGE_PATH + 'slingshot.png';
