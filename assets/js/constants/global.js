@@ -4,7 +4,7 @@ const BIRD_MASS = 60;
 const BIRD_RADIUS = 25;
 const BIRD_QUEUE_START = {
   x: 20,
-  y: 400
+  y: 550
 };
 const BIRD_QUEUE_GAP = 60;
 
@@ -24,8 +24,8 @@ const DEFAULT_WINDOW_HEIGHT = 720;
 const DEFAULT_D2X = 0;
 const DEFAULT_D2Y = 0.3;
 
-const FONT_FILL_COLOR = 'white';
-const FONT_OUTLINE_COLOR = 'black';
+const FONT_FILL_COLOR = 'black';
+const FONT_OUTLINE_COLOR = 'orange';
 
 const FPS_COUNTER_FONT = '30px Angry';
 
@@ -44,6 +44,8 @@ const LEVEL_ONE = 1;
 
 const PIG_MASS = 10;
 const PIG_RADIUS = 30;
+const POINT_FILL_COLOR = 'red';
+const POINT_RADIUS = 6;
 
 const SCORE_TEXT = {
   position: {
@@ -55,7 +57,7 @@ const SCORE_TEXT = {
 
 const SLINGSHOT_X = 200;
 const SLINGSHOT_WIDTH = 60;
-const SLINGSHOT_HEIGHT = 110;
+const SLINGSHOT_HEIGHT = 180;
 const SLINGSHOT_MAX_LENGTH = 100;
 const SLINGSHOT_DEFAULT_ANGLE = 0;
 const SLINGSHOT_DEFAULT_STRETCH_LENGTH = 0;
@@ -63,7 +65,11 @@ const SLINGSHOT_DEFAULT_STRETCH_LENGTH = 0;
 const TARGET_FPS = 60;
 const TOTAL_STARS_NUMBER = 3;
 
-// relative consts
+const TRAJECTORY_START_X = 30;
+const TRAJECTORY_END_X = 700;
+const TRAJECTORY_POINTS_GAP = 40;
+
+// relative constants
 
 const GROUND_Y = DEFAULT_WINDOW_HEIGHT - GROUND_HEIGHT;
 

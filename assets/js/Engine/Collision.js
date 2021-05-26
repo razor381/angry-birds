@@ -59,15 +59,6 @@ class Collision {
         (center1.y - center2.y) - collisionStats.shape2.collisionPoint.y + collisionStats.shape1.collisionPoint.y,
       );
 
-      const combinedMass = shape1.mass + shape2.mass;
-      // const combinedMass = Math.max(shape1.mass, shape2.mass);
-
-      const effectiveMass1 = shape1.mass / combinedMass;
-      const effectiveMass2 = shape2.mass / combinedMass;
-
-      // collisionStats.shape1.reactionVector = Vector.divideVector(reactionVector1, effectiveMass1);
-      // collisionStats.shape2.reactionVector = Vector.divideVector(reactionVector2, effectiveMass2);
-
       collisionStats.shape1.reactionVector = reactionVector1;
       collisionStats.shape2.reactionVector = reactionVector2;
     }

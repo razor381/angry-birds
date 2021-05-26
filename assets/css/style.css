@@ -116,8 +116,8 @@ body {
 .level-selector-screen {
   background: url('/assets//img/level-selector-bg.jpg');
   background-repeat:  no-repeat;
-  background-position: top left;
-  background-size: 150% auto;
+  background-position: 1% 30%;
+  background-size: 170% auto;
   padding: 2rem;
 }
 
@@ -230,12 +230,12 @@ body {
 .results-buttons {
   position: absolute;
   bottom: -3rem;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
+  text-align: center;
 }
 
 .results__levels-btn {
-  margin-left: 3rem;
+  margin: 0 3rem;
 }
 
 .pause-btn {

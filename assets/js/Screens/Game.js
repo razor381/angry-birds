@@ -17,6 +17,7 @@ class Game {
 
   init() {
     this.isPaused = false;
+    this.gameLevel = this.main.gamePlayLevel;
     this.queryDomElements();
     this.activatePauseButton();
     this.initGameObjects();
@@ -33,7 +34,7 @@ class Game {
 
   async initGameObjects() {
     this.background = StaticObject.createBackground();
-    this.entities = await this.generator.generateGameEntities();
+    this.entities = await this.generator.generateGameEntities(this.gameLevel);
     this.slingshot = new Slingshot(this.canvas, this.entities);
     this.isLoading = false;
 
@@ -100,7 +101,12 @@ class Game {
   }
 
   reloadSlingshot() {
+    this.resetPigsVulnerability();
     this.slingshot.handleBirdLoading(this.entities);
+  }
+
+  resetPigsVulnerability() {
+    this.entities.pigs.forEach((pig) => pig.makeVulnerable());
   }
 
   checkHasGameEnded() {
@@ -135,19 +141,50 @@ class Game {
     }
   }
 
+  identifyEntities(entity1, entity2) {
+    const bird = entity1.type === ENTITY_TYPE.BIRD ? entity1 : entity2;
+    const notBird = entity1.type === ENTITY_TYPE.BIRD ? entity2 : entity1;
+
+    return  { bird, notBird };
+  }
+
   resolveCollision(stats, entity1, entity2) {
+    // collisions involving birds
     if (entity1.type === ENTITY_TYPE.BIRD || entity2.type === ENTITY_TYPE.BIRD) {
+
+      // avoid interaction between two birds
       if (entity1.type === entity2.type) return;
 
-      const notBird = entity1.type === ENTITY_TYPE.BIRD ? entity2 : entity1;
+      const { bird, notBird } = this.identifyEntities(entity1, entity2);
+
+      // when bird hits pig
+      if (notBird.type === ENTITY_TYPE.ENEMY) {
+        this.handleBirdHitPig(notBird);
+        return;
+      }
 
       this.destroyNotBirdEntity(notBird);
+      // this.addNegativeImpulse(bird);
       this.updateScores(notBird);
 
       return;
     }
 
     this.addReactionToEntities(stats, entity1, entity2);
+  }
+
+  handleBirdHitPig(pig) {
+    if (pig.canBlockHit) return;
+
+    pig.takeHit();
+    if (pig.isDead()) {
+      this.destroyNotBirdEntity(pig);
+      this.updateScores(pig);
+    }
+  }
+
+  addNegativeImpulse(bird) {
+    bird.velocity = Vector.divideVector(bird.velocity, 1.5);
   }
 
   destroyNotBirdEntity(entity) {
@@ -202,6 +239,7 @@ class Game {
     const toDraw = [
       this.background,
       this.slingshot,
+      ...this.slingshot.trajectoryPoints,
       ...Utils.flattenObjectToArray(this.entities),
     ];
 

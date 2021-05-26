@@ -6,7 +6,7 @@ class Main {
   init() {
     this.canvas = new Canvas(this);
     this.ctx = this.canvas.ctx;
-    this.gameState = GAME_STATES.LEVEL_SELECTION;
+    this.gameState = GAME_STATES.MENU;
     this.fps = new FrameThrottler(this, TARGET_FPS);
     this.loader = new Loader(this);
     this.game = new Game(this);

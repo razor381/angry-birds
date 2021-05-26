@@ -18,6 +18,7 @@ class Results {
     this.resultsRankElement = Utils.getEl(CLASS_RESULTS_RANK);
     this.menuButton = Utils.getEl(CLASS_RESULTS_MENU_BTN);
     this.levelsButton = Utils.getEl(CLASS_RESULTS_LEVELS_BTN);
+    this.restartButton = Utils.getEl(CLASS_RESULTS_RESTART_BTN);
   }
 
   render() {
@@ -30,6 +31,7 @@ class Results {
   }
 
   addButtonClickListeners() {
+    this.restartButton.addEventListener('click', this.restartButtonClickHandler);
     this.menuButton.addEventListener('click', this.menuButtonClickHandler);
     this.levelsButton.addEventListener('click', this.levelsButtonClickHandler);
   }
@@ -90,6 +92,11 @@ class Results {
 
   setPlayerScore() {
     this.resultsScoreElement.innerText = this.main.playerScore;
+  }
+
+  restartButtonClickHandler = () => {
+    this.hideResultsScreen();
+    this.main.gameState = GAME_STATES.PLAYING;
   }
 
   menuButtonClickHandler = () => {

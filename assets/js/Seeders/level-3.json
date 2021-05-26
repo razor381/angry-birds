@@ -1,0 +1,96 @@
+{
+  "data": {
+    "birds": [
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      },
+      {
+        "subtype": "CHUCK"
+      }
+    ],
+    "pigs": [
+      {
+        "subtype": "ARMORED_PIG",
+        "position": {
+          "x": 800,
+          "y": 250
+        }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 800,
+          "y": 480
+        }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 800,
+          "y": 400
+        }
+      },
+      {
+        "subtype": "UNARMORED_PIG",
+        "position": {
+          "x": 800,
+          "y": 320
+        }
+      }
+    ],
+    "blocks": [
+      {
+        "subtype": "WOOD",
+        "position": {
+          "x": 450,
+          "y": 395
+        }
+      }
+    ]
+  }
+}
