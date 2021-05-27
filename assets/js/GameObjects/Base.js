@@ -48,15 +48,21 @@ class Base {
   }
 
   move(x, y) {
-    // topmost point of jump reached
     const bottomPosition = this.position.y + this.getHeight();
 
+    // topmost point of jump reached
     if (!this.isDescending && this.velocity.y >= 0) {
       this.isDescending = true;
     }
 
-    // start bounce
+    // bounce
     if (this.isDescending && bottomPosition >= GROUND_Y) {
+
+      if (this.type === ENTITY_TYPE.BIRD && !this.hasBounced) {
+        Sound.play(BIRD_BOUNCE);
+        this.hasBounced = true;
+      }
+
       const { x, y } = this.velocity;
       this.position.y = GROUND_Y - this.getHeight();
       this.velocity.y = Base.isJumpNegligible(y) ? 0 : -y * DAMPING_Y;

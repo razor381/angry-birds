@@ -9,6 +9,11 @@ class Bird extends RoundObject {
       ENTITY_TYPE.BIRD,
       subtype,
     );
+    this.init();
+  }
+
+  init() {
+    this.hasBounced = false;
   }
 
   static getReadyPosition = () => new Point(LOADED_BIRD_X, LOADED_BIRD_Y);

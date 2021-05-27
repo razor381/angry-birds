@@ -182,7 +182,7 @@ class Game {
   }
 
   playCollisionsound(subtype) {
-    Sound.play(subtype);
+    Sound.play(subtype, true);
   }
 
   handleBirdHitPig(pig) {
@@ -190,6 +190,7 @@ class Game {
 
     pig.takeHit();
     if (pig.isDead()) {
+      Sound.play(PIG_KILLED, true);
       this.destroyNotBirdEntity(pig);
       this.updateScores(pig);
     }

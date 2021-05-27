@@ -2,7 +2,7 @@ class Sound {
 
   static async loadTracks(loader) {
     Sound.tracks = {
-      THEME: await Utils.loadSound(AUDIO_THEME),
+      THEME: await Utils.loadSound(AUDIO_THEME, true),
       BUTTON: await Utils.loadSound(AUDIO_BUTTON),
       BIRD_LAUNCH: await Utils.loadSound(AUDIO_BIRD_LAUNCH),
       BIRD_SELECT: await Utils.loadSound(AUDIO_BIRD_SELECT),
@@ -16,6 +16,8 @@ class Sound {
       GAME_START: await Utils.loadSound(AUDIO_GAME_START),
       GAME_WON: await Utils.loadSound(AUDIO_GAME_WON),
       GAME_LOST: await Utils.loadSound(AUDIO_GAME_LOST),
+      PIG_KILLED: await Utils.loadSound(AUDIO_PIG_KILLED),
+      BIRD_BOUNCE: await Utils.loadSound(AUDIO_BIRD_BOUNCE),
     };
 
     Sound.checkTracksLoaded(loader);
@@ -26,11 +28,12 @@ class Sound {
     loader.hasSoundLoaded = true;
   }
 
-  static play(sound) {
+  static play(sound, clone = false) {
     const track = Sound.tracks[sound];
 
     track.currentTime = 0;
-    track.play();
+
+    clone ? track.cloneNode(false).play() : track.play();
   }
 
   static stop(sound) {

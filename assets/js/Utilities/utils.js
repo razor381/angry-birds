@@ -1,7 +1,8 @@
 class Utils {
-  static loadSound(src) {
+  static loadSound(src, shouldLoop = false) {
     return new Promise(resolve => {
       let audio = new Audio(src);
+      audio.loop = shouldLoop;
       audio.addEventListener('canplaythrough', () => resolve(audio), false);
     });
   }
