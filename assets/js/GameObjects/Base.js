@@ -1,5 +1,14 @@
 class Base {
-  constructor(position, velocity, acceleration, mass, image, type, isRound = false) {
+  constructor(
+    position,
+    velocity,
+    acceleration,
+    mass,
+    image,
+    type,
+    subtype,
+    isRound = false,
+  ) {
     this.id = Utils.getUniqueId();
     this.type = type;
     this.position = position;
@@ -12,6 +21,8 @@ class Base {
     this.image = image;
     this.isDescending = false;
     this.isRound = isRound;
+    this.subtype = subtype;
+    this.animator = new Animator(this, this.subtype);
   }
 
   getCenter() {

@@ -7,9 +7,10 @@ class Obstacle extends Base {
       BLOCK_MASS,
       Utils.getSubtypeImage(subtype),
       ENTITY_TYPE.OBSTACLE,
+      subtype,
     );
 
-    this.subtype = subtype;
+    this.state = BLOCK_STATE.HEALTHY;
     this.width = BLOCK_WIDTH;
     this.height = BLOCK_HEIGHT;
   }

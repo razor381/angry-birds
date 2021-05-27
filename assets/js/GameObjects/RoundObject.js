@@ -1,5 +1,5 @@
 class RoundObject extends Base {
-  constructor(position, mass, radius, state, image, type) {
+  constructor(position, mass, radius, state, image, type, subtype) {
     super(
       position,
       Vector.getZeroVector(),
@@ -7,6 +7,7 @@ class RoundObject extends Base {
       mass,
       image,
       type,
+      subtype,
       true,
     );
     this.radius = radius;
