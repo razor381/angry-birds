@@ -73,12 +73,14 @@ const TRAJECTORY_START_X = 30;
 const TRAJECTORY_END_X = 700;
 const TRAJECTORY_POINTS_GAP = 40;
 
+
 // text
 
 const GAME_WON_TEXT = 'Level Cleared!';
 const GAME_LOST_TEXT = 'Level Failed!';
 const NOT_LOADED_TEXT = "Please wait, birds aren't angry enough!";
 const LOADED_TEXT = 'Click anywhere to continue...';
+
 
 // colors
 

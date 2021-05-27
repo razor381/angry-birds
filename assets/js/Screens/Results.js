@@ -53,9 +53,9 @@ class Results {
   }
 
   setGameRankImage() {
-    const rankImage = Utils.createNewElement(TAG_IMG, [CLASS_RESULTS_RANK_IMG]);
-
-    rankImage.src = this.isGameWon() ? IMAGE_RESULTS_WON : IMAGE_RESULTS_LOST;
+    const rankImage = Picture.getPicture(
+      this.isGameWon() ? IMAGE_RESULTS_WON : IMAGE_RESULTS_LOST
+    );
 
     this.resultsRankElement.innerHTML = '';
     this.resultsRankElement.appendChild(rankImage);
@@ -75,12 +75,12 @@ class Results {
 
     // achieved stars
     for (let i = 0; i < starsAcquired; i++) {
-      starImages.push(Utils.createDomImage(IMAGE_STAR, CLASS_RESULTS_STAR));
+      starImages.push(Picture.getPicture(IMAGE_STAR, true));
     }
 
     // unachieved stars
     for (let i = 0; i < (TOTAL_STARS_NUMBER - starsAcquired); i++) {
-      starImages.push(Utils.createDomImage(IMAGE_STAR_OFF, CLASS_RESULTS_STAR));
+      starImages.push(Picture.getPicture(IMAGE_STAR_OFF, true));
     }
 
     return starImages;

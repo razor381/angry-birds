@@ -54,18 +54,22 @@ class Utils {
     parentEl.appendChild(el);
   }
 
-  static createDomImage(imageSource, ...classes) {
-    const image = Utils.createNewElement(TAG_IMG, classes);
-    image.src = imageSource;
-
-    return image;
+  static loadDomImage(src, ...classes) {
+    return new Promise((resolve) => {
+      const image = Utils.createNewElement(TAG_IMG, classes);
+      image.onload = () => resolve(image);
+      image.src = src;
+    });
   }
 
-  static createImage(src, classes = []) {
-    let img = new Image();
-    img.src = src;
-    img.classList.add(...classes);
-    return img;
+  static loadImage(src, classes = []) {
+    return new Promise((resolve) => {
+      const image = new Image();
+
+      image.onload = () => resolve(image);
+      image.src = src;
+      image.classList.add(...classes);
+    });
   }
 
   static toRadians(deg) {
@@ -77,7 +81,7 @@ class Utils {
   }
 
   static getSubtypeImage(subtype) {
-    return Utils.createImage(SUBTYPE_IMAGE_MAPPER[subtype]);
+    return Picture.getPicture(SUBTYPE_IMAGE_MAPPER[subtype]);
   }
 
   static getMousePos(canvas, evt) {

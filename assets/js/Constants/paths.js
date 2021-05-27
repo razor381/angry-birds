@@ -14,35 +14,29 @@ const PATH_SEEDER_LVL_5 = SEEDER_PATH + 'level-5.json';
 
 // image paths
 
-const IMAGE_BACKGROUND = IMAGE_PATH + 'background.jpeg';
-
-const IMAGE_ICE_BLOCK = IMAGE_PATH + 'ice-hollow-block.png';
-const IMAGE_WOOD_BLOCK = IMAGE_PATH + 'wood-hollow-block.png';
-const IMAGE_STONE_BLOCK = IMAGE_PATH + 'stone-hollow-block.png';
-const IMAGE_RED = IMAGE_PATH + 'red.png';
-const IMAGE_CHUCK = IMAGE_PATH + 'chuck.png';
-const IMAGE_PIG = IMAGE_PATH + 'pig.png';
-const IMAGE_PIG_ARMORED = IMAGE_PATH + 'pig-armored.png';
-
-const IMAGE_COLLISION = IMAGE_PATH + 'collision.png';
-const IMAGE_SMOKE = IMAGE_PATH + 'smoke.png';
-const IMAGE_POCKET = IMAGE_PATH + 'pocket.png';
-const IMAGE_RESULTS_WON = IMAGE_PATH + 'results-won.png';
-const IMAGE_RESULTS_LOST = IMAGE_PATH + 'results-lost.png';
-const IMAGE_SLINGSHOT = IMAGE_PATH + 'slingshot.png';
-const IMAGE_STAR = IMAGE_PATH + 'results-star.png';
-const IMAGE_STAR_OFF = IMAGE_PATH + 'results-star-off.png';
-
-
-// sprite images paths
-
-const SPRITE_ICE_BLOCK = SPRITE_PATH + 'ice-hollow-block.png';
-const SPRITE_WOOD_BLOCK = SPRITE_PATH + 'wood-hollow-block.png';
-const SPRITE_STONE_BLOCK = SPRITE_PATH + 'stone-hollow-block.png';
-const SPRITE_RED = SPRITE_PATH + 'red-sprite.png';
-const SPRITE_CHUCK = SPRITE_PATH + 'chuck-sprite.png';
-const SPRITE_UNARMORED_PIG = SPRITE_PATH + 'unarmored-pig-sprite.png';
-const SPRITE_PIG_ARMORED = SPRITE_PATH + 'armored-pig-sprite.png';
+const IMAGE_BACKGROUND_PATH = IMAGE_PATH + 'background.jpeg';
+const IMAGE_ICE_BLOCK_PATH = IMAGE_PATH + 'ice-hollow-block.png';
+const IMAGE_WOOD_BLOCK_PATH = IMAGE_PATH + 'wood-hollow-block.png';
+const IMAGE_STONE_BLOCK_PATH = IMAGE_PATH + 'stone-hollow-block.png';
+const IMAGE_RED_PATH = IMAGE_PATH + 'red.png';
+const IMAGE_CHUCK_PATH = IMAGE_PATH + 'chuck.png';
+const IMAGE_PIG_PATH = IMAGE_PATH + 'pig.png';
+const IMAGE_PIG_ARMORED_PATH = IMAGE_PATH + 'pig-armored.png';
+const IMAGE_COLLISION_PATH = IMAGE_PATH + 'collision.png';
+const IMAGE_SMOKE_PATH = IMAGE_PATH + 'smoke.png';
+const IMAGE_POCKET_PATH = IMAGE_PATH + 'pocket.png';
+const IMAGE_RESULTS_WON_PATH = IMAGE_PATH + 'results-won.png';
+const IMAGE_RESULTS_LOST_PATH = IMAGE_PATH + 'results-lost.png';
+const IMAGE_SLINGSHOT_PATH = IMAGE_PATH + 'slingshot.png';
+const IMAGE_STAR_PATH = IMAGE_PATH + 'results-star.png';
+const IMAGE_STAR_OFF_PATH = IMAGE_PATH + 'results-star-off.png';
+const SPRITE_ICE_BLOCK_PATH = SPRITE_PATH + 'ice-hollow-block.png';
+const SPRITE_WOOD_BLOCK_PATH = SPRITE_PATH + 'wood-hollow-block.png';
+const SPRITE_STONE_BLOCK_PATH = SPRITE_PATH + 'stone-hollow-block.png';
+const SPRITE_RED_PATH = SPRITE_PATH + 'red-sprite.png';
+const SPRITE_CHUCK_PATH = SPRITE_PATH + 'chuck-sprite.png';
+const SPRITE_UNARMORED_PIG_PATH = SPRITE_PATH + 'unarmored-pig-sprite.png';
+const SPRITE_PIG_ARMORED_PATH = SPRITE_PATH + 'armored-pig-sprite.png';
 
 
 // audio file paths

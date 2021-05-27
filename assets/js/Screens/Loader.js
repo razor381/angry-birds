@@ -11,7 +11,10 @@ class Loader {
     this.loadingScreenText = Utils.getEl(CLASS_LOADING_TEXT);
 
     this.hasSoundLoaded = false;
+    this.hasPicturesLoaded = false;
+
     Sound.loadTracks(this);
+    Picture.loadPictures(this);
   }
 
   splashScreenClickHandler = () => {
@@ -24,7 +27,7 @@ class Loader {
     this.loadingScreen.removeEventListener('click', this.loadingScreen);
   }
 
-  handleSoundLoaded() {
+  handleResourcesLoaded() {
     this.loadingScreenText.textContent = LOADED_TEXT;
     this.loadingScreen.addEventListener('click', this.splashScreenClickHandler);
   }
@@ -33,8 +36,8 @@ class Loader {
     this.loadingScreen.classList.remove(CLASS_HIDDEN);
     this.loadingScreenText.textContent = NOT_LOADED_TEXT;
 
-    if (this.hasSoundLoaded) {
-      this.handleSoundLoaded();
+    if (this.hasSoundLoaded && this.hasPicturesLoaded) {
+      this.handleResourcesLoaded();
     }
   }
 }

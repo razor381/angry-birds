@@ -4,7 +4,7 @@ class Slingshot extends StaticObject {
       new Point(SLINGSHOT_X, SLINGSHOT_Y),
       SLINGSHOT_WIDTH,
       SLINGSHOT_HEIGHT,
-      Utils.createImage(IMAGE_SLINGSHOT),
+      Picture.getPicture(IMAGE_SLINGSHOT),
       ENTITY_SUBTYPE.SLINGSHOT,
     );
 
@@ -15,7 +15,7 @@ class Slingshot extends StaticObject {
     this.stretchAngle = SLINGSHOT_DEFAULT_ANGLE;
     this.stretchLength = SLINGSHOT_DEFAULT_STRETCH_LENGTH;
     this.maxStretchLength = SLINGSHOT_MAX_LENGTH;
-    this.pocketImage = Utils.createImage(IMAGE_POCKET);
+    this.pocketImage = Picture.getPicture(IMAGE_POCKET);
 
     this.init(entities);
   }
