@@ -13,6 +13,9 @@ const CLASS_LEVEL_STARS = 'level-stars';
 const CLASS_LEVELS_SCREEN = '.level-selector-screen';
 const CLASS_LEVELS_BACK_BTN = '.levels-back-btn';
 
+const CLASS_LOADING_SCREEN = '.loading-screen';
+const CLASS_LOADING_TEXT = '.loading-text';
+
 const CLASS_MENU_SCREEN = '.menu-screen';
 
 const CLASS_RESULTS_RESTART_BTN = '.results__restart-btn'

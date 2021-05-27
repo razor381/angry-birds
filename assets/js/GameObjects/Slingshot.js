@@ -60,6 +60,8 @@ class Slingshot extends StaticObject {
 
   loadBird() {
     if (this.birds.length) {
+      Sound.play(BIRD_SELECT);
+
       this.activeBird = this.birds.pop();
       this.activeBird.getReady();
     }
@@ -134,11 +136,15 @@ class Slingshot extends StaticObject {
   }
 
   charge() {
+    Sound.play(RUBBER);
     this.activeBird.state = BIRD_STATE.CHARGED;
     document.addEventListener('mousemove', this.birdPullbackHandler);
   }
 
   release() {
+    Sound.play(RUBBER_RELEASE);
+    Sound.play(BIRD_LAUNCH);
+
     const point1 = this.activeBird.position;
     const point2 = this.relaxPos;
 
