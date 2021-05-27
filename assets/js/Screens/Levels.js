@@ -64,11 +64,16 @@ class Levels {
   }
 
   backButtonClickHandler = (e) => {
+    Sound.play(BUTTON);
+
     this.hideLevelScreen();
     this.main.gameState = GAME_STATES.MENU;
   }
 
   levelClickHandler = (e) => {
+    Sound.stop(THEME);
+    Sound.play(BUTTON);
+
     this.hideLevelScreen();
     this.main.gamePlayLevel = e.target.dataset.levelData;
     this.main.gameState = GAME_STATES.PLAYING;
