@@ -1,14 +1,15 @@
-const IMAGE_PATH = '/assets/img/';
-const SPRITE_PATH = '/assets/img/sprites/';
-const AUDIO_PATH = '/assets/audio/';
+const IMAGE_PATH = 'assets/img/';
+const SPRITE_PATH = 'assets/img/sprites/';
+const AUDIO_PATH = 'assets/audio/';
+const SEEDER_PATH = 'assets/js/Seeders/';
 
 // level seeders
 
-const PATH_SEEDER_LVL_1 = '/assets/js/Seeders/level-1.json';
-const PATH_SEEDER_LVL_2 = '/assets/js/Seeders/level-2.json';
-const PATH_SEEDER_LVL_3 = '/assets/js/Seeders/level-3.json';
-const PATH_SEEDER_LVL_4 = '/assets/js/Seeders/level-4.json';
-const PATH_SEEDER_LVL_5 = '/assets/js/Seeders/level-5.json';
+const PATH_SEEDER_LVL_1 = SEEDER_PATH + 'level-1.json';
+const PATH_SEEDER_LVL_2 = SEEDER_PATH + 'level-2.json';
+const PATH_SEEDER_LVL_3 = SEEDER_PATH + 'level-3.json';
+const PATH_SEEDER_LVL_4 = SEEDER_PATH + 'level-4.json';
+const PATH_SEEDER_LVL_5 = SEEDER_PATH + 'level-5.json';
 
 
 // image paths
@@ -43,6 +44,7 @@ const SPRITE_CHUCK = SPRITE_PATH + 'chuck-sprite.png';
 const SPRITE_UNARMORED_PIG = SPRITE_PATH + 'unarmored-pig-sprite.png';
 const SPRITE_PIG_ARMORED = SPRITE_PATH + 'armored-pig-sprite.png';
 
+
 // audio file paths
 
 const AUDIO_THEME = AUDIO_PATH + 'main-theme.mp3';
@@ -60,9 +62,3 @@ const AUDIO_ICE = AUDIO_PATH + 'Sound Effects - jewel_break_03.mp3';
 const AUDIO_GAME_START = AUDIO_PATH + 'Sound Effects - level start military a2.mp3';
 const AUDIO_GAME_WON = AUDIO_PATH + 'Sound Effects - level clear military a2.mp3';
 const AUDIO_GAME_LOST = AUDIO_PATH + 'Sound Effects - level failed piglets a1.mp3';
-
-const AUDIO_ = AUDIO_PATH + '';
-
-
-
-
