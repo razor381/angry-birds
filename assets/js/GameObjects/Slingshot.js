@@ -109,6 +109,8 @@ class Slingshot extends StaticObject {
   }
 
   birdPullbackHandler = (e) => {
+    e.preventDefault();
+
     const mousePos = Utils.getMousePos(this.canvas.el, e);
     const mouseOffsetLength = Point.getDistanceBetween(mousePos, this.relaxPos);
     const isMouseInRange = mouseOffsetLength < this.maxStretchLength;
