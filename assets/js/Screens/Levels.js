@@ -2,8 +2,7 @@ class Levels {
   constructor(main) {
     this.main = main;
     this.ctx = main.ctx;
-
-    this.init();
+    this.isInitialized = false;
   }
 
   init() {
@@ -11,12 +10,22 @@ class Levels {
     this.levelsScreen = Utils.getEl(CLASS_LEVELS_SCREEN);
     this.levelsListing = Utils.getEl(CLASS_LEVELS_LISTING);
     this.backButton = Utils.getEl(CLASS_LEVELS_BACK_BTN);
-    this.levelsData = LevelClass.getLevelsData();
 
-    this.createLevelCards();
+    Levels
+      .getLevelsDataFromLocal()
+      .then((data) => {
+        this.main.levelsData = data;
+        this.createLevelCards();
+      })
+      .catch((err) => Utils.throwErr(LOCAL_READ_ERR, err));
   }
 
   render() {
+    if (!this.isInitialized) {
+      this.init();
+      this.isInitialized = true;
+    }
+
     if (this.levelsScreen.classList.contains(CLASS_HIDDEN)) {
       this.levelsScreen.classList.remove(CLASS_HIDDEN);
     }
@@ -26,13 +35,25 @@ class Levels {
   }
 
   getLevelstars(starsNumber) {
-    let stars = "";
+    const starImages = [];
 
-    for (let i = 0; i < starsNumber; i++) {
-      stars += (i === starsNumber-1) ? 'X' : 'X ';
+    if (!starsNumber) {
+      for (let i = 0; i < TOTAL_STARS_NUMBER; i++) {
+        starImages.push(Picture.getPicture(IMAGE_SMALL_STAR_OFF, true));
+      }
+    } else {
+      for (let i = 0; i < starsNumber; i++) {
+        starImages.push(Picture.getPicture(IMAGE_SMALL_STAR, true));
+      }
     }
 
-    return stars;
+    return starImages;
+  }
+
+  addStarElements(parentElement, levelData) {
+    const starElements = this.getLevelstars(levelData.stars);
+
+    starElements.forEach((el) => parentElement.appendChild(el));
   }
 
   createLevelCard(levelData) {
@@ -41,7 +62,7 @@ class Levels {
     const levelStarsElement = Utils.createNewElement(TAG_DIV, [CLASS_LEVEL_STARS]);
 
     levelNumberElement.textContent = levelData.level;
-    levelStarsElement.textContent = this.getLevelstars(levelData.stars);
+    this.addStarElements(levelStarsElement, levelData);
 
     levelElement.appendChild(levelNumberElement);
     levelElement.appendChild(levelStarsElement);
@@ -50,20 +71,21 @@ class Levels {
   }
 
   createLevelCards() {
-      const levelsElement = Utils.createNewElement(TAG_UL, [CLASS_LEVELS]);
+    const levelsElement = Utils.createNewElement(TAG_UL, [CLASS_LEVELS]);
+    const levels = LevelCard.getLevelCards(this.main.levelsData);
 
-      this.levelsData.forEach((level) => {
-        const levelCardElement = this.createLevelCard(level);
-        levelCardElement.dataset.levelData = level.level;
-        this.levelCards.push(levelCardElement);
-        levelsElement.appendChild(levelCardElement);
-      });
+    levels.forEach((level) => {
+      const levelCardElement = this.createLevelCard(level);
+      levelCardElement.dataset.levelData = level.level;
+      this.levelCards.push(levelCardElement);
+      levelsElement.appendChild(levelCardElement);
+    });
 
-      this.levelsListing.innerHTML = '';
-      this.levelsListing.appendChild(levelsElement);
+    this.levelsListing.innerHTML = '';
+    this.levelsListing.appendChild(levelsElement);
   }
 
-  backButtonClickHandler = (e) => {
+  backButtonClickHandler = () => {
     Sound.play(BUTTON);
 
     this.hideLevelScreen();
@@ -75,8 +97,9 @@ class Levels {
     Sound.play(BUTTON);
 
     this.hideLevelScreen();
-    this.main.gamePlayLevel = e.target.dataset.levelData;
+    this.main.gamePlayLevel = +e.target.dataset.levelData;
     this.main.gameState = GAME_STATES.PLAYING;
+    this.isInitialized = false;
   }
 
   addLevelsSelectionListener() {
@@ -87,5 +110,17 @@ class Levels {
 
   hideLevelScreen() {
     this.levelsScreen.classList.add(CLASS_HIDDEN);
+  }
+
+  static getLevelIndexFromArray(arr, level) {
+    return arr.findIndex((el) => el.level === level);
+  }
+
+  static async getLevelsDataFromLocal() {
+    return JSON.parse(Utils.getFromLocal(LEVELS_RECORDS_KEY)).data;
+  }
+
+  static updateLevelsDataToLocal(scores) {
+    Utils.saveToLocal(LEVELS_RECORDS_KEY, JSON.stringify({ data: scores }));
   }
 }

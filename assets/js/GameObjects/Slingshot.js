@@ -4,7 +4,7 @@ class Slingshot extends StaticObject {
       new Point(SLINGSHOT_X, SLINGSHOT_Y),
       SLINGSHOT_WIDTH,
       SLINGSHOT_HEIGHT,
-      Utils.createImage(IMAGE_SLINGSHOT),
+      Picture.getPicture(IMAGE_SLINGSHOT),
       ENTITY_SUBTYPE.SLINGSHOT,
     );
 
@@ -15,7 +15,7 @@ class Slingshot extends StaticObject {
     this.stretchAngle = SLINGSHOT_DEFAULT_ANGLE;
     this.stretchLength = SLINGSHOT_DEFAULT_STRETCH_LENGTH;
     this.maxStretchLength = SLINGSHOT_MAX_LENGTH;
-    this.pocketImage = Utils.createImage(IMAGE_POCKET);
+    this.pocketImage = Picture.getPicture(IMAGE_POCKET);
 
     this.init(entities);
   }
@@ -39,6 +39,21 @@ class Slingshot extends StaticObject {
     }
   }
 
+  birdTouchChargeHandler = (e) => {
+    document.addEventListener('touchend', this.birdReleaseHandler);
+
+    const touchPos = Utils.getMousePos(this.canvas.el, e.targetTouches[0]);
+
+    if (
+      this.activeBird &&
+      this.activeBird.state === BIRD_STATE.READY &&
+      this.activeBird.isPointWithin(touchPos)
+    ) {
+      this.charge();
+    }
+  }
+
+
   birdReleaseHandler = () => {
     if (this.activeBird && this.activeBird.state === BIRD_STATE.CHARGED) {
       this.release();
@@ -47,6 +62,7 @@ class Slingshot extends StaticObject {
 
   addBirdChargeHandler() {
     document.addEventListener('mousedown', this.birdChargeHandler);
+    document.addEventListener('touchstart', this.birdTouchChargeHandler);
   }
 
   addBirdReleaseHandler() {
@@ -120,6 +136,18 @@ class Slingshot extends StaticObject {
     this.calculateTrajectoryPath(e);
   }
 
+  birdTouchPullbackHandler = (e) => {
+    const touchPos = Utils.getMousePos(this.canvas.el, e.targetTouches[0]);
+    const touchOffsetLength = Point.getDistanceBetween(touchPos, this.relaxPos);
+    const isTouchInRange = touchOffsetLength < this.maxStretchLength;
+
+    this.activeBird.position = isTouchInRange
+      ? this.adjustToCenterPosition(touchPos)
+      : this.getMaxStretchedPosition(touchPos);
+
+    this.calculateTrajectoryPath(e);
+  }
+
   getMaxStretchedPosition(mousePos) {
     const getPointOnBoundary = this.getPointOnBoundary(mousePos);
     return this.adjustToCenterPosition(getPointOnBoundary);
@@ -139,6 +167,7 @@ class Slingshot extends StaticObject {
     Sound.play(RUBBER);
     this.activeBird.state = BIRD_STATE.CHARGED;
     document.addEventListener('mousemove', this.birdPullbackHandler);
+    document.addEventListener('touchmove', this.birdTouchPullbackHandler);
   }
 
   release() {

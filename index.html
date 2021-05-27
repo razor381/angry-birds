@@ -4,8 +4,9 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="shortcut icon" href="/assets/img/red.png">
+  <link rel="shortcut icon" href="assets/img/red.png">
   <title>SE33 | Angry Birds</title>
+  <base href=".">
 
   <link rel="stylesheet" href="assets/css/reset.css">
   <link rel="stylesheet" href="assets/css/style.css">
@@ -17,7 +18,7 @@
     <!-- menu screen -->
     <article class="screen loading-screen hidden">
       <div class="screen-content loading-content">
-        <img src="/assets/img/eggs.png" class="loading-icon">
+        <img src="assets/img/eggs.png" class="loading-icon">
         <h3 class="loading-text"></h3>
       </div>
     </article>
@@ -73,7 +74,7 @@
 
     <!-- pause button -->
     <button class="btn pause-btn hidden">
-      <img src="/assets/img/pause-btn.png" alt="pause button">
+      <img src="assets/img/pause-btn.png" alt="pause button">
     </button>
 
     <!-- pause screen -->
@@ -93,14 +94,19 @@
   </main>
 
   <!-- game scripts -->
-  <script src="assets/js/constants/global.js"></script>
-  <script src="assets/js/constants/paths.js"></script>
-  <script src="assets/js/constants/soundTracks.js"></script>
-  <script src="assets/js/constants/css-selectors.js"></script>
-  <script src="assets/js/constants/dom-elements.js"></script>
-  <script src="assets/js/constants/mappers.js"></script>
-  <script src="assets/js/constants/schemas.js"></script>
-  <script src="assets/js/constants/states.js"></script>
+
+  <script src="assets/js/Constants/global.js"></script>
+  <script src="assets/js/Constants/paths.js"></script>
+  <script src="assets/js/Constants/images.js"></script>
+  <script src="assets/js/Constants/soundTracks.js"></script>
+  <script src="assets/js/Constants/css-selectors.js"></script>
+  <script src="assets/js/Constants/dom-elements.js"></script>
+  <script src="assets/js/Constants/mappers.js"></script>
+  <script src="assets/js/Constants/schemas.js"></script>
+  <script src="assets/js/Constants/states.js"></script>
+  <script src="assets/js/Constants/errorMessages.js"></script>
+
+  <script src="assets/js/Components/Picture.js"></script>
 
   <script src="assets/js/Utilities/utils.js"></script>
   <script src="assets/js/Utilities/FrameThrottler.js"></script>

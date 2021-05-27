@@ -18,7 +18,7 @@ class StaticObject extends Base {
       Point.getOrigin(),
       DEFAULT_WINDOW_WIDTH,
       DEFAULT_WINDOW_HEIGHT,
-      Utils.createImage(IMAGE_BACKGROUND),
+      Picture.getPicture(IMAGE_BACKGROUND),
       ENTITY_SUBTYPE.BACKGROUND,
     );
   }
