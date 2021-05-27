@@ -37,18 +37,25 @@ class Results {
   }
 
   setupResultsScreen() {
+    this.playResultSound();
     this.setGameStatusTitle();
     this.setGameRankImage();
     this.setPlayerScore();
     this.setPlayerStars();
   }
 
+  playResultSound() {
+    Sound.play(this.main.gameEndStatus);
+  }
+
+  isGameWon() {
+    return this.main.gameEndStatus === GAME_WON;
+  }
+
   setGameRankImage() {
     const rankImage = Utils.createNewElement(TAG_IMG, [CLASS_RESULTS_RANK_IMG]);
 
-    rankImage.src = (this.main.gameEndStatus === GAME_WON)
-      ? IMAGE_RESULTS_WON
-      : IMAGE_RESULTS_LOST;
+    rankImage.src = this.isGameWon() ? IMAGE_RESULTS_WON : IMAGE_RESULTS_LOST;
 
     this.resultsRankElement.innerHTML = '';
     this.resultsRankElement.appendChild(rankImage);
@@ -85,7 +92,7 @@ class Results {
   }
 
   setGameStatusTitle() {
-    this.resulstStatusElement.innerText = (this.main.gameEndStatus === GAME_WON)
+    this.resulstStatusElement.innerText = this.isGameWon()
       ? GAME_WON_TEXT
       : GAME_LOST_TEXT;
   }
@@ -95,20 +102,25 @@ class Results {
   }
 
   restartButtonClickHandler = () => {
+    Sound.play(BUTTON);
     this.hideResultsScreen();
     this.main.gameState = GAME_STATES.PLAYING;
+    Sound.stop(this.main.gameEndStatus);
   }
 
   menuButtonClickHandler = () => {
-    Sound.play(THEME);
+    Sound.play(BUTTON);
 
     this.hideResultsScreen();
     this.main.gameState = GAME_STATES.MENU;
+    Sound.stop(this.main.gameEndStatus);
   }
 
   levelsButtonClickHandler = () => {
+    Sound.play(BUTTON);
     this.hideResultsScreen();
     this.main.gameState = GAME_STATES.LEVEL_SELECTION;
+    Sound.stop(this.main.gameEndStatus);
   }
 
   hideResultsScreen() {

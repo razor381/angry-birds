@@ -16,6 +16,7 @@ class Game {
   }
 
   init() {
+    Sound.play(GAME_START);
     this.isPaused = false;
     this.gameLevel = this.main.gamePlayLevel;
     this.queryDomElements();
@@ -161,6 +162,7 @@ class Game {
 
       const { bird, notBird } = this.identifyEntities(entity1, entity2);
 
+      this.playCollisionsound(notBird.subtype);
       this.showCollisionAnimation(entity1, stats);
 
       // when bird hits pig
@@ -177,6 +179,10 @@ class Game {
     }
 
     this.addReactionToEntities(stats, entity1, entity2);
+  }
+
+  playCollisionsound(subtype) {
+    Sound.play(subtype);
   }
 
   handleBirdHitPig(pig) {
@@ -280,18 +286,21 @@ class Game {
   }
 
   pauseClickHandler = () => {
+    Sound.play(BUTTON);
     this.isPaused = true;
     this.pauseButton.classList.add(CLASS_HIDDEN);
     this.showPauseCard();
   }
 
   resumeGame = () => {
+    Sound.play(BUTTON);
     this.isPaused = false;
     this.pauseCard.classList.add(CLASS_HIDDEN);
     this.pauseButton.classList.remove(CLASS_HIDDEN);
   }
 
   restartGame = () => {
+    Sound.play(BUTTON);
     this.isPaused = false;
     this.pauseCard.classList.add(CLASS_HIDDEN);
     this.pauseButton.classList.remove(CLASS_HIDDEN);
@@ -299,6 +308,7 @@ class Game {
   }
 
   exitGame = (endStatus) => {
+    Sound.play(BUTTON);
     this.pauseCard.classList.add(CLASS_HIDDEN);
     this.pauseButton.classList.add(CLASS_HIDDEN);
     this.main.playerScore = this.playerScore;
@@ -312,7 +322,7 @@ class Game {
     this.pauseCard.classList.remove(CLASS_HIDDEN);
     this.resumeButton.addEventListener('click', this.resumeGame);
     this.restartButton.addEventListener('click', this.restartGame);
-    this.exitButton.addEventListener('click', this.exitGame);
+    this.exitButton.addEventListener('click', () => this.exitGame(GAME_LOST));
   }
 
 }

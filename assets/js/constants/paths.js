@@ -46,4 +46,23 @@ const SPRITE_PIG_ARMORED = SPRITE_PATH + 'armored-pig-sprite.png';
 // audio file paths
 
 const AUDIO_THEME = AUDIO_PATH + 'main-theme.mp3';
+const AUDIO_BUTTON = AUDIO_PATH + 'button.mp3';
+const AUDIO_BIRD_LAUNCH = AUDIO_PATH + 'Sound Effects - bird 04 flying.mp3';
+const AUDIO_BIRD_SELECT = AUDIO_PATH + 'Sound Effects - bird 01 select.mp3';
+const AUDIO_RUBBER = AUDIO_PATH + 'Sound Effects - slingshot streched.mp3';
+const AUDIO_RUBBER_RELEASE = AUDIO_PATH + 'Sound Effects - sardine_can_shot.mp3';
+const AUDIO_PIG_HURT = AUDIO_PATH + 'pig.mp3';
+
+const AUDIO_WOOD = AUDIO_PATH + 'Sound Effects - special egg explosion.mp3';
+const AUDIO_STONE = AUDIO_PATH + 'Sound Effects - rock damage a2.mp3';
+const AUDIO_ICE = AUDIO_PATH + 'Sound Effects - jewel_break_03.mp3';
+
+const AUDIO_GAME_START = AUDIO_PATH + 'Sound Effects - level start military a2.mp3';
+const AUDIO_GAME_WON = AUDIO_PATH + 'Sound Effects - level clear military a2.mp3';
+const AUDIO_GAME_LOST = AUDIO_PATH + 'Sound Effects - level failed piglets a1.mp3';
+
+const AUDIO_ = AUDIO_PATH + '';
+
+
+
 

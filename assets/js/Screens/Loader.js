@@ -15,8 +15,6 @@ class Loader {
   }
 
   splashScreenClickHandler = () => {
-    Sound.play(THEME);
-
     this.removeListeners();
     this.loadingScreen.classList.add(CLASS_HIDDEN);
     this.main.gameState = GAME_STATES.MENU;
