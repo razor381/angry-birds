@@ -69,6 +69,8 @@ class Levels {
   }
 
   levelClickHandler = (e) => {
+    Sound.stop(THEME);
+
     this.hideLevelScreen();
     this.main.gamePlayLevel = e.target.dataset.levelData;
     this.main.gameState = GAME_STATES.PLAYING;

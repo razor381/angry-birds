@@ -100,6 +100,8 @@ class Results {
   }
 
   menuButtonClickHandler = () => {
+    Sound.play(THEME);
+
     this.hideResultsScreen();
     this.main.gameState = GAME_STATES.MENU;
   }

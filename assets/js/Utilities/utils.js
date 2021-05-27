@@ -1,4 +1,11 @@
 class Utils {
+  static loadSound(src) {
+    return new Promise(resolve => {
+      let audio = new Audio(src);
+      audio.addEventListener('canplaythrough', () => resolve(audio), false);
+    });
+  }
+
   static getUniqueId() {
     return 'id' + Math.random().toString(16).slice(2);
   }

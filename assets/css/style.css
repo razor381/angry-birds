@@ -92,6 +92,28 @@ body {
   transform: scale(1.2) rotate(6deg);
 }
 
+.loading-screen {
+  background: rgb(32, 32, 32);
+}
+
+.loading-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 8rem;
+}
+
+.loading-icon {
+  width: 16rem;
+}
+
+.loading-text {
+  margin-top: 8rem;
+  color: white;
+  font-size: 2.5em;
+}
+
 .menu-screen {
   background-image: url('/assets/img/menu-screen.jpg');
   background-repeat: no-repeat;

@@ -21,7 +21,7 @@ class Menu {
     this.buildButton.addEventListener('click', this.buildClickHandler);
   }
 
-  gameStartHandler = (e) => {
+  gameStartHandler = () => {
     this.removeListeners();
     this.menuScreen.classList.add(CLASS_HIDDEN);
     this.main.gameState = GAME_STATES.LEVEL_SELECTION;
