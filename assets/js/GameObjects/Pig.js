@@ -23,6 +23,7 @@ class Pig extends RoundObject {
   }
 
   takeHit() {
+    Sound.play(this.subtype);
     this.state = PIG_STATE.INJURED;
     this.canBlockHit = true;
     this.hitsLeft -= 1;
