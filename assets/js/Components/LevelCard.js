@@ -1,4 +1,4 @@
-class LevelClass {
+class LevelCard {
   constructor(level, stars, totalScore, achievedScore) {
     this.level = level;
     this.stars = stars;
@@ -6,13 +6,10 @@ class LevelClass {
     this.achievedScore = achievedScore;
   }
 
-  static getLevelsData() {
-    const levelCards = [];
+  static getLevelCards(levelsData) {
 
-    for (let i = 1; i <= LEVELS_NUMBER; i++) {
-      levelCards.push(new LevelClass(i, 2, 100, 50));
-    }
-
-    return levelCards;
+    return levelsData.map(({ level, stars, totalScore, achievedScore }) => {
+      return new LevelCard(level, stars, totalScore, achievedScore);
+    });
   }
 }

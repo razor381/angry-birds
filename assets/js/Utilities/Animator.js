@@ -6,15 +6,16 @@ class Animator {
     this.init();
   }
 
-  static collisionImage = Utils.createImage(IMAGE_COLLISION);
-  static smokeImage = Utils.createImage(IMAGE_SMOKE);
   static collisionPoints = [];
   static smokePoints = [];
 
   init() {
     const spriteData = SUBTYPE_SPRITE_MAPPER[this.subtype];
 
-    this.image = Utils.createImage(spriteData.sprite);
+    Animator.collisionImage = Picture.getPicture(IMAGE_COLLISION);
+    Animator.smokeImage = Picture.getPicture(IMAGE_SMOKE);
+
+    this.image = Picture.getPicture(spriteData.sprite);
     this.frameBox = spriteData.frameBox;
     this.framePos = spriteData.framePos;
     this.stateMapper = spriteData.stateMapper;

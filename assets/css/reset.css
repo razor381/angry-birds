@@ -1,6 +1,6 @@
 @font-face {
   font-family: "angrybirds";
-  src: url("/assets/fonts/angrybirds-regular.ttf") format("truetype");
+  src: url("../fonts/angrybirds-regular.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
