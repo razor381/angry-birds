@@ -181,7 +181,13 @@ class Game {
   }
 
   playCollisionsound(subtype) {
-    Sound.play(subtype, true);
+    // handle pig collision sound separately
+    if (
+      subtype !== ENTITY_SUBTYPE.ARMORED_PIG &&
+      subtype !== ENTITY_SUBTYPE.UNARMORED_PIG
+    ){
+      Sound.play(subtype, true);
+    }
   }
 
   handleBirdHitPig(pig) {
