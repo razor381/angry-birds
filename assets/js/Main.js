@@ -6,11 +6,14 @@ class Main {
     this.animateId = undefined;
     this.levelsData = undefined;
     this.loader = new Loader(this);
+    this.gameState = GAME_STATES.LOADING;
 
     this
       .loader
       .init()
       .then(this.init);
+
+    this.start();
   }
 
   init = async () => {
@@ -19,12 +22,9 @@ class Main {
     this.levels = new Levels(this);
     this.gamePlayLevel = LEVEL_ONE;
     this.results = new Results(this);
-    this.gameState = GAME_STATES.LOADING;
     this.playerScore = undefined;
     this.maxScore = undefined;
     this.gameEndStatus = GAME_LOST;
-
-    this.start();
   }
 
   runGame(time) {
