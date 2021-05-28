@@ -1,6 +1,5 @@
 class Picture {
   static async loadPictures(loader) {
-
     Picture.pictures = {
       IMAGE_BACKGROUND: await Utils.loadImage(IMAGE_BACKGROUND_PATH),
       IMAGE_ICE_BLOCK: await Utils.loadImage(IMAGE_ICE_BLOCK_PATH),
@@ -18,6 +17,8 @@ class Picture {
       IMAGE_SLINGSHOT: await Utils.loadImage(IMAGE_SLINGSHOT_PATH),
       IMAGE_STAR: await Utils.loadDomImage(IMAGE_STAR_PATH, [CLASS_RESULTS_STAR]),
       IMAGE_STAR_OFF: await Utils.loadDomImage(IMAGE_STAR_OFF_PATH, [CLASS_RESULTS_STAR]),
+      IMAGE_SMALL_STAR: await Utils.loadDomImage(IMAGE_STAR_PATH, [CLASS_LEVELS_STAR]),
+      IMAGE_SMALL_STAR_OFF: await Utils.loadDomImage(IMAGE_STAR_OFF_PATH, [CLASS_LEVELS_STAR]),
       SPRITE_ICE_BLOCK: await Utils.loadImage(SPRITE_ICE_BLOCK_PATH),
       SPRITE_WOOD_BLOCK: await Utils.loadImage(SPRITE_WOOD_BLOCK_PATH),
       SPRITE_STONE_BLOCK: await Utils.loadImage(SPRITE_STONE_BLOCK_PATH),

@@ -7,6 +7,7 @@ class Results {
   }
 
   init() {
+    this.starsAcquired = undefined;
     this.queryDomElements();
   }
 
@@ -25,9 +26,27 @@ class Results {
     if (this.resultsScreen.classList.contains(CLASS_HIDDEN)) {
       this.setupResultsScreen();
       this.resultsScreen.classList.remove(CLASS_HIDDEN);
+      this.saveScores();
     }
 
     this.addButtonClickListeners();
+  }
+
+  saveScores() {
+    const { playerScore, maxScore, gamePlayLevel, levelsData } = this.main;
+    const levelIndex = Levels.getLevelIndexFromArray(levelsData, gamePlayLevel);
+    const prevScoreObj = levelsData[levelIndex];
+
+    if (playerScore <= prevScoreObj.achievedScore) return;
+
+    levelsData[levelIndex] = {
+      ...prevScoreObj,
+      achievedScore: playerScore,
+      stars: this.starsAcquired,
+      totalScore: maxScore,
+    };
+
+    Levels.updateLevelsDataToLocal(levelsData);
   }
 
   addButtonClickListeners() {
@@ -71,15 +90,15 @@ class Results {
 
   getStarImages() {
     const starImages = [];
-    const starsAcquired = this.getNumberOfStarsAcquired();
+    this.starsAcquired = this.getNumberOfStarsAcquired();
 
     // achieved stars
-    for (let i = 0; i < starsAcquired; i++) {
+    for (let i = 0; i < this.starsAcquired; i++) {
       starImages.push(Picture.getPicture(IMAGE_STAR, true));
     }
 
     // unachieved stars
-    for (let i = 0; i < (TOTAL_STARS_NUMBER - starsAcquired); i++) {
+    for (let i = 0; i < (TOTAL_STARS_NUMBER - this.starsAcquired); i++) {
       starImages.push(Picture.getPicture(IMAGE_STAR_OFF, true));
     }
 

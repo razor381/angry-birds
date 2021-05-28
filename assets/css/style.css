@@ -6,6 +6,7 @@
   --primary-dark: #ecab29;
   --primary-darker: #c66600;
   --secondary: #cae680;
+  --secondary-dark: #64a844;
   --tertiary: #65d1b9;
   --black: #000000;
   --black-outline:
@@ -164,11 +165,11 @@ body {
 }
 
 .level {
+  width: 10rem;
   background: var(--secondary);
   border-radius: 1rem;
   border: 0.5rem solid var(--primary-dark);
   overflow: hidden;
-  padding: 2rem 2.5rem;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -187,14 +188,22 @@ body {
   text-shadow: var(--black-outline);
   font-size: 4em;
   pointer-events: none;
+  padding: 3rem 0 1rem;
 }
 
 .level-stars {
-  color: white;
-  font-size: 2em;
+  width: 100%;
+  background-color: var(--secondary-dark);
+  padding: 0.4rem 1rem;
   margin-top: 1rem;
-  text-shadow: var(--black-outline);
   pointer-events: none;
+  display: flex;
+  justify-content: center;
+}
+
+.level-star {
+  height: 2rem;
+  margin: 0 0.2rem;
 }
 
 .results-card {

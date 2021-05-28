@@ -104,5 +104,23 @@ class Utils {
     ctx.closePath();
     ctx.restore();
   }
+
+  static async loadJson(path) {
+    const res = await fetch(path);
+    const json = await res.json();
+    return json.data;
+  }
+
+  static getFromLocal(key) {
+    return localStorage.getItem(key);
+  }
+
+  static saveToLocal(key, data) {
+    localStorage.setItem(key, data);
+  }
+
+  static throwErr(message, error) {
+    throw { message, error };
+  }
 }
 

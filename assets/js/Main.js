@@ -1,20 +1,25 @@
 class Main {
   constructor() {
-    this.init();
-  }
-
-  init() {
     this.canvas = new Canvas(this);
     this.ctx = this.canvas.ctx;
-    this.gameState = GAME_STATES.LOADING;
     this.fps = new FrameThrottler(this, TARGET_FPS);
+    this.animateId = undefined;
+    this.levelsData = undefined;
     this.loader = new Loader(this);
+
+    this
+      .loader
+      .init()
+      .then(this.init);
+  }
+
+  init = async () => {
     this.game = new Game(this);
     this.menu = new Menu(this);
     this.levels = new Levels(this);
     this.gamePlayLevel = LEVEL_ONE;
     this.results = new Results(this);
-    this.animateId = undefined;
+    this.gameState = GAME_STATES.LOADING;
     this.playerScore = undefined;
     this.maxScore = undefined;
     this.gameEndStatus = GAME_LOST;
@@ -50,6 +55,7 @@ class Main {
           break;
       }
     }
+
     this.start();
   }
 

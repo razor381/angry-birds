@@ -113,3 +113,6 @@ const SLINGSHOT_BACK_HANDLE_POSITION = {
 }
 
 
+// local storage keys
+const LEVELS_RECORDS_KEY = '@levelsStorageKeys';
+

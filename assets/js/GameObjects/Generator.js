@@ -1,19 +1,8 @@
 class Generator {
   constructor() {
-    this.init();
   }
 
-  init() {
-    this.generationObject = undefined;
-  }
-
-  async loadJson(level) {
-    const res = await fetch(LEVEL_SEED_MAPPER[level]);
-    const json = await res.json();
-    this.generationObject = json.data;
-  }
-
-  generateBirds({ birds }) {
+  static generateBirds({ birds }) {
     const createdBirds = birds.map((bird, index) => {
 
       // give vertical bottom to top queued position to birds
@@ -28,21 +17,21 @@ class Generator {
     return createdBirds;
   }
 
-  generatePigs({ pigs }) {
+  static generatePigs({ pigs }) {
     return pigs.map(({ position, subtype }) => new Pig(position, subtype));
   }
 
-  generateBlocks({ blocks }) {
+  static generateBlocks({ blocks }) {
     return blocks.map(({ position, subtype }) => new Obstacle(position, subtype));
   }
 
-  async generateGameEntities(level) {
-    await this.loadJson(level);
+  static async generateGameEntities(level) {
+    const generationObject = await Utils.loadJson(LEVEL_SEED_MAPPER[level]);
 
     return {
-      birds: this.generateBirds(this.generationObject),
-      pigs: this.generatePigs(this.generationObject),
-      blocks: this.generateBlocks(this.generationObject),
+      birds: Generator.generateBirds(generationObject),
+      pigs: Generator.generatePigs(generationObject),
+      blocks: Generator.generateBlocks(generationObject),
     };
   }
 }

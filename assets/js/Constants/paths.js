@@ -5,6 +5,7 @@ const SEEDER_PATH = 'assets/js/Seeders/';
 
 // level seeders
 
+const PATH_SEEDER_LVLS_DATA = SEEDER_PATH + 'levels-data.json';
 const PATH_SEEDER_LVL_1 = SEEDER_PATH + 'level-1.json';
 const PATH_SEEDER_LVL_2 = SEEDER_PATH + 'level-2.json';
 const PATH_SEEDER_LVL_3 = SEEDER_PATH + 'level-3.json';
