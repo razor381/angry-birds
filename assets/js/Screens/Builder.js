@@ -125,6 +125,7 @@ class Builder {
     const newEntity = new BUILDER_TYPE_CLASS_MAPPER[type](position, subtype);
     newEntity.adjustPositionToCenter();
 
+    Sound.play(subtype, true);
     this.entities[type].push(newEntity);
     this.addEntityToSeeder(type, subtype, position);
   }
@@ -152,6 +153,7 @@ class Builder {
   }
 
   handleBirdClicked({ subtype }) {
+    Sound.play(BIRD_BOUNCE, true);
     this.seeder.birds.push({ subtype });
     this.birdCounter[subtype]++;
     this.updateBirdCounter();
