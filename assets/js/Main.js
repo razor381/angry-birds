@@ -22,6 +22,7 @@ class Main {
     this.levels = new Levels(this);
     this.gamePlayLevel = LEVEL_ONE;
     this.results = new Results(this);
+    this.builder = new Builder(this);
     this.playerScore = undefined;
     this.maxScore = undefined;
     this.gameEndStatus = GAME_LOST;
@@ -46,8 +47,12 @@ class Main {
           this.levels.render();
           break;
 
+        case GAME_STATES.BUILDING:
+          this.builder.render();
+          break;
+
         case GAME_STATES.PLAYING:
-          this.game.render(this.gamePlayLevel);
+          this.game.render();
           break;
 
         case GAME_STATES.RESULTS:

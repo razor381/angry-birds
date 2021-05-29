@@ -40,7 +40,13 @@ class Menu {
     this.buildButton.removeEventListener('click', this.buildClickHandler);
   }
 
-  buildClickHandler = (e) => {
+  buildClickHandler = () => {
+    this.isSoundPlaying = false;
+    Sound.stop(THEME);
     Sound.play(BUTTON);
+
+    this.removeListeners();
+    this.menuScreen.classList.add(CLASS_HIDDEN);
+    this.main.gameState = GAME_STATES.BUILDING;
   }
 }

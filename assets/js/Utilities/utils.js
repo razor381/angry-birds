@@ -3,6 +3,7 @@ class Utils {
     return new Promise(resolve => {
       let audio = new Audio(src);
       audio.loop = shouldLoop;
+      audio.volume = VOLUME;
       audio.addEventListener('canplaythrough', () => resolve(audio), false);
     });
   }

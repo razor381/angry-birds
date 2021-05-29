@@ -15,6 +15,9 @@ const BLOCK_MASS = 20;
 const BLOCK_WIDTH = 70;
 const BLOCK_HEIGHT = 70;
 
+const BUILDER_TOP_BOUNDARY = 115;
+const BUILDER_LEFT_BOUNDARY = 430;
+
 const COLLISION_ANIMATION_DURATION = 300; //milliseconds
 const COLLISION_IMAGE_WIDTH = 50;
 
@@ -27,9 +30,9 @@ const DEFAULT_WINDOW_HEIGHT = 720;
 const DEFAULT_D2X = 0;
 const DEFAULT_D2Y = 0.3;
 
-
 const FPS_COUNTER_FONT = '30px Angry';
 
+const CUSTOM_GAME_LEVEL = 6;
 const GROUND_HEIGHT = 100;
 
 const HOOKES_CONSTANT = 0.8;
@@ -37,7 +40,7 @@ const HOOKES_CONSTANT = 0.8;
 const MIN_JUMP_VELOCITY = 0.9;
 
 const LAUNCH_MASS = 30;
-const LEVELS_NUMBER = 5;
+const LEVELS_NUMBER = 3;
 const LEVEL_ONE = 1;
 
 const PIG_MASS = 10;
@@ -47,7 +50,7 @@ const POINT_RADIUS = 6;
 
 const SCORE_TEXT = {
   position: {
-    x: 50,
+    x: 100,
     y: 80,
   },
   font: '3em angrybirds',
@@ -72,6 +75,8 @@ const TOTAL_STARS_NUMBER = 3;
 const TRAJECTORY_START_X = 30;
 const TRAJECTORY_END_X = 700;
 const TRAJECTORY_POINTS_GAP = 40;
+
+const VOLUME = 0.2;
 
 
 // text

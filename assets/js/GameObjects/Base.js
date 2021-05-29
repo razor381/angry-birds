@@ -29,6 +29,14 @@ class Base {
     return Point.add(this.position, new Point(this.width / 2, this.height / 2));
   }
 
+  adjustPositionToCenter() {
+    const offset = this.isRound
+      ? new Point(this.radius, this.radius)
+      : new Point(this.width / 2, this.height / 2);
+
+    this.position = Point.subtract(offset, this.position);
+  }
+
   setPosition(point) {
     const bottomEdge = point.y + this.getHeight();
     this.position.x = point.x;

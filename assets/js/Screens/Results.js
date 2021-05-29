@@ -33,6 +33,8 @@ class Results {
   }
 
   saveScores() {
+    if (this.main.gamePlayLevel === CUSTOM_GAME_LEVEL) return;
+
     const { playerScore, maxScore, gamePlayLevel, levelsData } = this.main;
     const levelIndex = Levels.getLevelIndexFromArray(levelsData, gamePlayLevel);
     const prevScoreObj = levelsData[levelIndex];
