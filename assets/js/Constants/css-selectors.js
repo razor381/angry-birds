@@ -40,9 +40,14 @@ const CLASS_PLAY_BTN = '.play-btn';
 
 // builder screen buttons
 const CLASS_BUILDER_BUTTONS = '.builder-buttons';
+const CLASS_BUILDER_EXIT_BUTTON = '.builder-exit-btn';
+const CLASS_BUILDER_RESET_BUTTON = '.builder-reset-btn';
+const CLASS_BUILDER_START_BUTTON = '.builder-start-btn';
 const CLASS_BUILDER_ACTIVE = 'builder-btn--active';
 const CLASS_BUILDER_RED_NUM = '.bird-count__red';
 const CLASS_BUILDER_CHUCK_NUM = '.bird-count__chuck';
+const CLASS_BUILDER_MOVEMENT_BUTTON = '.builder-movement-btn';
+const CLASS_BUILDER_MOVEMENT_ACTIVE = 'builder-movement--active';
 
 const ID_RED = '#red';
 const ID_CHUCK = '#chuck';

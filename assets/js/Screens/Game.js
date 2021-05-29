@@ -62,7 +62,10 @@ class Game {
 
   async initGameObjects() {
     this.background = StaticObject.createBackground();
-    this.entities = await Generator.generateGameEntities(this.gameLevel);
+    this.entities = await Generator.generateGameEntities(
+      this.gameLevel,
+      this.main.seederObject,
+    );
     this.slingshot = new Slingshot(this.canvas, this.entities);
     this.isLoading = false;
 

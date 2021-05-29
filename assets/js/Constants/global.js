@@ -30,9 +30,9 @@ const DEFAULT_WINDOW_HEIGHT = 720;
 const DEFAULT_D2X = 0;
 const DEFAULT_D2Y = 0.3;
 
-
 const FPS_COUNTER_FONT = '30px Angry';
 
+const CUSTOM_GAME_LEVEL = 6;
 const GROUND_HEIGHT = 100;
 
 const HOOKES_CONSTANT = 0.8;

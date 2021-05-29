@@ -15,6 +15,8 @@ class Builder {
 
   init() {
     this.clickables = {};
+    this.entities = {};
+    this.seeder = {};
     /**
      * selectedEntity schema: {
      *    element,
@@ -29,18 +31,20 @@ class Builder {
     }
 
     this.isGameInitialized = true;
-    this.isPaused = false;
+    this.isMovementEnabled = false;
 
     this.queryDomElements();
+    this.activateControlButtons();
     this.activateTools();
     this.initGameObjects();
+    this.updateBirdCounter();
   }
 
   initGameObjects() {
     this.background = StaticObject.createBackground();
     this.slingshot = new Slingshot(this.canvas, null, true);
-    this.entities ={ ...BUILDER_ENTITIES_SCHEMA };
-    this.seeder = { ...BUILDER_SEEDER_SCHEMA };
+    this.entities = Utils.copyObject(BUILDER_ENTITIES_SCHEMA);
+    this.seeder = Utils.copyObject(BUILDER_SEEDER_SCHEMA);
   }
 
   render() {
@@ -48,7 +52,7 @@ class Builder {
       this.init();
     }
 
-    if (!this.isPaused) {
+    if (this.isMovementEnabled) {
       this.moveEntities();
       this.checkEntitesCollision();
     }
@@ -96,6 +100,11 @@ class Builder {
     this.builderButtonsElement = Utils.getEl(CLASS_BUILDER_BUTTONS);
     this.redCountElement = Utils.getEl(CLASS_BUILDER_RED_NUM);
     this.chuckCountElement = Utils.getEl(CLASS_BUILDER_CHUCK_NUM);
+
+    this.startButton = Utils.getEl(CLASS_BUILDER_START_BUTTON);
+    this.resetButton = Utils.getEl(CLASS_BUILDER_RESET_BUTTON);
+    this.exitButton = Utils.getEl(CLASS_BUILDER_EXIT_BUTTON);
+    this.movementButton = Utils.getEl(CLASS_BUILDER_MOVEMENT_BUTTON);
 
     Object.keys(BUILDER_BUTTON_TYPE_MAPPER).forEach((key) => {
       const { idSelector, type } = BUILDER_BUTTON_TYPE_MAPPER[key];
@@ -153,11 +162,10 @@ class Builder {
   }
 
   handleBirdClicked({ subtype }) {
-    Sound.play(BIRD_BOUNCE, true);
+    Sound.play(BIRD_SELECT, true);
     this.seeder.birds.push({ subtype });
     this.birdCounter[subtype]++;
     this.updateBirdCounter();
-    console.log(this.seeder.birds);
   }
 
   updateBirdCounter() {
@@ -209,7 +217,73 @@ class Builder {
     document.addEventListener('click', this.placeEntityHandler);
   }
 
+  removeListeners() {
+    document.removeEventListener('click', this.placeEntityHandler);
+    this.startButton.removeEventListener('click', this.startHandler);
+    this.resetButton.removeEventListener('click', this.resetHandler);
+    this.exitButton.removeEventListener('click', this.exitHandler);
+  }
+
+  startHandler = (e) => {
+    e.preventDefault();
+
+    Sound.play(BUTTON);
+
+    if (this.isLevelEmpty()) return;
+
+    this.removeListeners();
+    this.hideButtons();
+    this.main.gamePlayLevel = CUSTOM_GAME_LEVEL;
+    this.main.gameState = GAME_STATES.PLAYING;
+    this.main.seederObject = this.seeder;
+    this.isGameInitialized = false;
+  }
+
+  isLevelEmpty() {
+    return (!this.seeder.birds.length || !this.seeder.pigs.length);
+  }
+
+  resetHandler = (e) => {
+    e.preventDefault();
+
+    Sound.play(BUTTON);
+    this.isGameInitialized = false;
+  }
+
+  exitHandler = (e) => {
+    e.preventDefault();
+
+    Sound.play(BUTTON);
+    this.removeListeners();
+    this.hideButtons();
+    this.main.gameState = GAME_STATES.MENU;
+    this.isGameInitialized = false;
+  }
+
+  movementToggleHandler = (e) => {
+    e.preventDefault();
+
+    Sound.play(BUTTON);
+    this.toggleMovementButtonActiveStatus();
+    this.isMovementEnabled = !this.isMovementEnabled;
+  }
+
+  toggleMovementButtonActiveStatus() {
+    this.movementButton.classList.toggle(CLASS_BUILDER_MOVEMENT_ACTIVE);
+  }
+
+  activateControlButtons() {
+    this.startButton.addEventListener('click', this.startHandler);
+    this.resetButton.addEventListener('click', this.resetHandler);
+    this.exitButton.addEventListener('click', this.exitHandler);
+    this.movementButton.addEventListener('click', this.movementToggleHandler);
+  }
+
   unhideButtons() {
     this.builderButtonsElement.classList.remove(CLASS_HIDDEN);
+  }
+
+  hideButtons() {
+    this.builderButtonsElement.classList.add(CLASS_HIDDEN);
   }
 }

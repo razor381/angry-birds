@@ -25,8 +25,11 @@ class Generator {
     return blocks.map(({ position, subtype }) => new Obstacle(position, subtype));
   }
 
-  static async generateGameEntities(level) {
-    const generationObject = await Utils.loadJson(LEVEL_SEED_MAPPER[level]);
+  static async generateGameEntities(level, levelObject) {
+
+    const generationObject = (level === CUSTOM_GAME_LEVEL && levelObject)
+    ? levelObject
+    : await Utils.loadJson(LEVEL_SEED_MAPPER[level]);
 
     return {
       birds: Generator.generateBirds(generationObject),
