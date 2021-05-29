@@ -3,7 +3,6 @@ class Game {
     this.main = main;
     this.canvas = main.canvas;
     this.ctx = main.ctx;
-    this.gameState = main.gameState;
   }
 
   reset() {
@@ -22,48 +21,6 @@ class Game {
     this.activatePauseButton();
     this.initGameObjects();
     this.isGameInitialized = true;
-  }
-
-  queryDomElements() {
-    this.pauseButton = Utils.getEl(CLASS_PAUSE_BTN);
-    this.pauseCard = Utils.getEl(CLASS_PAUSE_SCREEN);
-    this.resumeButton = Utils.getEl(CLASS_RESUME_BTN);
-    this.restartButton = Utils.getEl(CLASS_RESTART_BTN);
-    this.exitButton = Utils.getEl(CLASS_EXIT_BTN);
-  }
-
-  async initGameObjects() {
-    this.background = StaticObject.createBackground();
-    this.entities = await Generator.generateGameEntities(this.gameLevel);
-    this.slingshot = new Slingshot(this.canvas, this.entities);
-    this.isLoading = false;
-
-    this.setupScoreBoard();
-  }
-
-  setupScoreBoard() {
-    this.maxScore = this.calculateMaxScore();
-    this.maxPigsNumber = this.getPigsNumber();
-  }
-
-  getPigsNumber() {
-    return this.entities.pigs.length;
-  }
-
-  calculateMaxScore() {
-    const scoreEntites = [
-      ...this.entities.pigs,
-      ...this.entities.blocks,
-    ];
-
-    return scoreEntites.reduce((acc, entity) => {
-      return acc + SCORE_SUBTYPE_MAPPER[entity.subtype];
-    }, 0);
-  }
-
-  activatePauseButton() {
-    this.pauseButton.classList.remove(CLASS_HIDDEN);
-    this.pauseButton.addEventListener('click', this.pauseClickHandler);
   }
 
   render() {
@@ -93,6 +50,51 @@ class Game {
     }
 
     this.draw();
+  }
+
+  queryDomElements() {
+    this.pauseButton = Utils.getEl(CLASS_PAUSE_BTN);
+    this.pauseCard = Utils.getEl(CLASS_PAUSE_SCREEN);
+    this.resumeButton = Utils.getEl(CLASS_RESUME_BTN);
+    this.restartButton = Utils.getEl(CLASS_RESTART_BTN);
+    this.exitButton = Utils.getEl(CLASS_EXIT_BTN);
+  }
+
+  async initGameObjects() {
+    this.background = StaticObject.createBackground();
+    this.entities = await Generator.generateGameEntities(
+      this.gameLevel,
+      this.main.seederObject,
+    );
+    this.slingshot = new Slingshot(this.canvas, this.entities);
+    this.isLoading = false;
+
+    this.setupScoreBoard();
+  }
+
+  setupScoreBoard() {
+    this.maxScore = this.calculateMaxScore();
+    this.maxPigsNumber = this.getPigsNumber();
+  }
+
+  getPigsNumber() {
+    return this.entities.pigs.length;
+  }
+
+  calculateMaxScore() {
+    const scoreEntites = [
+      ...this.entities.pigs,
+      ...this.entities.blocks,
+    ];
+
+    return scoreEntites.reduce((acc, entity) => {
+      return acc + SCORE_SUBTYPE_MAPPER[entity.subtype];
+    }, 0);
+  }
+
+  activatePauseButton() {
+    this.pauseButton.classList.remove(CLASS_HIDDEN);
+    this.pauseButton.addEventListener('click', this.pauseClickHandler);
   }
 
   moveActiveBird() {
