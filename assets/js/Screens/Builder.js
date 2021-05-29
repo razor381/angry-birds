@@ -217,6 +217,11 @@ class Builder {
     document.addEventListener('click', this.placeEntityHandler);
   }
 
+  cleanup() {
+    this.removeListeners();
+    this.selectedEntity.element.classList.remove(CLASS_BUILDER_ACTIVE);
+  }
+
   removeListeners() {
     document.removeEventListener('click', this.placeEntityHandler);
     this.startButton.removeEventListener('click', this.startHandler);
@@ -231,7 +236,7 @@ class Builder {
 
     if (this.isLevelEmpty()) return;
 
-    this.removeListeners();
+    this.cleanup();
     this.hideButtons();
     this.main.gamePlayLevel = CUSTOM_GAME_LEVEL;
     this.main.gameState = GAME_STATES.PLAYING;
@@ -247,6 +252,7 @@ class Builder {
     e.preventDefault();
 
     Sound.play(BUTTON);
+    this.cleanup();
     this.isGameInitialized = false;
   }
 
@@ -254,7 +260,7 @@ class Builder {
     e.preventDefault();
 
     Sound.play(BUTTON);
-    this.removeListeners();
+    this.cleanup();
     this.hideButtons();
     this.main.gameState = GAME_STATES.MENU;
     this.isGameInitialized = false;
