@@ -40,7 +40,7 @@ const HOOKES_CONSTANT = 0.8;
 const MIN_JUMP_VELOCITY = 0.9;
 
 const LAUNCH_MASS = 30;
-const LEVELS_NUMBER = 5;
+const LEVELS_NUMBER = 3;
 const LEVEL_ONE = 1;
 
 const PIG_MASS = 10;
@@ -50,7 +50,7 @@ const POINT_RADIUS = 6;
 
 const SCORE_TEXT = {
   position: {
-    x: 50,
+    x: 100,
     y: 80,
   },
   font: '3em angrybirds',
@@ -75,6 +75,8 @@ const TOTAL_STARS_NUMBER = 3;
 const TRAJECTORY_START_X = 30;
 const TRAJECTORY_END_X = 700;
 const TRAJECTORY_POINTS_GAP = 40;
+
+const VOLUME = 0.2;
 
 
 // text

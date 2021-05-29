@@ -1,96 +1,244 @@
 {
-  "data": {
-    "birds": [
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      },
-      {
-        "subtype": "CHUCK"
-      }
-    ],
-    "pigs": [
-      {
-        "subtype": "ARMORED_PIG",
-        "position": {
-          "x": 800,
-          "y": 250
+  "data":{
+     "birds":[
+        {
+           "subtype":"RED"
+        },
+        {
+           "subtype":"CHUCK"
+        },
+        {
+           "subtype":"RED"
+        },
+        {
+           "subtype":"CHUCK"
+        },
+        {
+           "subtype":"RED"
+        },
+        {
+           "subtype":"CHUCK"
+        },
+        {
+           "subtype":"RED"
+        },
+        {
+           "subtype":"CHUCK"
         }
-      },
-      {
-        "subtype": "UNARMORED_PIG",
-        "position": {
-          "x": 800,
-          "y": 480
+     ],
+     "pigs":[
+        {
+           "subtype":"ARMORED_PIG",
+           "position":{
+              "x":910,
+              "y":490
+           }
+        },
+        {
+           "subtype":"ARMORED_PIG",
+           "position":{
+              "x":980,
+              "y":490
+           }
+        },
+        {
+           "subtype":"ARMORED_PIG",
+           "position":{
+              "x":840,
+              "y":420
+           }
+        },
+        {
+           "subtype":"ARMORED_PIG",
+           "position":{
+              "x":1050,
+              "y":420
+           }
+        },
+        {
+           "subtype":"UNARMORED_PIG",
+           "position":{
+              "x":770,
+              "y":140
+           }
+        },
+        {
+           "subtype":"UNARMORED_PIG",
+           "position":{
+              "x":840,
+              "y":140
+           }
+        },
+        {
+           "subtype":"ARMORED_PIG",
+           "position":{
+              "x":910,
+              "y":140
+           }
+        },
+        {
+           "subtype":"ARMORED_PIG",
+           "position":{
+              "x":980,
+              "y":140
+           }
+        },
+        {
+           "subtype":"UNARMORED_PIG",
+           "position":{
+              "x":1050,
+              "y":140
+           }
+        },
+        {
+           "subtype":"UNARMORED_PIG",
+           "position":{
+              "x":1120,
+              "y":140
+           }
         }
-      },
-      {
-        "subtype": "UNARMORED_PIG",
-        "position": {
-          "x": 800,
-          "y": 400
+     ],
+     "blocks":[
+        {
+           "subtype":"STONE",
+           "position":{
+              "x":910,
+              "y":560
+           }
+        },
+        {
+           "subtype":"STONE",
+           "position":{
+              "x":980,
+              "y":560
+           }
+        },
+        {
+           "subtype":"STONE",
+           "position":{
+              "x":770,
+              "y":490
+           }
+        },
+        {
+           "subtype":"STONE",
+           "position":{
+              "x":1120,
+              "y":490
+           }
+        },
+        {
+           "subtype":"STONE",
+           "position":{
+              "x":840,
+              "y":490
+           }
+        },
+        {
+           "subtype":"STONE",
+           "position":{
+              "x":1050,
+              "y":490
+           }
+        },
+        {
+           "subtype":"STONE",
+           "position":{
+              "x":770,
+              "y":420
+           }
+        },
+        {
+           "subtype":"STONE",
+           "position":{
+              "x":1120,
+              "y":420
+           }
+        },
+        {
+           "subtype":"WOOD",
+           "position":{
+              "x":770,
+              "y":350
+           }
+        },
+        {
+           "subtype":"WOOD",
+           "position":{
+              "x":840,
+              "y":350
+           }
+        },
+        {
+           "subtype":"WOOD",
+           "position":{
+              "x":910,
+              "y":350
+           }
+        },
+        {
+           "subtype":"WOOD",
+           "position":{
+              "x":980,
+              "y":350
+           }
+        },
+        {
+           "subtype":"WOOD",
+           "position":{
+              "x":1050,
+              "y":350
+           }
+        },
+        {
+           "subtype":"WOOD",
+           "position":{
+              "x":1120,
+              "y":280
+           }
+        },
+        {
+           "subtype":"ICE",
+           "position":{
+              "x":770,
+              "y":280
+           }
+        },
+        {
+           "subtype":"ICE",
+           "position":{
+              "x":840,
+              "y":210
+           }
+        },
+        {
+           "subtype":"ICE",
+           "position":{
+              "x":910,
+              "y":210
+           }
+        },
+        {
+           "subtype":"ICE",
+           "position":{
+              "x":980,
+              "y":210
+           }
+        },
+        {
+           "subtype":"ICE",
+           "position":{
+              "x":1050,
+              "y":210
+           }
+        },
+        {
+           "subtype":"ICE",
+           "position":{
+              "x":1120,
+              "y":210
+           }
         }
-      },
-      {
-        "subtype": "UNARMORED_PIG",
-        "position": {
-          "x": 800,
-          "y": 320
-        }
-      }
-    ],
-    "blocks": [
-      {
-        "subtype": "WOOD",
-        "position": {
-          "x": 450,
-          "y": 395
-        }
-      }
-    ]
+     ]
   }
 }

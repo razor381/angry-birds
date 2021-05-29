@@ -33,7 +33,14 @@ class Sound {
 
     track.currentTime = 0;
 
-    clone ? track.cloneNode(false).play() : track.play();
+    if (clone) {
+      const cloneTrack = track.cloneNode(false);
+      cloneTrack.volume = VOLUME;
+      cloneTrack.play();
+      return;
+    }
+
+    track.play();
   }
 
   static stop(sound) {

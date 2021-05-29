@@ -33,6 +33,11 @@ class Builder {
     this.isGameInitialized = true;
     this.isMovementEnabled = false;
 
+
+    /**
+     * Activate cursor in dev mode to build levels
+     */
+    // this.setCursor();
     this.queryDomElements();
     this.activateControlButtons();
     this.activateTools();
@@ -58,6 +63,15 @@ class Builder {
     }
 
     this.draw();
+  }
+
+  setCursor() {
+    this.cursor = new Obstacle(new Point(400, 400), ENTITY_SUBTYPE.ICE);
+    document.addEventListener('mousemove', (e) => {
+      const pos = Utils.getMousePos(this.canvas.el, e);
+      this.cursor.setPosition(pos);
+      this.cursor.adjustPositionToCenter();
+    });
   }
 
   getEntitiesArray() {
@@ -121,9 +135,16 @@ class Builder {
   placeEntityHandler = (e) => {
     e.preventDefault();
 
-    const placementPosition = Utils.getMousePos(this.canvas.el, e);
+    let placementPosition = Utils.getMousePos(this.canvas.el, e);
 
     if (this.isClickWithinBoundary(placementPosition)) {
+
+      // snap to grid of predefined height and width of block
+      placementPosition = new Point(
+        Math.ceil(placementPosition.x / BLOCK_WIDTH) * BLOCK_WIDTH,
+        Math.ceil(placementPosition.y / BLOCK_HEIGHT) * BLOCK_HEIGHT,
+      );
+
       this.createEntity(placementPosition);
     }
   };
@@ -157,6 +178,7 @@ class Builder {
       return;
     }
 
+    Sound.play(BUTTON, true);
     this.activateStyling(element);
     this.selectedEntity = clickedItem;
   }
@@ -220,6 +242,7 @@ class Builder {
   cleanup() {
     this.removeListeners();
     this.selectedEntity.element.classList.remove(CLASS_BUILDER_ACTIVE);
+    this.movementButton.classList.remove(CLASS_BUILDER_MOVEMENT_ACTIVE);
   }
 
   removeListeners() {
