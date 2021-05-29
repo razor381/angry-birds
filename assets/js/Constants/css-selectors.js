@@ -38,6 +38,20 @@ const CLASS_RESTART_BTN = '.pause-card__restart-btn';
 const CLASS_EXIT_BTN = '.pause-card__exit-btn';
 const CLASS_PLAY_BTN = '.play-btn';
 
+// builder screen buttons
+const CLASS_BUILDER_BUTTONS = '.builder-buttons';
+const CLASS_BUILDER_ACTIVE = 'builder-btn--active';
+const CLASS_BUILDER_RED_NUM = '.bird-count__red';
+const CLASS_BUILDER_CHUCK_NUM = '.bird-count__chuck';
+
+const ID_RED = '#red';
+const ID_CHUCK = '#chuck';
+const ID_WOOD = '#wood';
+const ID_ICE = '#ice';
+const ID_STONE = '#stone';
+const ID_UNARMORED_PIG = '#unarmored-pig';
+const ID_ARMORED_PIG = '#armored-pig';
+
 const ID_CONTAINER = '#main-container';
 
 

@@ -3,7 +3,6 @@ class Game {
     this.main = main;
     this.canvas = main.canvas;
     this.ctx = main.ctx;
-    this.gameState = main.gameState;
   }
 
   reset() {
@@ -22,6 +21,35 @@ class Game {
     this.activatePauseButton();
     this.initGameObjects();
     this.isGameInitialized = true;
+  }
+
+  render() {
+    if (!this.isGameInitialized) {
+      this.reset();
+      this.init();
+    }
+
+    if (this.isLoading) return;
+
+    if (!this.isPaused) {
+      this.moveGameObjects();
+      this.checkEntitesCollision();
+
+      switch(this.slingshot.activeBird.state) {
+        case BIRD_STATE.WAITING:
+          break;
+        case BIRD_STATE.READY:
+          break;
+        case BIRD_STATE.FLIGHT:
+          this.moveActiveBird();
+          break;
+        case BIRD_STATE.HALTED:
+          this.handleBirdHalted();
+          break;
+      }
+    }
+
+    this.draw();
   }
 
   queryDomElements() {
@@ -64,35 +92,6 @@ class Game {
   activatePauseButton() {
     this.pauseButton.classList.remove(CLASS_HIDDEN);
     this.pauseButton.addEventListener('click', this.pauseClickHandler);
-  }
-
-  render() {
-    if (!this.isGameInitialized) {
-      this.reset();
-      this.init();
-    }
-
-    if (this.isLoading) return;
-
-    if (!this.isPaused) {
-      this.moveGameObjects();
-      this.checkEntitesCollision();
-
-      switch(this.slingshot.activeBird.state) {
-        case BIRD_STATE.WAITING:
-          break;
-        case BIRD_STATE.READY:
-          break;
-        case BIRD_STATE.FLIGHT:
-          this.moveActiveBird();
-          break;
-        case BIRD_STATE.HALTED:
-          this.handleBirdHalted();
-          break;
-      }
-    }
-
-    this.draw();
   }
 
   moveActiveBird() {

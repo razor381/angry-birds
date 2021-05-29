@@ -67,6 +67,41 @@ const SUBTYPE_SPRITE_MAPPER = {
   BACKGROUND: getSpriteData(SPRITE_RED, 64, 62, 0, 0),
 };
 
+const BUILDER_BUTTON_TYPE_MAPPER = {
+  RED: {
+    idSelector: ID_RED,
+    type: ENTITY_TYPE.BIRD,
+  },
+  CHUCK: {
+    idSelector: ID_CHUCK,
+    type: ENTITY_TYPE.BIRD,
+  },
+  WOOD: {
+    idSelector: ID_WOOD,
+    type: ENTITY_TYPE.OBSTACLE,
+  },
+  ICE: {
+    idSelector: ID_ICE,
+    type: ENTITY_TYPE.OBSTACLE,
+  },
+  STONE: {
+    idSelector: ID_STONE,
+    type: ENTITY_TYPE.OBSTACLE,
+  },
+  UNARMORED_PIG: {
+    idSelector: ID_UNARMORED_PIG,
+    type: ENTITY_TYPE.ENEMY,
+  },
+  ARMORED_PIG: {
+    idSelector: ID_ARMORED_PIG,
+    type: ENTITY_TYPE.ENEMY,
+  },
+};
+
+const TYPE_SEEDER_MAPPER = {
+  OBSTACLE: 'blocks',
+  ENEMY: 'pigs',
+};
 
 /**
  * @TODO refactor
