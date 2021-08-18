@@ -11,11 +11,11 @@
     A clone of the classic Rovio game - Angry birds, made with vanilla JavaScript!
     <br />
     <br />
-    <a href="https://razor381.github.io/angry-birds/">Play Demo</a>
+    <a href="https://shrestha-rujal.github.io/angry-birds/">Play Demo</a>
     ·
-    <a href="https://github.com/razor381/angry-birds/issues">Report Bug</a>
+    <a href="https://github.com/shrestha-rujal/angry-birds/issues">Report Bug</a>
     ·
-    <a href="https://github.com/razor381/angry-birds/issues">Request Feature</a>
+    <a href="https://github.com/shrestha-rujal/angry-birds/issues">Request Feature</a>
   </p>
 </p>
 
@@ -38,5 +38,5 @@ The project was developed without usage of any framework or libraries. Most comp
 
 Rujal Shrestha - rujal.shrestha00@gmail.com
 
-* Demo Link: [https://razor381.github.io/angry-birds](https://razor381.github.io/angry-birds/)
-* Project Link: [hhttps://github.com/razor381/angry-birds](https://github.com/razor381/angry-birds)
+* Demo Link: [https://razor381.github.io/angry-birds](https://shrestha-rujal.github.io/angry-birds/)
+* Project Link: [hhttps://github.com/razor381/angry-birds](https://github.com/shrestha-rujal/angry-birds)
