@@ -90,6 +90,10 @@ body {
   transition: all 0.2s ease;
 }
 
+.btn img {
+  pointer-events: none;
+}
+
 .btn:hover,
 .btn:active {
   transform: scale(1.2) rotate(6deg);
@@ -130,8 +134,28 @@ body {
 }
 
 .menu-screen__controls {
-  margin-bottom: 3rem;
-  margin-left: 3rem;
+  margin: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.mute-btn {
+  background: transparent;
+  border: none;
+  display: flex;
+  position: relative;
+}
+
+.darkened::before {
+  content: '';
+  background-color: rgba(0, 0, 0, 0.4);
+  position: absolute;
+  top: 0.5rem;
+  left: 1rem;
+  right: 1rem;
+  bottom: 0.5rem;
+  border-radius: 50%;
 }
 
 .build-btn {
