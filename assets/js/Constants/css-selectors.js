@@ -30,8 +30,10 @@ const CLASS_RESULTS_RANK_IMG = 'results-stats__rank-img';
 const CLASS_RESULTS_STARS = '.scores-stars';
 const CLASS_RESULTS_STAR = 'scores-stars-img';
 
+const CLASS_DARKENED = 'darkened';
 const CLASS_START_BTN = '.start-btn';
 const CLASS_PAUSE_BTN = '.pause-btn';
+const CLASS_MUTE_BTN = '.mute-btn';
 const CLASS_PAUSE_SCREEN = '.pause-screen';
 const CLASS_RESUME_BTN = '.pause-card__resume-btn';
 const CLASS_RESTART_BTN = '.pause-card__restart-btn';
